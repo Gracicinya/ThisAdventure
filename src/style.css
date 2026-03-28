@@ -22,7 +22,7 @@ html {
     width: auto;
 }
 
-.body {
+body {
     background: beige;
     display: flex;
     flex-direction: column;
