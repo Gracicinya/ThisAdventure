@@ -8,6 +8,7 @@ Off-white       #
 */
 
 
+
 /* ===========================
 GLOBAL STYLES
 ============================ */
@@ -19,11 +20,15 @@ GLOBAL STYLES
 
 html {
     scroll-behavior: smooth;
-    width: auto;
+    width: 100%;
 }
 
 body {
-    background: beige;
+    background-color: #ddd5b2;        /* fallback colour while image loads */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;     /* texture stays still as you scroll */
+    width: 100%;
     display: flex;
     flex-direction: column;
 }
@@ -41,10 +46,14 @@ MAIN
 
 main {
     max-width: 480px;       /* Max for Mobile Screen Size */
+    margin: 0 auto;
+    padding: 2rem;
+    flex: 1;
 }
 
 section {
-    flex: auto;
+    margin: 0;
+    padding: 2rem 0;
 }
 
 h1 {
@@ -72,11 +81,48 @@ p {
 COMPONENTS
 ============================ */
 
+/* ─── CUSTOM CURSOR ─── */
+body {
+    cursor: none; /* Hides the default OS cursor */
+}
+#cursor-dot {
+    position: fixed;
+    width: 6px;
+    height: 6px;
+    background: #c8a96e;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s;
+    pointer-events: none;
+    z-index: 9999;
+}
+#cursor-ring {
+    position: fixed;
+    width: 36px;
+    height: 36px;
+    border: 1px solid rgba(200, 169, 110, 0.5);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 9999;
+    transition: width 0.3s cubic-bezier(0.19, 1, 0.22, 1),
+                height 0.3s cubic-bezier(0.19, 1, 0.22, 1),
+                border-color 0.3s,
+                transform 0.12s cubic-bezier(0.19, 1, 0.22, 1);
+}
+/* Hover state — ring expands when over interactive elements */
+body.cursor-hover #cursor-ring {
+    width: 56px;
+    height: 56px;
+    border-color: #c8a96e;
+}
+
+/* ─── Button ─── */
 .btn {
     line-height: 50px;
     height: 50px;
     text-align: center;
-    cursor: pointer;
+    cursor: none;
     transition: all 0.5s;
     position: relative;
 }
