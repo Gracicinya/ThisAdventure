@@ -1,1 +1,13 @@
+body.characters .page-header {
+  background:
+    linear-gradient(rgba(10,10,10,0.42), rgba(10,10,10,0.7)),
+    url("forest-bg.jpg") center 38%/cover no-repeat;
+}
 
+body.characters .page-section {
+  border-color: rgba(125, 191, 142, 0.35);
+}
+
+body.characters .page-list li::before {
+  color: var(--accent-gold);
+}
