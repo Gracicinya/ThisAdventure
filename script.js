@@ -17,3 +17,44 @@
             el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
         });
 }
+
+    /* Launch Date & Countdown Timer Constants*/
+    const launchDate = new Date("2029-06-15T09:00:00").getTime(); // Launch date and time
+    const el = document.getElementById("launch-date");
+    const daysEl = document.getElementById("days");
+    const hoursEl = document.getElementById("hours");
+    const minutesEl = document.getElementById("minutes");
+    const secondsEl = document.getElementById("seconds");
+    const messageEl = document.getElementById("message");
+
+    // Launch Date
+    const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+    if (el) {
+        el.textContent = `${new Date(launchDate).toLocaleDateString(undefined, options)}`;
+    }
+    // Countdown Timer
+    function updateCountdown() {
+        const now = new Date().getTime();
+        const distance = launchDate - now;
+
+        if (distance <= 0) {
+        clearInterval(timer);
+        const countdownEl = document.querySelector(".countdown");
+        if (countdownEl) countdownEl.style.display = "none";
+        if (messageEl) messageEl.textContent = "Launch day is here!";
+        return;
+        }
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        daysEl.textContent = days;
+        hoursEl.textContent = hours;
+        minutesEl.textContent = minutes;
+        secondsEl.textContent = seconds;
+    }
+
+    updateCountdown();
+    const timer = setInterval(updateCountdown, 1000);

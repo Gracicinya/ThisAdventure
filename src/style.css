@@ -7,6 +7,7 @@ Secondary Surface: Sand                                 #D4B06A
 Primary accent: Forest                                  #123223
 Secondary accent: Moss                                  #6E8B5B 
 Highlight Accent: Rose                                  #BBBA8A 
+
 Text Color: Charcoal                                    #1A1A1A
 Logo Font: Goudy Stout                                  #123223
 Primary Font Sans-Serif: Edwardian Script               #1A1A1A
@@ -187,6 +188,45 @@ body.cursor-hover #cursor-ring {
   transform: scale(1, 1);
 }
 
+
+/* ─── Launch Date ─── */
+.launch-box {
+  padding: 30px;
+  max-width: 600px;
+  margin: 40px auto;
+  text-align: center;
+}
+
+#launch-date {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #0077ff;
+}
+/* ─── Countdown ─── */
+
+.countdown {
+  display: flex;
+  gap: 1rem;
+  text-align: center;
+}
+
+.countdown div {
+  background: #6E8B5B;
+  padding: 1rem 1.25rem;
+  border-radius: 12px;
+  min-width: 90px;
+}
+
+.countdown span {
+  display: block;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.countdown small {
+  opacity: 1;
+}
 /* ============================
 INDEX / HOME PAGE
 ============================= */
@@ -216,6 +256,40 @@ RESPONSIVE DESIGN
 ============================= */
 /* -- Tablet/Ipad -- */
 @media (max-width: 768px) {
+  main {
+    max-width: 100%;
+    padding: 1rem;
+  }
+
+  header {
+    padding: 0.8rem;
+  }
+
+  .launch-box {
+    padding: 18px;
+    margin: 20px 0;
+    max-width: 100%;
+    border-width: 1.5px;
+  }
+
+  #launch-date {
+    font-size: 1rem;
+  }
+
+  .countdown {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+  }
+
+  .countdown div {
+    min-width: 64px;
+    padding: 0.7rem 0.8rem;
+  }
+
+  .countdown span {
+    font-size: 1.6rem;
+  }
 }
 
 /* -- Desktop Monitor -- */
