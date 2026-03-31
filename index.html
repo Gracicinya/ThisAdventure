@@ -1,80 +1,55 @@
 <!DOCTYPE html>
 <html lang="en-ca">
-
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta charset="UTF-8">
-    <title>WebPage</title>
-    <title>Eclipsed Realms | Home</title>
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="index.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eclipsed Realms | Home</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="index.css">
 </head>
-
-    
-<body class="home">
-    <header>
-        <!-- Logo -->
-        <div id="logo"><a href="index.html">Game Name</a></div>    
-        <!-- Hamburger Button -->
-        <button class="btn-hamburger" aria-label="Toggle navigation" aria-expanded="false">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-        </button>
+<body class="index">
+  <header>
+    <div id="logo"><a href="index.html">♕ Eclipsed Realms</a></div>
     <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-        <span class="theme-toggle-icon">☽</span>
+      <span class="theme-toggle-icon" aria-hidden="true"></span>
     </button>
+    <nav class="nav-menu" aria-label="Primary">
+      <ul>
+        <li><a href="index.html" aria-current="page">Home</a></li>
+        <li><a href="story.html">Story</a></li>
+        <li><a href="characters.html">Characters</a></li>
+        <li><a href="preview.html">Preview</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
 
-    <header>
-        <div id="logo"><a href="index.html">Eclipsed Realms</a></div>
-        <nav class="nav-menu">
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="index.html" aria-current="page">Home</a></li>
-                <li><a href="story.html">Story</a></li>
-                <li><a href="characters.html">Characters</a></li>
-                <li><a href="preview.html">Preview</a></li>
-        </nav>
-    </header>
+  <main class="page-shell">
+    <section class="page-header">
+      <h3>Enter the Realm</h3>
+      <h1>Welcome to Eclipsed Realms</h1>
+      <p>A story-driven fantasy world where light, shadow, and prophecy pull every choice toward destiny.</p>
+      <div class="page-actions">
+        <a href="story.html" class="btn btn-primary">Read the Story</a>
+        <a href="contact.html" class="btn btn-secondary">Enter the World</a>
+      </div>
+    </section>
 
-    <main>
-        <!-- Hero Section -->
-        <!-- Hero Section -->
-        <section class="hero">
-            <h1>Welcome to Our Game</h1>
-            <p>A story-driven fantasy game</p>
-            <h2>Where Every Choice Shapes Your Fate</h2>
-    <main class="page-shell">
-        <section class="page-header">
-            <h3>Enter the Realm</h3>
-            <h1>Welcome to Eclipsed Realms</h1>
-            <p>A story-driven fantasy world where light, shadow, and prophecy pull every choice toward destiny.</p>
-            <div class="page-actions">
-                <a href="story.html" class="btn btn-primary">Read the Story</a>
-                <a href="contact.html" class="btn btn-secondary">Enter the World</a>
-            </div>
-        </section>
-        <!-- World Teaser -->
-        <section>
+    <section class="page-section">
+      <h2>Explore the World</h2>
+      <p>Step into fractured kingdoms, ancient forests, and a realm still shaped by the shattering of the Celestial Crown.</p>
+      <ul class="page-list">
+        <li>Discover the lore behind the five kingdoms.</li>
+        <li>Meet the characters who carry light and shadow.</li>
+        <li>Follow the prophecy as the world begins to change.</li>
+      </ul>
+    </section>
+  </main>
 
-        <section class="page-section">
-            <h2>Explore the World</h2>
-            <p>Discover the vast and diverse world of our game.</p>
-            <p>Step into fractured kingdoms, ancient forests, and a realm still shaped by the shattering of the Celestial Crown.</p>
-            <ul class="page-list">
-                <li>Discover the lore behind the five kingdoms.</li>
-                <li>Meet the characters who carry light and shadow.</li>
-                <li>Follow the prophecy as the world begins to change.</li>
-            </ul>
-        </section>
-    </main>
+  <footer>
+    <p>&copy; 2026 Eclipsed Realms. All rights reserved.</p>
+  </footer>
 
-    <footer>
-        <p>© 2026 Game Name. All rights reserved.</p>
-        <p>&copy; 2026 Eclipsed Realms. All rights reserved.</p>
-    </footer>
-    <script src="script.js"></script>
-    <script src="shared.js"></script>
+  <script src="shared.js"></script>
 </body>
-
 </html>
