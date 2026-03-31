@@ -1,72 +1,50 @@
 <!DOCTYPE html>
 <html lang="en-ca">
-
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta charset="UTF-8">
-    <title>WebPage</title>
-    <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eclipsed Realms | Preview</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
-    
 <body class="preview">
-    <header>
-        <!-- Logo -->
-        <div id="logo"><a href="index.html">Game Name</a></div>    
-        <!-- Hamburger Button -->
-        <button class="btn-hamburger" aria-label="Toggle navigation" aria-expanded="false">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-        </button>
+  <header>
+    <div id="logo"><a href="index.html">♕ Eclipsed Realms</a></div>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+      <span class="theme-toggle-icon" aria-hidden="true"></span>
+    </button>
+    <nav class="nav-menu" aria-label="Primary">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="story.html">Story</a></li>
+        <li><a href="characters.html">Characters</a></li>
+        <li><a href="preview.html" aria-current="page">Preview</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
 
-        <nav class="nav-menu">
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="story.html">Story</a></li>
-                <li><a href="characters.html">Characters</a></li>
-                <li><a href="preview.html">Preview</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
+  <main class="page-shell">
+    <section class="page-header">
+      <h3>Interactive Preview</h3>
+      <h1>Choose Your Path</h1>
+      <p>A taste of what awaits. Your choices here have consequences.</p>
+    </section>
 
-    <main>
-        <!-- Page Header -->
-        <div class="page-header">
-            <h3>Interactive Preview</h3>
-            <h1>Choose Your Path</h1>
-            <p>A taste of what awaits. Your choices here have consequences.</p>
-        </div>
+    <section class="story container">
+      <h2>Interactive Preview</h2>
+      <p>Experience a taste of the game's core mechanics and storytelling.</p>
+      <div>Loading story...</div>
+      <div></div>
+      <div>
+        <button class="btn" id="restart-btn">Begin Again</button>
+      </div>
+    </section>
+  </main>
 
-        <!-- Interactive Preview -->
-        <section class="story container">
-            <h2>Interactive Preview</h2>
-            <p>Experience a taste of the game's core mechanics and storytelling.</p>
+  <footer>
+    <p>&copy; 2026 Eclipsed Realms. All rights reserved.</p>
+  </footer>
 
-            <!-- Story Text Container -->
-            <div>
-                <!-- JS will populate this on page load -->
-                Loading story...
-            </div>
-
-            <!-- Gameplay Choices Buttons-->
-            <div>
-                <!-- JS will populate choice buttons here -->
-            </div>
-
-            <!-- Restart Button -->
-            <div>
-                <!-- JS will show restart button here after choices are made -->
-                <button class="btn" id="restart-btn">Begin Again</button>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <p>© 2026 Game Name. All rights reserved.</p>
-    </footer>
-    <script src="script.js"></script>
+  <script src="shared.js"></script>
 </body>
-
 </html>
