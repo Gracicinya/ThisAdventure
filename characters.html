@@ -1,73 +1,51 @@
 <!DOCTYPE html>
 <html lang="en-ca">
-
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta charset="UTF-8">
-    <title>WebPage</title>
-    <title>Eclipsed Realms | Characters</title>
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="characters.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eclipsed Realms | Characters</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="characters.css">
 </head>
 <body class="characters">
+  <header>
+    <div id="logo"><a href="index.html">♕ Eclipsed Realms</a></div>
     <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-        <span class="theme-toggle-icon">☽</span>
+      <span class="theme-toggle-icon" aria-hidden="true"></span>
     </button>
+    <nav class="nav-menu" aria-label="Primary">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="story.html">Story</a></li>
+        <li><a href="characters.html" aria-current="page">Characters</a></li>
+        <li><a href="preview.html">Preview</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
 
-    
-<body class="characters">
-    <header>
-        <!-- Logo -->
-        <div id="logo"><a href="index.html">Game Name</a></div>    
-        <!-- Hamburger Button -->
-        <button class="btn-hamburger" aria-label="Toggle navigation" aria-expanded="false">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-        </button>
+  <main class="page-shell">
+    <section class="page-header">
+      <h3>Faces of the Realm</h3>
+      <h1>The Characters</h1>
+      <p>Meet the heroes, villains, and mysteries whose choices shape the fate of the shattered world.</p>
+    </section>
 
-        <div id="logo"><a href="index.html">Eclipsed Realms</a></div>
-        <nav class="nav-menu">
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="story.html">Story</a></li>
-                <li><a href="characters.html">Characters</a></li>
-                <li><a href="characters.html" aria-current="page">Characters</a></li>
-                <li><a href="preview.html">Preview</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
+    <section class="page-section">
+      <h2>Character Archive</h2>
+      <p>This page now matches the story page atmosphere while staying light for the rest of your group to build on.</p>
+      <ul class="page-list">
+        <li>Hero and villain profiles can drop into this section later.</li>
+        <li>The layout keeps the same parchment-inspired tone as the story page.</li>
+        <li>Spacing and typography are ready for more content.</li>
+      </ul>
+    </section>
+  </main>
 
-    <main>
-        <!-- Page Header -->
-        <div class="page-header">
-    <main class="page-shell">
-        <section class="page-header">
-            <h3>Faces of the Realm</h3>
-            <h1>The Characters</h1>
-            <p>Meet the heroes, villains, and enigmas who shape the story.</p>
-        </div>
-            <p>Meet the heroes, villains, and mysteries whose choices shape the fate of the shattered world.</p>
-        </section>
+  <footer>
+    <p>&copy; 2026 Eclipsed Realms. All rights reserved.</p>
+  </footer>
 
-        <section class="page-section">
-            <h2>Character Archive</h2>
-            <p>This page now matches the story page atmosphere while staying light for the rest of your group to build on.</p>
-            <ul class="page-list">
-                <li>Hero and villain profiles can drop into this section later.</li>
-                <li>The layout keeps the same parchment-inspired tone as the story page.</li>
-                <li>Spacing and typography are ready for more content.</li>
-            </ul>
-        </section>
-    </main>
-
-    <footer>
-        <p>© 2026 Game Name. All rights reserved.</p>
-        <p>&copy; 2026 Eclipsed Realms. All rights reserved.</p>
-    </footer>
-    <script src="script.js"></script>
-    <script src="shared.js"></script>
+  <script src="shared.js"></script>
 </body>
-
 </html>
