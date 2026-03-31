@@ -5,8 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta charset="UTF-8">
     <title>WebPage</title>
+    <title>Eclipsed Realms | Characters</title>
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="characters.css" />
 </head>
+<body class="characters">
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <span class="theme-toggle-icon">☽</span>
+    </button>
 
     
 <body class="characters">
@@ -20,11 +26,13 @@
             <span class="bar"></span>
         </button>
 
+        <div id="logo"><a href="index.html">Eclipsed Realms</a></div>
         <nav class="nav-menu">
             <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="story.html">Story</a></li>
                 <li><a href="characters.html">Characters</a></li>
+                <li><a href="characters.html" aria-current="page">Characters</a></li>
                 <li><a href="preview.html">Preview</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
@@ -34,15 +42,32 @@
     <main>
         <!-- Page Header -->
         <div class="page-header">
+    <main class="page-shell">
+        <section class="page-header">
+            <h3>Faces of the Realm</h3>
             <h1>The Characters</h1>
             <p>Meet the heroes, villains, and enigmas who shape the story.</p>
         </div>
+            <p>Meet the heroes, villains, and mysteries whose choices shape the fate of the shattered world.</p>
+        </section>
+
+        <section class="page-section">
+            <h2>Character Archive</h2>
+            <p>This page now matches the story page atmosphere while staying light for the rest of your group to build on.</p>
+            <ul class="page-list">
+                <li>Hero and villain profiles can drop into this section later.</li>
+                <li>The layout keeps the same parchment-inspired tone as the story page.</li>
+                <li>Spacing and typography are ready for more content.</li>
+            </ul>
+        </section>
     </main>
 
     <footer>
         <p>© 2026 Game Name. All rights reserved.</p>
+        <p>&copy; 2026 Eclipsed Realms. All rights reserved.</p>
     </footer>
     <script src="script.js"></script>
+    <script src="shared.js"></script>
 </body>
 
 </html>
