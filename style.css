@@ -379,11 +379,14 @@ header {
   color: var(--logo-light-green);
 }
 
-[data-theme="dark"] h1,
-[data-theme="dark"] h2,
-[data-theme="dark"] h3,
-[data-theme="dark"] h4 {
-  color: var(--logo-light-green);
+[data-theme="dark"] .page-header h1,
+[data-theme="dark"] .page-header h2,
+[data-theme="dark"] .page-header h3,
+[data-theme="dark"] .page-section h2,
+[data-theme="dark"] .contact-info h1,
+[data-theme="dark"] .contact-info h2,
+[data-theme="dark"] .story.container h2 {
+  color: var(--accent-gold);
 }
 
 [data-theme="dark"] .page-section p,

@@ -17,11 +17,16 @@
 }
 
 .main-nav .container {
+  width: 100%;
+  max-width: none;
+  margin: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding-top: var(--space-sm);
   padding-bottom: var(--space-sm);
+  padding-left: var(--space-lg);
+  padding-right: var(--space-lg);
 }
 
 .nav-logo {
@@ -694,6 +699,8 @@ body::before {
     flex-direction: column;
     gap: var(--space-sm);
     align-items: flex-start;
+    padding-left: var(--space-md);
+    padding-right: var(--space-md);
   }
 
   .nav-links {
