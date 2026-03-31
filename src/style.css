@@ -1,11 +1,20 @@
 /* Mobile First Design */
 /* Resposive for tablets/ipads/computers lower in the page */
 
-/* Colour Palette
-xxx             #
-xxx             #
-Off-white       #
+/* Colour Palette 
+Primary background: Parchment                           #F5F1E6
+Secondary Surface: Sand                                 #D4B06A
+Primary accent: Forest                                  #123223
+Secondary accent: Moss                                  #6E8B5B 
+Highlight Accent: Rose                                  #BBBA8A 
+Text Color: Charcoal                                    #1A1A1A
+Logo Font: Goudy Stout                                  #123223
+Primary Font Sans-Serif: Edwardian Script               #1A1A1A
+Secondary Font Sans-Serif: Berlin Sans FB               #1A1A1A
+Primary Font Serif: Goudy Stout                         #123223
+Secondary Font Serif: Matura MT Script Capitals         #1A1A1A
 */
+
 
 /* ===========================
 GLOBAL STYLES
@@ -23,20 +32,43 @@ html {
 
 body {
   cursor: none;
-  background-color: #ddd5b2; /* fallback colour while image loads */
+  background-image: url("assets/parchment-texture.jpg");
+  background-color: #F5F1E6; /* Fallback color if image fails to load */
   background-size: cover;
   background-position: center;
   background-attachment: fixed; /* texture stays still as you scroll */
   width: 100%;
   display: flex;
   flex-direction: column;
+  font-family: "edwardian","Berlin Sans FB", serif;
+  color: #1A1A1A;
 }
 
 /* -- Header -- */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000; /* Ensure it stays above other content */
+}
 .hamburger {
   display: none;
 }
-
+#logo {
+  font-family: "Goudy stout", serif;
+}
+#logo a {
+  text-decoration: none;
+  color: #123223;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
 /* --  Nav -- */
 
 /* ===========================
