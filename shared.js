@@ -34,7 +34,7 @@ function initThemeToggle() {
 function updateThemeIcon(theme) {
   const icon = document.querySelector('.theme-toggle-icon');
   if (icon) {
-    icon.textContent = theme === 'dark' ? '☀️' : '🌙';
+    icon.textContent = theme === 'dark' ? '☀️' : '☪';
   }
 }
 
