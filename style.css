@@ -323,7 +323,7 @@ em, i {
 .text-right { text-align: right; }
 
 /* Text Colors */
-.text-green { color: var(--primary-green); }
+.text-green { color: var(--accent-rose; }
 .text-moss { color: var(--secondary-green); }
 .text-gold { color: var(--accent-gold);
    color: var(--accent-gold);
