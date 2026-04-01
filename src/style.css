@@ -10,12 +10,11 @@ Highlight Accent: Rose                                  #BBBA8A
 
 Text Color: Charcoal                                    #1A1A1A
 Logo Font: Goudy Stout                                  #123223
-Primary Font Sans-Serif: Edwardian Script               #1A1A1A
+Primary Font Sans-Serif:                #1A1A1A
 Secondary Font Sans-Serif: Berlin Sans FB               #1A1A1A
 Primary Font Serif: Goudy Stout                         #123223
 Secondary Font Serif: Matura MT Script Capitals         #1A1A1A
 */
-
 
 /* ===========================
 GLOBAL STYLES
@@ -31,6 +30,21 @@ html {
   width: 100%;
 }
 
+:root {
+  --header-height: 60px;
+  --primary-bg: #F5F1E6;
+  --secondary-surface: #D4B06A;
+  --primary-accent: #123223;
+  --secondary-accent: #6E8B5B;
+  --highlight-accent: #BBBA8A;
+  --text-color: #1A1A1A;
+  --logo-font: "", serif;
+  --primary-font-sans-serif: "", serif;
+  --secondary-font-sans-serif: "", serif;
+  --primary-font-serif: "", serif;
+  --secondary-font-serif: "", serif;
+}
+
 body {
   cursor: none;
   background-image: url("assets/parchment-texture.jpg");
@@ -41,35 +55,37 @@ body {
   width: 100%;
   display: flex;
   flex-direction: column;
-  font-family: "edwardian","Berlin Sans FB", serif;
+  font-family: "Ubuntu", serif;
   color: #1A1A1A;
 }
 
 /* -- Header -- */
 header {
-  position: fixed;
+  height: var(--header-height);
+  padding: 1rem;
+  position: sticky;
   top: 0;
   left: 0;
   width: 100%;
-  padding: 1rem;
+  
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   z-index: 1000; /* Ensure it stays above other content */
 }
-.hamburger {
+.btn-hamburger {
   display: none;
 }
 #logo {
-  font-family: "Goudy stout", serif;
+  font-family: "Kreon", serif;
+  color: #123223;
+  font-size: 2rem;
+  font-weight: bold;
 }
 #logo a {
   text-decoration: none;
-  color: #123223;
-  font-size: 1.5rem;
-  font-weight: bold;
-}
+  }
 /* --  Nav -- */
 
 /* ===========================
@@ -89,19 +105,20 @@ section {
 }
 
 h1 {
-  font-size: large;
+  font-size: 2rem;
+  font-family: "Kreon", serif;
 }
 
 h2 {
-  font-size: medium;
+  font-size: 1.5rem;
 }
 
 h3 {
-  font-size: small;
+  font-size: 1.25rem;
 }
 
 p {
-  line-height: normal;
+  font-family: "Ubuntu", sans-serif;
 }
 
 /* a {
@@ -188,6 +205,12 @@ body.cursor-hover #cursor-ring {
   transform: scale(1, 1);
 }
 
+.vert-line {
+  border-top: 5px solid rgb(0, 0, 0);
+  border-radius: 5px;
+  width: 50px;
+  transform: rotate(90deg);
+}
 
 /* ─── Launch Date ─── */
 .launch-box {
@@ -201,7 +224,7 @@ body.cursor-hover #cursor-ring {
   margin: 0;
   font-size: 1.2rem;
   font-weight: 600;
-  color: #0077ff;
+  color: #123223;
 }
 /* ─── Countdown ─── */
 
@@ -225,11 +248,19 @@ body.cursor-hover #cursor-ring {
 }
 
 .countdown small {
-  opacity: 1;
+  opacity: 0.8;
 }
 /* ============================
 INDEX / HOME PAGE
 ============================= */
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+  padding: 2rem 0;
+}
 
 /* ============================
 WORLD 
@@ -290,8 +321,4 @@ RESPONSIVE DESIGN
   .countdown span {
     font-size: 1.6rem;
   }
-}
-
-/* -- Desktop Monitor -- */
-@media (max-width: 1920px) {
 }

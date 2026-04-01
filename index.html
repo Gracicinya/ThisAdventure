@@ -3,9 +3,14 @@
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="Launch Website for GAMENAM, an exciting new game by GAMEDVELOPERS." />
     <meta charset="UTF-8">
     <title>WebPage</title>
     <link rel="stylesheet" href="src/style.css" />
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Kreon:wght@300..700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+</style>
 </head>
 
     
@@ -45,27 +50,39 @@
             <h2>Where Every Choice Shapes Your Fate</h2>
         </section>
         <section class="launch-box">
-          <h2>Launch Date</h2>
-          <p id="launch-date">Loading launch date...</p>
-          <p id="message"></p>
-          <br>
-          <h2>Days Until Launch</h2>
-          <div class="countdown">
-            <div><span id="days">0</span><small>Days</small></div>
-            <div><span id="hours">0</span><small>Hours</small></div>
-            <div><span id="minutes">0</span><small>Minutes</small></div>
-            <div><span id="seconds">0</span><small>Seconds</small></div>
-          </div>          
+            <h2>Launch Date</h2>
+            <p id="launch-date">Loading launch date...</p>
+            <p id="message"></p>
+            <br>
+            <h2>Days Until Launch</h2>
+            <div class="countdown">
+                <div><span id="days">0</span><small>Days</small></div>
+                <div><span id="hours">0</span><small>Hours</small></div>
+                <div><span id="minutes">0</span><small>Minutes</small></div>
+                <div><span id="seconds">0</span><small>Seconds</small></div>
+            </div>          
         </section>
-        <!-- World Teaser -->
-        <section>
+        <section class="descriptors"> 
+            <div class="vert-line"></div>
+            <h2>Fun</h2>
+            <div class="vert-line"></div>
+            <h2>Magical</h2>
+            <div class="vert-line"></div>
+            <h2>Adventure</h2>
+        </section>
+        <!-- Story Teaser -->
+        <article class="story-teaser">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris dictum pulvinar dui suscipit blandit. Ut sed lacus sit amet elit volutpat porttitor. Nam vestibulum elementum ante non congue. </p>
+            <canvas id="character-container" width="200" height="200"></canvas>
             <h2>GAMENAM</h2>
             <p>Gamenam is an exciting new game that offers players a unique and immersive experience.</p>
-        </section>
+            <button class="btn-learn-more">Learn More</button>
+        </article>
+        
     </main>
 
     <footer>
-        <p>© 2026 Game Name. All rights reserved.</p>
+        <p>© 2026 GAMENAM. All rights reserved.</p>
     </footer>
     <script src="script.js"></script>
 </body>

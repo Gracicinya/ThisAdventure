@@ -18,7 +18,16 @@
         });
 }
 
-    /* Launch Date & Countdown Timer Constants*/
+// Hamburger Menu Toggle
+document.querySelector('.btn-hamburger')
+    .addEventListener('click', function() {
+        const nav = document.querySelector('.nav-menu');
+        const expanded = this.getAttribute('aria-expanded') === 'true';
+        nav.classList.toggle('open');
+        this.setAttribute('aria-expanded', String(!expanded));
+    });
+
+    /* ─── Launch Date & Countdown Timer Constants ─── */
     const launchDate = new Date("2029-06-15T09:00:00").getTime(); // Launch date and time
     const el = document.getElementById("launch-date");
     const daysEl = document.getElementById("days");
@@ -33,17 +42,13 @@
         el.textContent = `${new Date(launchDate).toLocaleDateString(undefined, options)}`;
     }
     // Countdown Timer
+    let timer;
     function updateCountdown() {
+        if (!daysEl || !hoursEl || !minutesEl || !secondsEl) return;
         const now = new Date().getTime();
         const distance = launchDate - now;
 
-        if (distance <= 0) {
-        clearInterval(timer);
-        const countdownEl = document.querySelector(".countdown");
-        if (countdownEl) countdownEl.style.display = "none";
-        if (messageEl) messageEl.textContent = "Launch day is here!";
-        return;
-        }
+        if (distance <= 0) {clearInterval(timer); return;}
 
         const days = Math.floor(distance / (1000 * 60 * 60 * 24));
         const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -57,4 +62,4 @@
     }
 
     updateCountdown();
-    const timer = setInterval(updateCountdown, 1000);
+    timer = setInterval(updateCountdown, 1000);
