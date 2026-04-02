@@ -53,6 +53,7 @@ body {
   background-position: center;
   background-attachment: fixed; /* texture stays still as you scroll */
   width: 100%;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   font-family: var(--primary-font-sans-serif);
@@ -216,6 +217,7 @@ body.cursor-hover #cursor-ring {
 
 /* ─── Vertical Line ─── */
 .vert-line {
+  width: 2px;
   border-top: 5px solid rgb(0, 0, 0);
   border-radius: 5px;
   width: 50px;
@@ -271,7 +273,13 @@ INDEX / HOME PAGE
   gap: 1rem;
   padding: 2rem 0;
 }
-
+.descriptors {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  padding: 1rem 0;
+}
 /* ============================
 WORLD 
 ============================= */
