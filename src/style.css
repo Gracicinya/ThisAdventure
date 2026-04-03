@@ -1,16 +1,43 @@
 /* Mobile First Design */
 /* Resposive for tablets/ipads/computers lower in the page */
 
-/* Colour Palette
-xxx             #
-xxx             #
-Off-white       #
-*/
-
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap');
 
 /* ===========================
 GLOBAL STYLES
 ============================ */
+
+:root {
+    /* Light theme (default) */
+    --bg:           #f5efe0;   /* warm parchment */
+    --bg-alt:       #ede5ce;   /* slightly darker parchment for alt sections */
+    --text:         #2b2017;   /* deep sepia */
+    --text-muted:   #7a6a52;   /* muted warm brown */
+    --accent:       #5c7a4e;   /* moss green */
+    --accent-hover: #486040;
+    --border:       rgba(43, 32, 23, 0.14);
+    --nav-bg:       rgba(245, 239, 224, 0.96);
+    --shadow:       rgba(43, 32, 23, 0.08);
+    --error:        #a83232;
+}
+
+[data-theme="dark"] {
+    --bg:           #1b1812;
+    --bg-alt:       #232019;
+    --text:         #e6dcc8;
+    --text-muted:   #9b8c74;
+    --accent:       #8aaa76;
+    --accent-hover: #a2c28e;
+    --border:       rgba(230, 220, 200, 0.11);
+    --nav-bg:       rgba(27, 24, 18, 0.96);
+    --shadow:       rgba(0, 0, 0, 0.3);
+    --error:        #d16060;
+}
+
+
+/* -- -----------------------------
+Global Resets and Base Styles 
+-------------------------------- */
 * {
     margin: 0;
     padding: 0;
@@ -19,97 +46,265 @@ GLOBAL STYLES
 
 html {
     scroll-behavior: smooth;
-    width: auto;
+    font-size: 16px;
 }
 
 body {
-    background: beige;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Lora', Georgia, serif;
     display: flex;
     flex-direction: column;
+    min-height: 100vh;
 }
 
-/* -- Header -- */
-.hamburger {
+a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+ul, ol {
+    list-style: none;
+}
+
+
+/* -- -----------------------------
+Headings and Typography 
+-------------------------------- */
+/* Large display titles */
+.title-display {
+    font-family: 'Cinzel', serif;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+/* Section headings */
+.title-heading {
+    font-family: 'Cinzel', serif;
+    font-size: 24px;
+    font-weight: 600;
+}
+.section-label {
+    display: block;
+    font-size: 10px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+}
+
+
+/* -- -----------------------------
+Layout
+-------------------------------- */
+.container {
+    width: 100%;
+    padding: 0 20px;
+}
+
+/* -- -----------------------------
+Navigation - mobile hamburger design first, inline on desktop
+-------------------------------- */
+
+/* --  Nav -- */
+#navbar {
+    position: sticky;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+}
+
+.nav-logo {
+    font-family: Cinzel, serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text);
+    flex-shrink: 0;
+}
+
+/* Nav links — hidden on mobile by default.
+    On mobile: drops down when .open is added by JS.*/
+.nav-links {
     display: none;
 }
 
-/* --  Nav -- */
-
-/* ===========================
-MAIN
-============================ */
-
-main {
-    max-width: 480px;       /* Max for Mobile Screen Size */
+.nav-links.open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: var(--nav-bg);
+    border-bottom: 1px solid var(--border);
+    padding: 8px 20px 16px;
+    z-index: 99;
 }
 
-section {
-    flex: auto;
+.nav-links.open a{
+    display: block;
+    padding: 13px 0;
+    border-bottom: 1px solid var(--border);
 }
 
-h1 {
-    font-size: large;
+.nav-links a {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    transition: color 0.2s;
+    position: relative;
+    padding-bottom: 2px;
 }
 
-h2 {
-    font-size: medium;
+/* hover/active indicator - desktop only */
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--accent);
+    transition: width 0.25s ease;
 }
 
-h3 {
-    font-size: small;
+.nav-links a:hover        { color: var(--accent); }
+.nav-links a.active       { color: var(--accent); }
+
+/* Right-side nav controls */
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
-p {
-    line-height: normal;
+/* Theme toggle */
+.theme-toggle {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text);
+    font-size: 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, border-color 0.2s;
 }
 
-/* a {
+/* Hamburger button — three stacked lines */
+.hamburger {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+}
 
-} */
+.hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--text);
+    border-radius: 1px;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+}
 
+/* -- -----------------------------
+Page Header
+-------------------------------- */
+.page-header {
+    text-align: center;
+    padding: 64px 20px 52px;
+    border-bottom: 1px solid var(--border);
+}
+
+.page-header p {
+    max-width: 480px;
+    font-size: 15px;
+    font-style: italic;
+    color: var(--text-muted);
+    margin: 16px auto 0;
+}
 
 /* ===========================
 COMPONENTS
 ============================ */
 
 .btn {
-    line-height: 50px;
-    height: 50px;
-    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 13px 32px;
+    font-family: 'Lora', serif;
+    font-size: 13px;
+    font-weight: 500;
     cursor: pointer;
-    transition: all 0.5s;
-    position: relative;
+    border: 1px solid var(--text);
+    background: transparent;
+    color: var(--text);
+
 }
-.btn::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    transition: all 0.3s;
+
+.btn:hover {
+    background: var(--text);
+    color: var(--bg);
 }
-.btn:hover::before {
-    opacity: 0 ;
-    transform: scale(0.5,0.5);
+
+.btn-primary {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
 }
-.btn::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
+
+.btn-primary:hover {
+    background: var(--accent-hover);
+    border-color: var(--accent-hover);
+    color: #fff;
+}
+
+.btn-ghost {
+    border-color: var(--border);
+    color: var(--text-muted);
+}
+
+.btn-ghost:hover {
+    background: transparent;
+    border-color: var(--text);
+    color: var(--text);
+}
+
+/* ===========================
+Back To Top Button
+============================ */
+#backToTop {
+    position: fixed;
+    bottom: 28px;
+    right: 22px;
+    width: 42px;
+    height: 42px;
+    border: none;
+    background: var(--accent);
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     opacity: 0;
-    transition: all 0.3s;
-    border: 1px solid rgba(255,255,255,0.5);
-    transform: scale(1.2,1.2);
+    pointer-events: none;
+    transition: background 0.2s, border-color 0.2s, opacity 0.2s;
 }
-.btn:hover::after {
+
+#backToTop.visible {
     opacity: 1;
-    transform: scale(1,1);
+    pointer-events: auto;
 }
 
 /* ============================
@@ -135,13 +330,6 @@ PREVIEW
 ============================= */
 
 
-
-/* ============================
-CONTACT 
-============================= */
-
-
-
 /* ============================
 FOOTER 
 ============================= */
@@ -150,12 +338,38 @@ FOOTER
 /* ============================
 RESPONSIVE DESIGN 
 ============================= */
-/* -- Tablet/Ipad -- */
-@media (max-width: 768px) {
+/* Styles for tablets and larger screens */
+@media (min-width: 768px) {
+    
+    /* Nav links become inline, hamburger hidden */
+    .nav-links {
+        display: flex;
+        flex-direction: row;
+        position: static;
+        width: auto;
+        background: none;
+        border: none;
+        padding: 0;
+        gap: 30px;
+        align-items: center;
+    }
 
-}
+      /* Reset the mobile open-state overrides so they don't bleed in */
+    .nav-links.open {
+        flex-direction: row;
+        position: static;
+        width: auto;
+        background: none;
+        border: none;
+        padding: 0;
+    }
 
-/* -- Desktop Monitor -- */
-@media (max-width: 1920px){
+    .nav-links.open a {
+        display: inline;
+        padding: 0;
+    }
 
+    .hamburger {
+        display: none;
+    }
 }

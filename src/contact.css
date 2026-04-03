@@ -1,0 +1,344 @@
+/* ============================
+CONTACT 
+============================= */
+
+/* -- -----Countdown----- -- */
+.countdown-section {
+    padding: 52px 20px;
+    text-align: center;
+    background: var(--bg-alt);
+    border-bottom: 1px solid var(--border);
+}
+
+.countdown-display {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 6px;
+    margin: 24px 0;
+}
+
+.countdown-unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 56px;
+}
+
+.countdown-num {
+    font-family: 'Cinzel', serif;
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--accent);
+}
+
+.countdown-lbl {
+    font-size: 14px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-top: 8px;
+}
+
+.countdown-sep {
+    font-size: 36px;
+    font-weight: 300;
+    padding-bottom: 22px;
+}
+
+.countdown-release {
+    margin-top: 30px;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+/* -- -----Newsletter----- -- */
+.newsletter-section {
+    padding: 64px 20px;
+    border-bottom: 1px solid var(--border);
+}
+
+.newsletter-container {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.newsletter-sub {
+    color: var(--text-muted);
+    font-style: italic;
+    font-size: 15px;
+    margin: 12px 0 32px;
+}
+
+.newsletter-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 440px;
+    margin: 0 auto;
+}
+
+.newsletter-form input[type="email"] {
+    width: 100%;
+    padding: 12px 16px;
+    font-family: 'Lora', serif;
+    border: 1px solid var(--border);
+    font-size: 14px;
+    font-family: 'Lora', serif;
+    background: transparent;
+    color: var(--text);
+    transition: border-color 0.2s;
+}
+
+.newsletter-form input[type="email"]:focus {
+    border-color: var(--accent);
+}
+
+/* Error text below the form */
+.newsletter-error {
+    font-size: 12px;
+    color: var(--error);
+    font-style: italic;
+    min-height: 16px;
+    margin-top: 6px;
+}
+
+/* Success message — shown by JS, hidden by default via [hidden] attr */
+.newsletter-success {
+    padding: 20px;
+    text-align: center;
+    color: var(--accent);
+    font-style: italic;
+    font-size: 15px;
+}
+
+/* Info cards below the newsletter form */
+.info-cards-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 40px;
+    text-align: left;
+}
+
+.info-card {
+    padding: 24px;
+    border: 1px solid var(--border);
+    background: var(--bg-alt);
+}
+
+.info-card h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.info-card p {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.7;
+}
+
+
+/* -- -----Contact Form----- -- */
+.contact-form-section {
+    padding: 64px 20px;
+}
+
+.contact-form-wrap {
+    max-width: 540px;
+    margin: 0 auto;
+}
+
+.contact-form-wrap h2 {
+    font-family: 'Cinzel', serif;
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 36px;
+}
+
+/* Individual form field group */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 28px;
+}
+
+.form-group label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    font-size: 14px;
+    font-family: 'Lora', serif;
+    background: transparent;
+    color: var(--text);
+    transition: border-color 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-bottom-color: var(--accent);
+}
+
+/* Red underline on invalid fields */
+.form-group input.invalid,
+.form-group select.invalid,
+.form-group textarea.invalid {
+    border-bottom-color: var(--error);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+/* Error message — occupies reserved space to prevent layout shift */
+.error-message {
+    font-size: 11px;
+    color: var(--error);
+    font-style: italic;
+    min-height: 15px;
+    display: block;
+}
+
+/* Newsletter opt-in row */
+.contact-newsletter {
+    padding: 20px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 32px;
+}
+.contact-newsletter label {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14px;
+    cursor: pointer;
+}
+.contact-newsletter input[type="checkbox"] {
+    width: auto;
+    margin-top: 3px;
+}
+
+/* Submit row */
+.form-actions {
+    display: flex;
+    justify-content: center;
+}
+
+/* Form Success */
+.form-success {
+    text-align: center;
+    padding: 48px 20px;
+    max-width: 540px;
+    margin: 0 auto;
+}
+
+.form-success h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 20px;
+    margin-bottom: 8px;
+}
+
+.form-success p {
+    color: var(--text-muted);
+    font-style: italic;
+    margin-bottom: 28px;
+}
+
+/* -- -----Contact Info----- -- */
+.contact-info {
+    text-align: center;
+    padding: 32px 20px;
+}
+
+.contact-info p {
+    color: var(--text-muted);
+    font-size: 15px;
+    max-width: 480px;
+    margin: 16px auto;
+}
+
+.contact-info ul {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 15px;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.contact-info a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.contact-info a:hover {
+    color: var(--accent-hover);
+}
+
+/* -- -----FAQ Accordion----- -- */
+.faq-section {
+    padding: 64px 20px;
+}
+
+.faq-list {
+    margin-top: 32px;
+}
+
+.faq-item {
+    border-bottom: 1px solid var(--border);
+}
+
+
+
+.faq-question {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 0;
+    background: transparent;
+    border: none;
+    font-family: 'Lora', serif;
+    font-size: 15px;
+    font-weight: 500;
+    text-align: left;
+    cursor: pointer;
+    color: var(--text);
+    transition: color 0.2s;
+}
+
+.faq-question:hover { color: var(--accent); }
+
+/* Answer panel — collapses via max-height transition */
+.faq-answer {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.35s ease;
+}
+
+.faq-item.open .faq-answer { max-height: 400px; }
+
+.faq-answer p {
+  padding: 0 0 24px;
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--text-muted);
+}
+

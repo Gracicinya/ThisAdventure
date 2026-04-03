@@ -1,50 +1,316 @@
 <!DOCTYPE html>
 <html lang="en-ca">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Eclipsed Realms | Contact</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="contact.css">
-</head>
-<body class="contact">
-  <header>
-    <div id="logo"><a href="index.html">♕ Eclipsed Realms</a></div>
-    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-      <span class="theme-toggle-icon" aria-hidden="true"></span>
-    </button>
-    <nav class="nav-menu" aria-label="Primary">
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="story.html">Story</a></li>
-        <li><a href="characters.html">Characters</a></li>
-        <li><a href="preview.html">Preview</a></li>
-        <li><a href="contact.html" aria-current="page">Contact</a></li>
-      </ul>
-    </nav>
-  </header>
 
-  <main class="page-shell">
-    <section class="page-header">
-      <h3>Stay Connected</h3>
-      <h1>Contact &amp; Updates</h1>
-      <p>Sign up to receive news, dev updates, and early access information.</p>
-    </section>
+  <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <meta charset="UTF-8">
+      <title>Join - The Shattered Crown</title>
+      <link rel="stylesheet" href="src/style.css" />
+      <link rel="stylesheet" href="src/contact.css" />
 
-    <section class="contact-info">
-      <h2>Contact Us</h2>
-      <p>We would love to hear from you. Reach out with questions, feedback, or ideas as the project keeps growing.</p>
-      <ul class="page-list">
-        <li>Email: <a href="mailto:hbhdbh@gmail.com">hbhdbh@gmail.com</a></li>
-        <li>Phone: <a href="tel:123-456-7890">123-456-7890</a></li>
-      </ul>
-    </section>
-  </main>
+  </head>
+      
+  <body class="contact">
 
-  <footer>
-    <p>&copy; 2026 Eclipsed Realms. All rights reserved.</p>
-  </footer>
+    
+      <!-- -----NAVIGATION----- -->
+      <nav id="navbar">
+        <!-- Logo -->
+        <a class="nav-logo" href="index.html">The Shattered Crown</a>
+        
+        <div class="nav-links" id="navLinks">
+          <!-- Nav Links -->
+          
+            <a href="index.html">Home</a>
+            <a href="story.html">World</a>
+            <a href="characters.html">Characters</a>
+            <a href="preview.html">Play Preview</a>
+            <a href="contact.html" class="active">Join</a>
+          
+        </div>
 
-  <script src="shared.js"></script>
-</body>
+        <!-- Theme Toggle and Hamburger -->
+        <div class="nav-right">
+          <button class="theme-toggle" id="themeToggle" aria-label="Toggle Theme">🌙</button>
+          <button class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+        
+      </nav>
+      
+      <!-- -----PAGE HEADER----- -->
+      <header class="page-header">
+        <p class="section-label">Join the Journey</p>
+        <h1 class="title-display">Stay in the World</h1>
+        <p>Sign up for updates, lore drops, and the moment the gates open.</p>
+      </header>
+
+      <!-- -----MAIN CONTENT----- -->
+      <main>
+        
+        <!-- Countdown main.js  -->
+        <section class="countdown-section">
+
+          <span class="section-label">Days Until Release</span>
+
+          <div class="countdown-display" role="timer">
+            <div class="countdown-unit">
+              <span class="countdown-num" id="days">---</span>
+              <span class="countdown-lbl">Days</span>
+            </div>
+            <span class="countdown-sep" aria-hidden="true">·</span>
+            <div class="countdown-unit">
+              <span class="countdown-num" id="hours" aria-label="hours">--</span>
+              <span class="countdown-lbl">Hours</span>
+            </div>
+            <span class="countdown-sep" aria-hidden="true">·</span>
+            <div class="countdown-unit">
+              <span class="countdown-num" id="minutes">--</span>
+              <span class="countdown-lbl">Minutes</span>
+            </div>
+          </div>
+
+          <p class="countdown-release">Est. Release · Winter 2026</p>
+
+        </section>
+
+        <!--Newsletter Signup-->
+        <section class="newsletter-section">
+          <div class="newsletter-container">
+
+            <h2 class="title-heading">Want More Updates?</h2>
+            <p class="newsletter-sub">Sign Up for More!</p>
+
+            <div id="newsletter-wrap">
+              <form class="newsletter-form" aria-label="Newsletter signup">
+                <label for="nl-email">Your email address</label>
+                <input type="email" id="nl-email" placeholder="your.name@email.com">
+                <button class="btn btn-primary" id="nl-submit" type="button">Join the Journey</button>
+              </form>
+              <p class="newsletter-error" id="nl-error" role="alert"></p>
+            </div>
+
+            <!-- Success message hidden by default, shown after successful submission -->
+            <div id="newsletter-success" class="newsletter-success" hidden role="status">
+              <p>You are on the list. The forest will remember.</p>
+            </div>
+
+            <div class="info-cards-grid">
+              <div class="card info-card">
+                <h3>For Press &amp; Creators</h3>
+                <p>Press kit, key art, screenshots, and narrative brief available on request. Response time: 2–3 working days.</p>
+              </div>
+              <div class="card info-card">
+                <h3>Mailing List</h3>
+                <p>Subscribers receive in-world lore letters, concept art previews, playtest invitations, and earliest access to the demo.</p>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- Daily Quote + Contact Form -->
+        <!-- Vue.js used,
+              Handles: rotating daily quote, form v-model bindings,
+                        field validation on blur, submit + success state-->  
+        <section class="contact-form-section" id="contact-form-app">
+
+          <!--Success State (shown after submission)-->
+          <div 
+            v-if="submitted" 
+            class = "form-success"
+            role="status"
+            aria-live="polite"
+            aria-atomic="true"
+          >
+            <h3>Message Sent! </h3>
+            <p>Form submitted successfully!</p>
+            <button class="btn btn-ghost" @click="resetForm">Send Another</button>
+          </div>
+
+          <!--Contact Form (shown before submission)-->
+          <div v-else class="contact-form-wrap">
+            
+            <h2>Send a Note ✉️</h2>
+            
+            <form @submit.prevent="submitForm" novalidate>
+              
+              <!-- Name -->
+              <div class="form-group">
+                <label for="Name">Your Name</label>
+                <input 
+                  type="text" 
+                  id="Name" 
+                  v-model="form.name"
+                  :class="{invalid: errors.name}"
+                  @blur="validateName"
+                  placeholder="e.g. Monique Powell"
+                />
+
+                <!-- Error message reserved space prevents layout shift AI assisted-->
+                <span class="error-message" role="alert" aria-live="polite">{{ errors.name }}</span>
+                            
+              </div>
+
+              <!-- Email -->
+              <div class="form-group">
+                <label for="formEmail">Your Email</label>
+                <input 
+                  type="email" 
+                  id="formEmail" 
+                  v-model="form.email"
+                  :class="{invalid: errors.email}"
+                  @blur="validateEmail"
+                  placeholder="youremail@email.com"
+                />
+
+                <!-- Error message reserved space prevents layout shift AI assisted-->
+                <span class="error-message" role="alert" aria-live="polite">{{ errors.email }}</span>
+
+              </div>
+
+              <!-- Subject -->
+              <div class="form-group">
+                <label for="formSubject">Subject</label>
+                <input 
+                  type="text" 
+                  id="formSubject" 
+                  v-model="form.subject"
+                  :class="{invalid: errors.subject}"
+                  @blur="validateSubject"
+                  placeholder="What is on your mind?"
+                />
+
+                <!-- Error message reserved space prevents layout shift AI assisted-->
+                <span class="error-message" role="alert" aria-live="polite">{{ errors.subject }}</span>
+
+              </div>
+
+              <!-- Message -->
+              <div class="form-group">
+                <label for="formMessage">Message</label>
+                <textarea 
+                  id="formMessage" 
+                  v-model="form.message"
+                  :class="{invalid: errors.message}"
+                  @blur="validateMessage"
+                  rows = "5"
+                  placeholder="Tell us everything..."
+                ></textarea>
+
+                <!-- Error message reserved space prevents layout shift AI assisted-->
+                <span class="error-message" role="alert" aria-live="polite">{{ errors.message }}</span>
+
+              </div>
+
+              <!-- Newsletter -->
+              <div class="contact-newsletter">
+                <label>
+                  <input type="checkbox" v-model="form.subscribe" />
+                  <span>I want game updates!</span>
+                </label>
+              </div>
+
+              <!-- Submit Button — disabled while submitting to prevent double-sends-->
+              <div class="form-actions">
+                <button 
+                  type="submit" 
+                  class="btn btn-primary" 
+                  :disabled="submitting"
+                  :aria-busy="submitting"
+                  >
+                  {{ submitting ? 'Sending...' : 'Send Message' }}
+                </button>
+              </div>
+
+            </form>
+
+            <!-- Contact -->
+              <div class="contact-info">
+                <p>Or reach out directly:</p>
+                
+                <ul>
+                  <li>Email: <a href="mailto:hello@shatteredcrown.dev">hello@shatteredcrown.dev</a></li>
+                  <li>Press inquiries: <a href="mailto:press@shatteredcrown.dev">press@shatteredcrown.dev</a></li>
+                </ul>
+
+                <p class="contact-info-note">
+                  Response time: 2-3 working days. Press kit available on request.
+                </p>
+              </div>
+
+          </div>
+        </section>
+
+          <!-- FAQ ACCORDION - JS to toggle answer visibility -->
+        <section class="faq-section">
+          <div class="container">
+            <h2 class="title-heading">Frequently Asked Questions</h2>
+
+            <ul class="faq-list">
+
+              <li class="faq-item">
+                <button class="faq-question" aria-expanded="false" aria-controls="faq-a1">
+                  What platforms will the game be available on
+                  <span class="faq-icon" aria-hidden="true">+</span>
+                </button>
+                <div class="faq-answer" id="faq-a1" role="region">
+                  <p>The Shattered Crown is being developed for PC (Windows and Mac) initially, with potential console ports depending on the response to the PC release. A free web demo will be available before launch.</p>
+                </div>
+              </li>
+
+              <li class="faq-item">
+                <button class="faq-question" aria-expanded="false" aria-controls="faq-a2">
+                  What platforms will the game be available on
+                  <span class="faq-icon" aria-hidden="true">+</span>
+                </button>
+                <div class="faq-answer" id="faq-a2" role="region">
+                  <p>The Shattered Crown is being developed for PC (Windows and Mac) initially, with potential console ports depending on the response to the PC release. A free web demo will be available before launch.</p>
+                </div>
+              </li>
+
+              <li class="faq-item">
+                <button class="faq-question" aria-expanded="false" aria-controls="faq-a3">
+                  What platforms will the game be available on
+                  <span class="faq-icon" aria-hidden="true">+</span>
+                </button>
+                <div class="faq-answer" id="faq-a3" role="region">
+                  <p>The Shattered Crown is being developed for PC (Windows and Mac) initially, with potential console ports depending on the response to the PC release. A free web demo will be available before launch.</p>
+                </div>
+              </li>
+
+              <li class="faq-item">
+                <button class="faq-question" aria-expanded="false" aria-controls="faq-a4">
+                  What platforms will the game be available on
+                  <span class="faq-icon" aria-hidden="true">+</span>
+                </button>
+                <div class="faq-answer" id="faq-a4" role="region">
+                  <p>The Shattered Crown is being developed for PC (Windows and Mac) initially, with potential console ports depending on the response to the PC release. A free web demo will be available before launch.</p>
+                </div>
+              </li>
+        
+            </ul>
+
+          </div>
+        </section>
+
+      </main>
+
+      <!-- Footer -->
+      <footer>
+          <p>© 2026 Game Name. All rights reserved.</p>
+      </footer>
+
+      <button id="backToTop" aria-label="Back to top">↑</button>
+
+      <!-- JavaScript -->
+      <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+      <script src="main.js"></script>
+      <script src="contact.js"></script>
+
+  </body>
+
 </html>

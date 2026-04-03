@@ -1,7 +1,9 @@
 /* ============================================
-   SHARED JAVASCRIPT - USED ACROSS ALL PAGES
-   ============================================ */
+SHARED JAVASCRIPT - USED ACROSS ALL PAGES
+============================================ */
 
+
+/* Theme Toggle */
 function initThemeToggle() {
   const themeToggle = document.getElementById("themeToggle");
   const html = document.documentElement;
