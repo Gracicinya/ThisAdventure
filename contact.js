@@ -1,9 +1,7 @@
 /* ================================================================
     THE SHATTERED CROWN — contact.js
-    Vue 3application for contact page interactivity.
-    Handles: form v-model bindings, real-time field validation,
-            submit + success state, and the daily rotating quote.
-
+    Vue application for contact page interactivity.
+    Handles: contact form validation and submission.
     Note: FAQ accordion and countdown are handled by main.js.
    ================================================================ */
 
@@ -51,6 +49,11 @@ createApp({
     },
 
     methods: {
+
+        /* ── FIELD VALIDATION ──────────────────────────────────
+        Each method is triggered by @blur (when the user leaves
+        a field) so errors only appear after they finish typing. */
+
         validateName() {
             this.errors.name = this.nameValid 
                 ? '' 
@@ -80,9 +83,10 @@ createApp({
             return this.formValid;
         },
 
-        /* ── FORM SUBMIT ───────────────────────────────────────────
-        Simulates a network delay then shows the success state.
-        Replace setTimeout with a real fetch() in production. */
+        /* ── FORM SUBMIT ───────────────────────────────────────
+        Validates all fields first. Shows the success
+        state by setting submitted = true, which triggers Vue's
+        v-if to swap the form for the success message.*/
         async submitForm() {
             if (!this.validateAll()) return;
 
@@ -100,9 +104,5 @@ createApp({
         }
     },
 
-    /* ── LIFECYCLE ─────────────────────────────────────────────── */
-    mounted() {
-        this.loadDailyQuote();
-    }
 
 }).mount('#contact-form-app');
