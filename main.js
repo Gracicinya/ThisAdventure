@@ -1,8 +1,14 @@
 /* ================================================================
 THE SHATTERED CROWN — main.js
 Shared JS loaded on every page.
-Handles: theme toggle, hamburger nav,
-        back-to-top button, FAQ accordion, countdown timer.
+Handles: 
+    -theme toggle, 
+    -hamburger nav,
+    -back-to-top button,
+    -Fade in on scroll, 
+    -FAQ accordion, 
+    -countdown timer 
+    -newsletter form 
 ================================================================ */
 
 
@@ -43,6 +49,8 @@ applyTheme(saved);
 if (themeToggle) {
     themeToggle.addEventListener('click', toggleTheme);
 }
+
+
 
 
 /* ================================================================
@@ -196,4 +204,71 @@ Counts down to the estimated release date: 1 December 2026.
 
   update();                        /* run immediately */
   setInterval(update, 30_000);     /* refresh every 30 seconds */
+}());
+
+/* ================================================================
+   NEWSLETTER FORM
+   Handles the simpler newsletter sign-up (not the full contact form).
+================================================================ */
+
+(function initNewsletter() {
+    const submitBtn  = document.getElementById('nl-submit');
+    const emailInput = document.getElementById('nl-email');
+    const errorEl    = document.getElementById('nl-error');
+    const successEl  = document.getElementById('newsletter-success');
+    const wrapEl     = document.getElementById('newsletter-wrap');
+
+    if (!submitBtn || !emailInput) return;
+
+    const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    submitBtn.addEventListener('click', async function () {
+        const val = emailInput.value.trim();
+
+        if (!emailRe.test(val)) {
+            if (errorEl) errorEl.textContent = 'Please enter a valid email address.';
+            emailInput.focus();
+            return;
+        }
+
+        if (errorEl) errorEl.textContent = '';
+
+        /* Simulate async send */
+        submitBtn.disabled   = true;
+        submitBtn.textContent = 'Joining…';
+        await new Promise(resolve => setTimeout(resolve, 800));
+
+        /* Show success */
+        if (wrapEl)     wrapEl.hidden   = true;
+        if (successEl)  successEl.hidden = false;
+    });
+
+    /* Clear error on input */
+    emailInput.addEventListener('input', function () {
+        if (errorEl) errorEl.textContent = '';
+    });
+}());
+
+/* ================================================================
+   FADE-IN ON SCROLL
+   Adds .visible to .fade-in elements when they enter the viewport.
+   
+================================================================ */
+
+(function initFadeIn() {
+    const targets = document.querySelectorAll('.fade-in');
+    if (!targets.length) return;
+
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                entry.target.classList.add("fade-in-visible");
+                }
+            });
+        },
+        { threshold: 0.1, rootMargin: "0px 0px -50px 0px", }
+    );
+
+    targets.forEach((el) => observer.observe(el));
 }());
