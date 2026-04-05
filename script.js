@@ -19,13 +19,17 @@
 }
 
 // Hamburger Menu Toggle
-document.querySelector('.btn-hamburger')
-    .addEventListener('click', function() {
-        const nav = document.querySelector('.nav-menu');
-        const expanded = this.getAttribute('aria-expanded') === 'true';
-        nav.classList.toggle('open');
-        this.setAttribute('aria-expanded', String(!expanded));
+const hamburger = document.querySelector('.btn-hamburger');
+const navMenu = document.querySelector('.nav-menu');
+
+if (hamburger && navMenu) {
+    hamburger.addEventListener('click', function() {
+    const expanded = this.getAttribute('aria-expanded') === 'true';
+    navMenu.classList.toggle('open');
+    this.classList.toggle('open');
+    this.setAttribute('aria-expanded', String(!expanded));
     });
+}
 
     /* ─── Launch Date & Countdown Timer Constants ─── */
     const launchDate = new Date("2029-06-15T09:00:00").getTime(); // Launch date and time

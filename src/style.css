@@ -1,24 +1,28 @@
 /* Mobile First Design */
-/* Resposive for tablets/ipads/computers lower in the page */
+/* Responsive for tablets/ipads/computers lower in the page */
 
-/* Colour Palette 
-Primary background: Parchment                           #F5F1E6
-Secondary Surface: Sand                                 #D4B06A
-Primary accent: Forest                                  #123223
-Secondary accent: Moss                                  #6E8B5B 
-Highlight Accent: Rose                                  #BBBA8A 
+/* ══════════════════════════════════════════════
+  COLOUR PALETTE
+  
+  Role                  Name / Hex        Usage
+  ──────────────────    ──────────────    ─────────────────────────────
+  Primary Accent        Forest  #123223   Brand identity, headings, borders
+  Secondary Accent      Moss    #6E8B5B   Subheadings, character tags
+  Highlight / Decor     Gold    #D4B06A   Ornaments, hover states, UI gold
+  Warm Accent           Rosy    #B88A8A   Shadow-side tags, warm accents
+  Primary Background    Parchment #F5F1E6 Light theme background
+  Dark Background       Ink     #1A1710   Hero section background
+  Text                  Charcoal #1A1A1A  Primary body text
 
-Text Color: Charcoal                                    #1A1A1A
-Logo Font: Goudy Stout                                  #123223
-Primary Font Sans-Serif:                #1A1A1A
-Secondary Font Sans-Serif: Berlin Sans FB               #1A1A1A
-Primary Font Serif: Goudy Stout                         #123223
-Secondary Font Serif: Matura MT Script Capitals         #1A1A1A
-*/
+  Typography (Google Fonts — imported in each HTML file)
+  Logo / Display:       Cinzel (serif)
+  Primary sans:         Ubuntu
+  Secondary sans:       Syne
+════════════════════════════════════════════════ */
 
 /* ===========================
-GLOBAL STYLES
-============================ */
+  GLOBAL STYLES
+=========================== */
 * {
   margin: 0;
   padding: 0;
@@ -32,26 +36,32 @@ html {
 
 :root {
   --header-height: 80px;
-  --primary-bg: #F5F1E6;
-  --secondary-surface: #D4B06A;
-  --primary-accent: #123223;
-  --secondary-accent: #6E8B5B;
-  --highlight-accent: #BBBA8A;
-  --text-color: #1A1A1A;
-  --logo-font: "Cinzel", serif;
-  --primary-font-sans-serif: "Ubuntu", sans-serif;
+
+  /* Colours */
+  --primary-bg:        #F5F1E6;   /* Parchment */
+  --secondary-surface: #D4B06A;   /* Sand / Gold header */
+  --primary-accent:    #123223;   /* Forest green */
+  --secondary-accent:  #6E8B5B;   /* Moss green */
+  --highlight-accent:  #D4B06A;   /* Antique gold */
+  --warm-accent:       #B88A8A;   /* Rosy brown — shadow-side, warm tags */
+  --dark-bg:           #1A1710;   /* Forest Ink — hero dark background */
+  --text-color:        #1A1A1A;   /* Charcoal */
+  --text-light:        #F0EAD6;   /* Light parchment — text on dark bg */
+
+  /* Fonts */
+  --logo-font:                "Cinzel", serif;
+  --primary-font-sans-serif:  "Ubuntu", sans-serif;
   --secondary-font-sans-serif: "Syne", sans-serif;
-  --primary-font-serif: "Cinzel", serif;
-  --secondary-font-serif: "Matura MT Script Capitals", serif;
+  --primary-font-serif:       "Cinzel", serif;
+  --secondary-font-serif:     "Matura MT Script Capitals", serif;
 }
 
 body {
   cursor: none;
   background-image: url("assets/parchment-texture.jpg");
-  background-color: #F5F1E6; /* Fallback color if image fails to load */
+  background-color: var(--primary-bg); /* Fallback if texture fails to load */
   background-size: cover;
   background-position: center;
-  background-attachment: fixed; /* texture stays still as you scroll */
   width: 100%;
   min-height: 100vh;
   display: flex;
@@ -60,7 +70,7 @@ body {
   color: var(--text-color);
 }
 
-/* -- Header -- */
+/* ── Header ── */
 header {
   height: var(--header-height);
   padding: 1rem;
@@ -73,11 +83,16 @@ header {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  z-index: 1000; /* Ensure it stays above other content */
+  z-index: 1000; /* Stay above all page content */
 }
-.btn-hamburger {
-  display: none;
+
+/* ── Page Header (used on inner pages: world, characters, etc.) ── */
+.page-header {
+  text-align: center;
+  padding: 2rem 0;
 }
+
+
 #logo {
   font-family: var(--logo-font);
   color: var(--primary-accent);
@@ -86,18 +101,55 @@ header {
 }
 #logo a {
   text-decoration: none;
-  }
-/* --  Nav -- */
+}
+
+/* ── Nav ── */
 nav {
   display: flex;
   flex-direction: column;
-  gap: 1rem;}
+  gap: 1rem;
+}
+.btn-hamburger {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  justify-content: space-between;
+  width: 28px;
+  height: 22px;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+.btn-hamburger .bar {
+  display: block;
+  height: 4px;
+  background: var(--primary-accent);
+  border-radius: 2px;
+  transition: all 0.3s ease-in-out;
+}
+.nav-menu {
+  display: none;
+  flex-direction: column;
+  gap: 1rem;
+  background: var(--secondary-surface);
+  position: absolute;
+  top: var(--header-height);
+  right: 1rem;
+  padding: 1rem;
+  list-style: none;
+}
+.nav-menu.open {
+  display: flex;
+  text-align: right;
+}
+
 /* ===========================
-MAIN
-============================ */
+  MAIN
+=========================== */
 
 main {
-  max-width: 480px; /* Max for Mobile Screen Size */
+  max-width: 480px; /* Max width for mobile-first layout */
   margin: 0 auto;
   padding: 2rem;
   flex: 1;
@@ -123,19 +175,32 @@ h3 {
 }
 
 p {
-  font-family: "Ubuntu", sans-serif;
+  font-family: var(--primary-font-sans-serif);
 }
 
-/* a {
+/* Shared section headings — used by world-intro, character-images */
+.section-title {
+  font-family: var(--primary-font-serif);
+  color: var(--primary-accent);
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
 
-} */
+/* Short intro paragraph under a section title */
+.section-intro {
+  text-align: center;
+  color: var(--text-color);
+  opacity: 0.8;
+  max-width: 400px;
+  margin: 0 auto 2rem;
+  line-height: 1.7;
+}
 
 /* ===========================
-COMPONENTS
-============================ */
+  COMPONENTS
+=========================== */
 
-/* ─── CUSTOM CURSOR ─── */
-
+/* ── Custom Cursor ── */
 #cursor-dot {
   position: fixed;
   width: 6px;
@@ -157,22 +222,25 @@ COMPONENTS
   pointer-events: none;
   z-index: 9999;
   transition:
-    width 0.3s cubic-bezier(0.19, 1, 0.22, 1),
+    width  0.3s cubic-bezier(0.19, 1, 0.22, 1),
     height 0.3s cubic-bezier(0.19, 1, 0.22, 1),
     border-color 0.3s,
     transform 0.12s cubic-bezier(0.19, 1, 0.22, 1);
 }
-/* Hover state — ring expands when over interactive elements */
+/* Ring expands when the cursor is over an interactive element */
 body.cursor-hover #cursor-ring {
-  width: 56px;
-  height: 56px;
+  width: 45px;
+  height: 45px;
   border-color: #c8a96e;
 }
 
-/* ─── Button ─── */
+/* ── Button — base style ──
+  Default: moss green background, forest green text.
+  Use on light/parchment backgrounds. */
 .btn {
   line-height: 50px;
   height: 50px;
+  padding: 0 1.5rem;
   text-align: center;
   cursor: none;
   transition: all 0.5s;
@@ -181,14 +249,16 @@ body.cursor-hover #cursor-ring {
   background-color: var(--secondary-accent);
   border-radius: 0.25rem;
   display: inline-block;
+  text-decoration: none;
+  border: none;
+  font-family: var(--primary-font-sans-serif);
+  font-size: 0.95rem;
 }
 .btn::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
   z-index: 1;
   transition: all 0.3s;
 }
@@ -199,10 +269,8 @@ body.cursor-hover #cursor-ring {
 .btn::after {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
   z-index: 1;
   opacity: 0;
   transition: all 0.3s;
@@ -215,16 +283,40 @@ body.cursor-hover #cursor-ring {
   transform: scale(1, 1);
 }
 
-/* ─── Vertical Line ─── */
-.vert-line {
-  width: 2px;
-  border-top: 5px solid rgb(0, 0, 0);
-  border-radius: 5px;
-  width: 50px;
-  transform: rotate(90deg);
+/* ── Button variant: light ──
+   Gold background — for use on the dark hero section. */
+.btn-light {
+  background-color: var(--highlight-accent);
+  color: var(--dark-bg);
+}
+.btn-light::after {
+  border-color: var(--text-light);
 }
 
-/* ─── Launch Date ─── */
+/* ── Button variant: outline ──
+   Transparent with a gold border — secondary on a dark hero. */
+.btn-outline {
+  background-color: transparent;
+  color: var(--highlight-accent);
+  border: 2px solid var(--highlight-accent);
+}
+.btn-outline::before,
+.btn-outline::after {
+  display: none; /* outline uses different color */
+}
+.btn-outline:hover {
+  background-color: rgba(212, 176, 106, 0.15);
+}
+
+/* ── Vertical Line (divider between descriptors) ── */
+.vert-line {
+  width: 50px;
+  border-top: 5px solid var(--text-color);
+  border-radius: 5px;
+  transform: rotate(90deg); /* renders as a vertical bar on mobile column layout and horizontal on tablet and above */
+}
+
+/* ── Launch Date ── */
 .launch-box {
   padding: 30px;
   max-width: 600px;
@@ -236,43 +328,179 @@ body.cursor-hover #cursor-ring {
   margin: 0;
   font-size: 1.2rem;
   font-weight: 600;
-  color: #123223;
+  color: var(--primary-accent);
 }
-/* ─── Countdown ─── */
 
+/* ── Countdown ── */
 .countdown {
   display: flex;
   gap: 1rem;
   text-align: center;
+  justify-content: center;
 }
-
 .countdown div {
-  background: #6E8B5B;
+  background: var(--secondary-accent);
   padding: 1rem 1.25rem;
   border-radius: 12px;
   min-width: 90px;
 }
-
 .countdown span {
   display: block;
-  font-size: 1rem;
+  font-size: 3rem;
   font-weight: bold;
 }
-
 .countdown small {
   opacity: 0.8;
 }
+
+/* ── Form feedback message ──
+  Updated by JS to show success or error text.
+  .form-msg-success and .form-msg-error add colour. */
+.form-msg {
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  min-height: 1.2em; /* prevent layout shift when message appears */
+}
+.form-msg-success {
+  color: var(--secondary-accent);
+}
+.form-msg-error {
+  color: #a63232; /* accessible red against parchment + dark backgrounds */
+}
+
 /* ============================
-INDEX / HOME PAGE
-============================= */
+  INDEX / HOME PAGE
+============================ */
+
+/* ── Hero Section ──
+    All text colours override to light values because the
+    background is dark-bg.
+
+  BACKGROUND IMAGE
+    url('assets/hero-forest.jpg');
+    background-size: cover;  background-position: center top;
+
+    AI-assisted: Used Claude to implement the staggered
+    @keyframes heroFadeIn entrance and the h1::after ornament line.
+═══════════════════════════════════════════════ */
 .hero {
+  /* Gradient placeholder */
+  background-color: var(--dark-bg);
+  /* background-image: url('assets/hero-forest.jpg'); */
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   gap: 1rem;
-  padding: 2rem 0;
+  padding: 5rem 2rem 4rem;
+  min-height: 60vh;
+  justify-content: center;
 }
+
+/* Title — light gold on dark background */
+.hero h1 {
+  font-size: 2.8rem;
+  letter-spacing: 0.04em;
+  color: var(--highlight-accent);
+  position: relative;
+  padding-bottom: 0.75rem;
+}
+
+/* "A GAME BY GAMDEVELOPS" */
+.hero-subtitle {
+  font-family: var(--secondary-font-sans-serif);
+  font-size: 0.8rem;
+  letter-spacing: 0.25em;
+  color: var(--secondary-accent);
+  text-transform: uppercase;
+}
+
+/* ── Launch Box — desktop two-column layout ──
+  .launch-inner is a flex row on desktop.
+   See the @media (min-width: 769px) block below. */
+.launch-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+.launch-date-side,
+.countdown-side {
+  text-align: center;
+}
+
+
+/* ── Hero group ──
+  Stacks button and form vertically on mobile.
+  Side by side on desktop. */
+.hero-ctas {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+  width: 100%;
+  max-width: 400px;
+}
+
+/* ── Hero email form ──
+   Input + submit button in a row. */
+.hero-email-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+.mailing-list-signup {
+  display: flex;
+  flex-direction: row;
+}
+.hero-email-form input[type="email"] {
+  flex: 1;
+  max-width: fit-content;
+  min-height: 2rem;
+  padding: 0 1rem;
+  border: 1px solid;
+  border-radius: 0.25rem;
+  background: var(--primary-bg);
+  color: var(--text-color);
+  font-family: var(--primary-font-sans-serif);
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.25s;
+}
+.hero-email-form input[type="email"]::placeholder {
+  color: var(--text-color);
+}
+.hero-email-form input[type="email"]:focus {
+  border-color: var(--highlight-accent);
+}
+
+/* ── AI assisted staggered CSS keyframe entrance for hero children ── */
+@keyframes heroFadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+.hero h1           { animation: heroFadeIn 0.9s ease 0s    forwards; }
+.hero .hero-subtitle {
+  opacity: 0; /* must start at 0 so the delay works correctly */
+  animation: heroFadeIn 0.9s ease 0.25s forwards;
+}
+.hero h3 {
+  opacity: 0;
+  animation: heroFadeIn 0.9s ease 0.45s forwards;
+}
+.hero .hero-ctas {
+  opacity: 0;
+  animation: heroFadeIn 0.9s ease 0.65s forwards;
+}
+
+
+/* ── Descriptors Row ──
+  Column on mobile, row on desktop. */
 .descriptors {
   display: flex;
   flex-direction: column;
@@ -280,6 +508,384 @@ INDEX / HOME PAGE
   gap: 2rem;
   padding: 1rem 0;
 }
+
+/* ── Story Teaser ── */
+.story-teaser {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.25rem;
+  padding: 2rem 0;
+}
+
+/* Hook text */
+.teaser-hook {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--primary-accent);
+  max-width: 420px;
+}
+
+/* Canvas placeholder — dashed border shows where art will be. */
+#member-container {
+  display: block;
+  border: 2px dashed var(--secondary-accent);
+  border-radius: 8px;
+  opacity: 0.5;
+}
+
+/* ── World Intro — Three Kingdom Cards ──
+  Mobile: stacked column.
+  Desktop: 3-column row.
+
+  Each .kingdom-card has a colour modifier class:
+  .kingdom-light, .kingdom-twilight, .kingdom-dark
+  that sets its accent colour scheme. */
+.world-intro {
+  padding: 2rem 0;
+}
+
+.kingdom-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-top: 1rem;
+}
+
+.kingdom-card {
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  background: var(--primary-bg);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.kingdom-card h3 {
+  font-family: var(--primary-font-serif);
+  color: var(--primary-accent);
+  font-size: 1.1rem;
+}
+
+.kingdom-card p {
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: var(--text-color);
+}
+
+/* "Explore →" link at the bottom of each card */
+.kingdom-link {
+  font-family: var(--secondary-font-sans-serif);
+  color: var(--text-light);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  margin-top: 0.25rem;
+  transition: opacity 0.2s;
+}
+.kingdom-link:hover {
+  text-decoration-style: wavy;
+}
+
+/* ── Team Member Images Strip ──
+  Portrait placeholders..
+  Replace .member-img-placeholder divs with real <img> tags. */
+.member-images {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 2rem 0;
+  text-align: center;
+}
+
+/* Row of portrait frames */
+.member-images-row {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Individual portrait frame */
+.member-img-item {
+  flex-shrink: 0;
+}
+
+/* Placeholder rectangle — replace with <img> when pictures are ready.
+  Sized to a portrait aspect ratio (2:3). */
+.member-img-placeholder {
+  width: 90px;
+  height: 100px;
+  background: var(--highlight-accent);
+  border-radius: 6px;
+  opacity: 0.5;
+  border: 1.5px dashed var(--secondary-accent);
+}
+
+/* Real team member images (when added) should match the placeholder size */
+.member-img-item img {
+  height: 100px;
+  object-fit: cover;
+  border-radius: 6px;
+  display: block;
+}
+
+/* ── Mailing List CTA ──
+  Bottom-of-page sign-up section.*/
+.mailing-cta {
+  text-align: center;
+  padding: 2.5rem 0;
+  border-top: 1px solid rgba(18, 50, 35, 0.15);
+  margin-top: 1rem;
+}
+
+.mailing-cta h2 {
+  font-family: var(--primary-font-serif);
+  color: var(--primary-accent);
+  margin-bottom: 0.5rem;
+}
+
+.mailing-cta p {
+  opacity: 0.8;
+  margin-bottom: 1.25rem;
+  line-height: 1.6;
+}
+
+/* Form row: input left, button right */
+.mailing-form {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  justify-content: center;
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+/* Email input styling shared by both forms (hero + mailing-cta) */
+.mailing-form input[type="email"] {
+  flex: 1;
+  padding: 0 1rem;
+  height: 50px;
+  border: 1.5px solid var(--secondary-accent);
+  border-radius: 0.25rem;
+  background: rgba(245, 241, 230, 0.8);
+  color: var(--text-color);
+  font-family: var(--primary-font-sans-serif);
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.25s;
+}
+.mailing-form input[type="email"]:focus {
+  border-color: var(--primary-accent);
+}
+
+/* ============================
+  HOME PAGE — DARK THEME OVERRIDES
+  All rules in this block currently affect only body.home.
+============================ */
+
+/* ── Body background ── */
+body.home {
+  background-color: var(--dark-bg);
+  /* Parchment texture is too light for dark theme. 
+    Swap for a dark forest/paper texture when available:
+    background-image: url('assets/dark-texture.jpg'); */
+  background-image: none;
+  color: var(--text-light);
+}
+
+/* ── Header ──
+  Changes from gold Sand to dark semi-transparent bar so
+  it blends with the dark hero and page below. */
+body.home header {
+  background: rgba(18, 23, 16, 0.97);
+  border-bottom: 1px solid rgba(212, 176, 106, 0.15);
+}
+
+/* Logo — gold on dark header */
+body.home #logo a {
+  color: var(--highlight-accent);
+}
+
+/* Hamburger bars — light so they show on dark */
+body.home .btn-hamburger .bar {
+  background: var(--text-light);
+}
+
+/* Mobile nav dropdown — dark background */
+body.home .nav-menu {
+  background: rgba(18, 23, 16, 0.98);
+  border: 1px solid rgba(212, 176, 106, 0.15);
+}
+
+/* Nav links — light text, gold on hover */
+body.home .nav-menu a {
+  color: var(--text-light);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+body.home .nav-menu a:hover {
+  color: var(--highlight-accent);
+}
+
+/* ── Headings ── */
+body.home main h2 {
+  color: var(--highlight-accent);
+  font-family: var(--primary-font-serif);
+}
+body.home main h3 {
+  color: var(--highlight-accent);
+  opacity: 0.9;
+}
+body.home .section-title {
+  color: var(--highlight-accent);
+}
+body.home .section-intro {
+  color: var(--text-light);
+  opacity: 0.75;
+}
+
+/* ── Launch Box ── */
+body.home .launch-box {
+  border-top: 1px solid rgba(212, 176, 106, 0.2);
+  border-bottom: 1px solid rgba(212, 176, 106, 0.2);
+}
+body.home #launch-date {
+  color: var(--highlight-accent);
+}
+/* "Launch Date" and "Days Until Launch" labels as small spaced uppercase text rather than large h2 */
+body.home .launch-date-side h2,
+body.home .countdown-side h2 {
+  color: var(--text-light);
+  font-size: 0.75rem;
+  font-family: var(--secondary-font-sans-serif);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 400;
+  opacity: 0.6;
+  margin-bottom: 0.4rem;
+}
+
+/* ── Countdown — large gold numbers with dot separators ──
+  AI-assisted: Used Claude to implement the dot-separated large countdown layout.
+  The .countdown-sep spans in index.html hold the dot characters. */
+body.home .countdown {
+  gap: 0;
+  align-items: flex-start;
+  background: none;
+  justify-content: center;
+}
+body.home .countdown div {
+  background: none;
+  padding: 0 0.5rem;
+  min-width: auto;
+  border-radius: 0;
+  flex-direction: column;
+  align-items: center;
+}
+/* Large gold number */
+body.home .countdown span {
+  font-size: 3rem;
+  font-family: var(--primary-font-serif);
+  color: var(--highlight-accent);
+  font-weight: 700;
+  line-height: 1;
+  display: block;
+}
+/* Small spaced label below each number */
+body.home .countdown small {
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  opacity: 0.5;
+  font-family: var(--secondary-font-sans-serif);
+  margin-top: 0.3rem;
+}
+/* Dot separator between countdown units */
+body.home .countdown-sep {
+  font-size: 2rem;
+  font-family: var(--primary-font-serif);
+  font-weight: 300;
+  color: var(--highlight-accent);
+  line-height: 1;
+  align-self: flex-start;
+  padding-top: 0.04em;
+  opacity: 0.65;
+  display: inline-block;
+}
+
+/* ── Descriptors ── */
+body.home .descriptors h2 {
+  color: var(--text-light);
+  font-family: var(--primary-font-serif);
+  font-weight: 400;
+  opacity: 0.85;
+}
+
+/* ── Story Teaser ── */
+body.home .teaser-hook {
+  color: var(--text-light);
+  opacity: 0.88;
+}
+body.home .story-teaser h2 {
+  color: var(--highlight-accent);
+}
+body.home .story-teaser p:not(.teaser-hook) {
+  color: var(--text-light);
+  opacity: 0.75;
+}
+/* Canvas border — lighter on dark */
+body.home #member-container {
+  border-color: rgba(212, 176, 106, 0.25);
+  opacity: 0.35;
+}
+
+/* ── Character Images ── */
+/* Portrait placeholder — subtle warm glow on dark */
+body.home .char-img-placeholder {
+  background: rgba(212, 176, 106, 0.1);
+  border-color: rgba(212, 176, 106, 0.25);
+  opacity: 1;
+}
+
+/* ── Mailing CTA ── */
+body.home .mailing-cta {
+  border-top-color: rgba(212, 176, 106, 0.2);
+}
+body.home .mailing-cta h2 {
+  color: var(--highlight-accent);
+}
+body.home .mailing-cta p {
+  color: var(--text-light);
+  opacity: 0.72;
+}
+/* Email input — dark field with gold border */
+body.home .mailing-form input[type="email"] {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(212, 176, 106, 0.3);
+  color: var(--text-light);
+}
+body.home .mailing-form input[type="email"]::placeholder {
+  color: rgba(240, 234, 214, 0.35);
+}
+body.home .mailing-form input[type="email"]:focus {
+  border-color: var(--highlight-accent);
+}
+
+/* ── Footer ── */
+body.home footer {
+  background: rgba(10, 15, 10, 0.6);
+  color: var(--text-light);
+  opacity: 0.7;
+  text-align: center;
+  padding: 1.5rem;
+  border-top: 1px solid rgba(212, 176, 106, 0.12);
+}
+
 /* ============================
 WORLD 
 ============================= */
@@ -345,3 +951,27 @@ RESPONSIVE DESIGN
     font-size: 1.6rem;
   }
 }
+
+@media (min-width: 769px) {
+  .btn-hamburger {
+    display: none;
+  }
+
+  .nav-menu {
+    display: flex !important;
+    flex-direction: row;
+    position: static;
+    top: auto;
+    right: auto;
+    width: auto;
+    background: transparent;
+    padding: 0;
+    gap: 1rem;
+  }
+
+  nav {
+    flex-direction: row;
+    gap: 1rem;
+  }
+}
+
