@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Play Preview — Eclisped Realms</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="playpreview.css"/>
+</head>
+<body>
+
+  
+  <div class="page-bg"></div>
+  <div class="stars"></div>
+ 
+  <nav class="nav">
+    <div class="nav-logo">The Shattered Crown</div>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="story.html">Story</a></li>
+      <li><a href="characters.html">Characters</a></li>
+      <li><a href="playpreview.html" class="active">Play Preview</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+ 
+  <main>
+ 
+    <!-- INTRO SCREEN -->
+    <section class="intro-screen" id="introScreen">
+      <div class="intro-inner">
+        <p class="intro-eyebrow">Interactive Story</p>
+        <h1 class="intro-title">The First Night in the Forest</h1>
+        <p class="intro-flavour">
+          Amara and Aria have both arrived in the Twilight Forest.<br/>
+          Both are running. Both are scared. Neither knows the other exists yet.<br/>
+          Tonight, they will find each other.<br/>
+          What happens next depends entirely on you.
+        </p>
+        <div class="intro-meta">
+          <span class="meta-pill">&#9679; Two Runaways</span>
+          <span class="meta-pill">&#9679; A First Meeting</span>
+          <span class="meta-pill">&#9679; 3 Paths Forward</span>
+        </div>
+        <button class="start-btn" id="startBtn">Step into the Forest &#8594;</button>
+        <p class="intro-disclaimer">A glimpse of The Shattered Crown's branching story.</p>
+      </div>
+    </section>
+ 
+    <!-- STORY SCREEN -->
+    <section class="story-screen hidden" id="storyScreen">
+ 
+      <div class="progress-wrap">
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <span class="progress-label" id="progressLabel">Prologue</span>
+      </div>
+ 
+      <div class="speaker-tag" id="speakerTag"></div>
+ 
+      <div class="story-card fade-in" id="storyCard">
+        <div class="story-scene" id="storyScene"></div>
+        <p class="story-text" id="storyText"></p>
+        <div class="choices" id="choices"></div>
+      </div>
+ 
+      <button class="restart-btn hidden" id="restartBtn" onclick="restartStory()">&#8635; Play again</button>
+ 
+    </section>
+ 
+  </main>
+ 
+  <script src="playpreview.js"></script>
+</body>
+</html
+</html>
