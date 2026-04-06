@@ -250,33 +250,36 @@ characters.forEach((ch, i) => {
       <button class="learn-more-btn" onclick="openModal(${i})">Read full story &#8599;</button>
     </div>
   `;
-  sliderTrack.appendChild(card);
+  sliderTrack?.appendChild(card);
 
   const dot = document.createElement('div');
   dot.className = 'dot' + (i === 0 ? ' active' : '');
   dot.addEventListener('click', () => goToSlide(i));
-  sliderDots.appendChild(dot);
+  sliderDots?.appendChild(dot);
 });
 
 function goToSlide(n) {
   currentSlide = n;
+  if (!sliderTrack) return;
   sliderTrack.style.transform = `translateX(-${n * 100}%)`;
   document.querySelectorAll('.dot').forEach((d, i) => {
     d.classList.toggle('active', i === n);
   });
 }
 
-document.getElementById('prevBtn').addEventListener('click', () => {
+document.getElementById('prevBtn')?.addEventListener('click', () => {
   goToSlide((currentSlide - 1 + characters.length) % characters.length);
 });
-document.getElementById('nextBtn').addEventListener('click', () => {
+document.getElementById('nextBtn')?.addEventListener('click', () => {
   goToSlide((currentSlide + 1) % characters.length);
 });
 
 // auto-advance
-setInterval(() => {
-  goToSlide((currentSlide + 1) % characters.length);
-}, 6000);
+if (sliderTrack) {
+  setInterval(() => {
+    goToSlide((currentSlide + 1) % characters.length);
+  }, 6000);
+}
 
 // BUILD GRID
 const charGrid = document.getElementById('charGrid');
@@ -355,11 +358,9 @@ function closeModal() {
   document.body.style.overflow = '';
 }
 
-document.getElementById('modalClose').addEventListener('click', closeModal);
-overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+document.getElementById('modalClose')?.addEventListener('click', closeModal);
+overlay?.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-// NAV HAMBURGER
-document.getElementById('hamburger').addEventListener('click', () => {
-  document.getElementById('nav-links').classList.toggle('open');
-});
+// Auto-centering removed: slider stays where the user scrolls it.
+

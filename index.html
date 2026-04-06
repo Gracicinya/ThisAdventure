@@ -6,6 +6,7 @@
   <meta name="description" content="The Shattered Crown - a fantasy RPG coming soon. Follow the journey before launch.">
   <title>The Shattered Crown</title>
   <link rel="stylesheet" href="shared.css">
+  <link rel="stylesheet" href="characters.css">
 </head>
 <body class="home">
   <div id="cursor">
@@ -43,6 +44,7 @@
   </section>
 
   <main>
+    <div class="crown-divider fade-in" aria-hidden="true">&#10022; &#10022; &#10022;</div>
     <section class="launch-box">
       <div class="launch-inner">
         <div class="launch-date-side">
@@ -84,23 +86,10 @@
       <p class="form-msg" id="hero-form-msg" aria-live="polite"></p>
     </div>
 
-    <section class="descriptors">
-      <h2 class="section-title">You can expect this game to be...</h2>
-      <h2>Fun</h2>
-      <div class="vert-line" aria-hidden="true"></div>
-      <h2>Whimsical</h2>
-      <div class="vert-line" aria-hidden="true"></div>
-      <h2>Magical</h2>
-      <div class="vert-line" aria-hidden="true"></div>
-      <h2>Adventure Filled</h2>
-    </section>
-
     <article class="story-teaser">
       <p class="teaser-hook">
         The Celestial Crown once held light and darkness in perfect balance until it shattered. Now two girls, born on opposite sides of a broken world, carry the power to restore what was lost... or destroy what remains.
       </p>
-
-      <canvas id="member-container" width="200" height="200" aria-label="Game illustration - coming soon"></canvas>
 
       <h2>The Shattered Crown</h2>
       <p>
@@ -171,6 +160,29 @@
       </form>
       <p class="form-msg" id="mailing-form-msg" aria-live="polite"></p>
     </section>
+    
+    <!-- Characters slider moved here from above -->
+    <section class="slider-section page-section fade-in" aria-label="Featured character">
+      <div class="slider-viewport">
+        <div class="slider-track" id="sliderTrack"></div>
+      </div>
+      <div class="slider-controls">
+        <button class="slider-btn" id="prevBtn" aria-label="Previous">&#8592;</button>
+        <div class="slider-dots" id="sliderDots"></div>
+        <button class="slider-btn" id="nextBtn" aria-label="Next">&#8594;</button>
+      </div>
+    </section>
+
+    <section class="descriptors">
+      <h2 class="section-title">You can expect this game to be...</h2>
+      <h2>Fun</h2>
+      <div class="vert-line" aria-hidden="true"></div>
+      <h2>Whimsical</h2>
+      <div class="vert-line" aria-hidden="true"></div>
+      <h2>Magical</h2>
+      <div class="vert-line" aria-hidden="true"></div>
+      <h2>Adventure Filled</h2>
+    </section>
   </main>
 
   <footer class="site-footer">
@@ -230,5 +242,13 @@
   <button id="backToTop" aria-label="Back to top">&#8593;</button>
 
   <script src="shared.js"></script>
+  <script src="characters.js"></script>
+  <script>
+    // On the home page, clicking a character should go to the Characters page.
+    // Override the modal opener defined in characters.js to navigate instead.
+    window.openModal = function(index) {
+      window.location.href = 'characters.html';
+    };
+  </script>
 </body>
 </html>

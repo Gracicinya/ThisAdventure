@@ -502,6 +502,101 @@ function initContactApp() {
   }).mount('#contact-form-app');
 }
 
+function initHomeCharacterSlider() {
+  const track = document.getElementById('homeCharacterTrack');
+  const dots = document.getElementById('homeCharacterDots');
+  if (!track || !dots) return;
+
+  const homeCharacters = [
+    {
+      name: 'Amara',
+      role: 'Protagonist',
+      title: 'The Light-Born Shadow',
+      image: 'https://image2url.com/r2/default/images/1775492175130-be5936a7-410a-4b24-880c-a2718871e9b0.jpg',
+      description: 'A girl from the light kingdom carrying the magic she was taught to fear.',
+    },
+    {
+      name: 'Aria',
+      role: 'Protagonist',
+      title: 'The Dark-Born Flame',
+      image: 'https://image2url.com/r2/default/images/1775492223024-17ddc84e-6f01-4776-92ae-a8a6d5dd3337.jpg',
+      description: 'A runaway from Umbrath whose forbidden light could change the balance of the world.',
+    },
+    {
+      name: 'Finn',
+      role: 'Ally',
+      title: "The Forest-Keeper's Son",
+      image: 'https://image2url.com/r2/default/images/1775241763837-c6ea364f-69fc-4aad-aca4-8fa9bc12abf3.jpg',
+      description: 'A sharp-eyed guide who knows the Twilight Forest better than anyone else alive.',
+    },
+    {
+      name: 'Sable',
+      role: 'Guardian',
+      title: 'Keeper of the Broken Pieces',
+      image: 'https://image2url.com/r2/default/images/1775492291829-a44e6246-1d5b-439e-80c8-5f56a03348f6.jpg',
+      description: 'An ancient watcher guarding secrets tied to the shattered crown itself.',
+    },
+  ];
+
+  track.innerHTML = homeCharacters
+    .map(
+      (character, i) => `
+        <a class="home-character-card${i === 0 ? ' active' : ''}" href="characters.html" aria-label="Open the character page to learn more about ${character.name}">
+          <div class="home-character-portrait">
+            <img src="${character.image}" alt="Portrait of ${character.name}" loading="lazy">
+          </div>
+          <div class="home-character-info">
+            <span class="home-character-role">${character.role}</span>
+            <h3>${character.name}</h3>
+            <p class="home-character-title">${character.title}</p>
+            <p class="home-character-desc">${character.description}</p>
+            <span class="home-character-link">Open Characters Page <span aria-hidden="true">&rarr;</span></span>
+          </div>
+        </a>
+      `
+    )
+    .join('');
+
+  dots.innerHTML = homeCharacters
+    .map((_, index) => `<button class="home-character-dot${index === 0 ? ' active' : ''}" type="button" aria-label="Show character ${index + 1}"></button>`)
+    .join('');
+
+  const cardElements = [...track.querySelectorAll('.home-character-card')];
+  const dotButtons = [...dots.querySelectorAll('.home-character-dot')];
+  let activeIndex = 0;
+  let autoAdvance;
+
+  const render = (index) => {
+    activeIndex = index;
+    cardElements.forEach((card, i) => {
+      card.classList.toggle('active', i === index);
+      card.style.zIndex = i === index ? 3 : 1;
+    });
+    dotButtons.forEach((dot, dotIndex) => dot.classList.toggle('active', dotIndex === index));
+  };
+
+  const restartAutoAdvance = () => {
+    window.clearInterval(autoAdvance);
+    autoAdvance = window.setInterval(() => {
+      render((activeIndex + 1) % cardElements.length);
+    }, 4200);
+  };
+
+  dotButtons.forEach((dot, index) => {
+    dot.addEventListener('click', () => {
+      render(index);
+      restartAutoAdvance();
+    });
+  });
+
+  track.addEventListener('mouseenter', () => window.clearInterval(autoAdvance));
+  track.addEventListener('mouseleave', restartAutoAdvance);
+
+  // initial
+  render(0);
+  restartAutoAdvance();
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   initThemeToggle();
   initHamburgerMenu();
@@ -518,4 +613,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initLoreExpand();
   initStoryReveal();
   initContactApp();
+  initHomeCharacterSlider();
 });

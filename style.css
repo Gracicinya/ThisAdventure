@@ -724,3 +724,7 @@ RESPONSIVE DESIGN
     }
 
 }
+.story-screen.fade-in {
+  opacity: 1;
+  transform: none;
+}

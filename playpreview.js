@@ -383,7 +383,7 @@ const ENDING_DATA = {
 
 const { createApp } = Vue;
 
-createApp({
+const app = createApp({
 
   data() {
     return {
@@ -455,7 +455,6 @@ createApp({
       this.lastResult = choice.resultText || '';
       if (choice.logText) this.choiceLog.push(choice.logText);
       this.sceneId = choice.next;
-      window.scrollTo({ top: 0, behavior: 'smooth' });
     },
 
     restart() {
@@ -466,4 +465,19 @@ createApp({
     },
   },
 
-}).mount('#app');
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  let vm = null;
+  try {
+    vm = app.mount('#app');
+  } catch (e) {
+    console.error('Vue mount failed:', e);
+  }
+
+  if (!vm) {
+    // ... rest of your fallback code
+  }
+});
+
+
