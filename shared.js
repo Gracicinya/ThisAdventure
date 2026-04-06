@@ -92,66 +92,155 @@ function initCustomCursor() {
   const dot = document.getElementById('cursor-dot');
   const ring = document.getElementById('cursor-ring');
 
-  if (!dot || !ring || window.matchMedia('(pointer: coarse)').matches) {
-    return;
-  }
+  if (!dot || !ring) return;
+
+  const isCoarse = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
 
   document.body.classList.add('has-custom-cursor');
 
-  let mouseX = window.innerWidth / 2;
-  let mouseY = window.innerHeight / 2;
-  let ringX = mouseX;
-  let ringY = mouseY;
-  let visible = false;
+  if (!isCoarse) {
+    // Desktop / fine pointer behaviour (existing)
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    let ringX = mouseX;
+    let ringY = mouseY;
+    let visible = false;
 
-  const showCursor = () => {
-    if (visible) return;
-    visible = true;
-    dot.style.opacity = '1';
-    ring.style.opacity = '1';
-  };
+    const showCursor = () => {
+      if (visible) return;
+      visible = true;
+      dot.style.opacity = '1';
+      ring.style.opacity = '1';
+    };
 
-  document.addEventListener('mousemove', (event) => {
-    mouseX = event.clientX;
-    mouseY = event.clientY;
-    showCursor();
-  });
+    document.addEventListener('mousemove', (event) => {
+      mouseX = event.clientX;
+      mouseY = event.clientY;
+      showCursor();
+    });
 
-  document.addEventListener('mouseleave', () => {
-    dot.style.opacity = '0';
-    ring.style.opacity = '0';
-    visible = false;
-  });
+    document.addEventListener('mouseleave', () => {
+      dot.style.opacity = '0';
+      ring.style.opacity = '0';
+      visible = false;
+    });
 
-  document.addEventListener('mousedown', () => {
-    document.body.classList.add('cursor-active');
-  });
+    document.addEventListener('mousedown', () => {
+      document.body.classList.add('cursor-active');
+    });
 
-  document.addEventListener('mouseup', () => {
-    document.body.classList.remove('cursor-active');
-  });
+    document.addEventListener('mouseup', () => {
+      document.body.classList.remove('cursor-active');
+    });
 
-  document.addEventListener('dragend', () => {
-    document.body.classList.remove('cursor-active');
-  });
+    document.addEventListener('dragend', () => {
+      document.body.classList.remove('cursor-active');
+    });
+
+    const hoverTargets =
+      'a, button, input, textarea, label, select, .faq-question, .lore-header, .btn';
+
+    document.querySelectorAll(hoverTargets).forEach((element) => {
+      element.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+      element.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+    });
+
+    function animate() {
+      dot.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%)`;
+      ringX += (mouseX - ringX) * 0.12;
+      ringY += (mouseY - ringY) * 0.12;
+      ring.style.transform = `translate(${ringX}px, ${ringY}px) translate(-50%, -50%)`;
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+    return;
+  }
+
+  // Touch / coarse pointer behaviour: show a simplified cursor at touch point,
+  // emulate hover/active classes and let native click behavior occur.
+  let touchX = window.innerWidth / 2;
+  let touchY = window.innerHeight / 2;
+  let visibleTouch = false;
+  let hideTimeout = null;
 
   const hoverTargets =
     'a, button, input, textarea, label, select, .faq-question, .lore-header, .btn';
 
-  document.querySelectorAll(hoverTargets).forEach((element) => {
-    element.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
-    element.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
-  });
-
-  function animate() {
-    dot.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%)`;
-    ringX += (mouseX - ringX) * 0.12;
-    ringY += (mouseY - ringY) * 0.12;
-    ring.style.transform = `translate(${ringX}px, ${ringY}px) translate(-50%, -50%)`;
-    requestAnimationFrame(animate);
+  function showTouchCursor(x, y) {
+    touchX = x; touchY = y;
+    dot.style.opacity = '1';
+    ring.style.opacity = '1';
+    dot.style.transform = `translate(${touchX}px, ${touchY}px) translate(-50%, -50%)`;
+    ring.style.transform = `translate(${touchX}px, ${touchY}px) translate(-50%, -50%)`;
+    visibleTouch = true;
+    if (hideTimeout) clearTimeout(hideTimeout);
   }
 
-  animate();
+  function hideTouchCursorSoon() {
+    if (hideTimeout) clearTimeout(hideTimeout);
+    hideTimeout = setTimeout(() => {
+      dot.style.opacity = '0';
+      ring.style.opacity = '0';
+      visibleTouch = false;
+    }, 900);
+  }
+
+  function updateHoverState(x, y) {
+    const el = document.elementFromPoint(x, y);
+    if (!el) return;
+    if (el.matches && el.matches(hoverTargets)) {
+      document.body.classList.add('cursor-hover');
+    } else {
+      document.body.classList.remove('cursor-hover');
+    }
+  }
+
+  document.addEventListener('touchstart', (e) => {
+    const t = e.touches[0];
+    if (!t) return;
+    showTouchCursor(t.clientX, t.clientY);
+    updateHoverState(t.clientX, t.clientY);
+    document.body.classList.add('cursor-active');
+  }, { passive: true });
+
+  document.addEventListener('touchmove', (e) => {
+    const t = e.touches[0];
+    if (!t) return;
+    showTouchCursor(t.clientX, t.clientY);
+    updateHoverState(t.clientX, t.clientY);
+  }, { passive: true });
+
+  document.addEventListener('touchend', (e) => {
+    // remove active state and allow native click to proceed; keep cursor visible briefly
+    document.body.classList.remove('cursor-active');
+    document.body.classList.remove('cursor-hover');
+    hideTouchCursorSoon();
+  }, { passive: true });
+
+  // also accept pointer events if available
+  document.addEventListener('pointerdown', (e) => {
+    if (e.pointerType === 'touch') {
+      showTouchCursor(e.clientX, e.clientY);
+      updateHoverState(e.clientX, e.clientY);
+      document.body.classList.add('cursor-active');
+    }
+  }, { passive: true });
+
+  document.addEventListener('pointermove', (e) => {
+    if (e.pointerType === 'touch') {
+      showTouchCursor(e.clientX, e.clientY);
+      updateHoverState(e.clientX, e.clientY);
+    }
+  }, { passive: true });
+
+  document.addEventListener('pointerup', (e) => {
+    if (e.pointerType === 'touch') {
+      document.body.classList.remove('cursor-active');
+      document.body.classList.remove('cursor-hover');
+      hideTouchCursorSoon();
+    }
+  }, { passive: true });
 }
 
 function initBackToTop() {
