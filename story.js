@@ -1,6 +1,7 @@
 /* ============================================
    STORY PAGE JAVASCRIPT
    Person 2: Created expand/collapse lore sections
+      Handles: lore accordion expand/collapse, scroll-reveal animation.
    ============================================ */
 
 // ============================================
