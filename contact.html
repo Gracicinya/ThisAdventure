@@ -40,27 +40,217 @@
         </nav>
     </header>
 
-    <main>
-        <!-- Page Header -->
-        <div class="page-header">
-            <h1>Stay Connected</h1>
-            <h2>Contact & Updates</h2>
-            <p>Sign up to receive news, dev updates, and early access information.</p>
-        </div>
+      <!-- -----MAIN CONTENT----- -->
+      <main>
+        
+        <!-- Countdown main.js  -->
+        <section class="countdown-section">
 
-        <section class="contact-info">
-            <h2>Contact Us</h2>
-            <p>We'd love to hear from you! Whether you have questions, feedback, or just want to say hi, feel free to reach out.</p>
-            <ul>
-                <li>Email: <a href="mailto: hbhdbh@gmail.com">hbhdbh@gmail.com</a></li>
-                <li>Phone: <a href="tel:123-456-7890">123-456-7890</a></li>
-            </ul>
+          <span class="section-label">Days Until Release</span>
+    
+
+          <div class="countdown-display" role="timer">
+            <div class="countdown-unit">
+              <span class="countdown-num" id="days">---</span>
+              <span class="countdown-lbl">Days</span>
+            </div>
+            <span class="countdown-sep" aria-hidden="true">·</span>
+            <div class="countdown-unit">
+              <span class="countdown-num" id="hours" aria-label="hours">--</span>
+              <span class="countdown-lbl">Hours</span>
+            </div>
+            <span class="countdown-sep" aria-hidden="true">·</span>
+            <div class="countdown-unit">
+              <span class="countdown-num" id="minutes">--</span>
+              <span class="countdown-lbl">Minutes</span>
+            </div>
+          </div>
+
+          <p class="countdown-release">Release · Winter 2026</p>
+
         </section>
-    </main>
 
-    <footer>
-        <p>© 2026 The Shattered Crown. All rights reserved.</p>
-    </footer>
-    <script src="script.js"></script>
+        <!--Newsletter Signup-->
+        <section class="newsletter-section">
+          <div class="newsletter-container">
+
+            <h2 class="title-heading">Want More Updates?</h2>
+            <p class="newsletter-sub">Sign Up for More!</p>
+
+            <div id="newsletter-wrap">
+              <form class="newsletter-form"  role="form" aria-label="Newsletter signup">
+                <label for="nl-email">Your email address</label>
+                <input type="email" id="nl-email" placeholder="your.name@email.com">
+                <button class="btn btn-primary" id="nl-submit" type="button">Join the Journey</button>
+              </form>
+              <p class="newsletter-error" id="nl-error" role="alert"></p>
+            </div>
+
+            <!-- Success message hidden by default, shown after successful submission -->
+            <div id="newsletter-success" class="newsletter-success" hidden role="status">
+              <p>You are on the list. The forest will remember.</p>
+            </div>
+
+            <div class="info-cards-grid">
+              <div class="info-card">
+                <h3>For Press &amp; Creators</h3>
+                <p>Press kit, key art, screenshots, and narrative brief available on request. Response time: 2–3 working days.</p>
+              </div>
+              <div class="info-card">
+                <h3>Mailing List</h3>
+                <p>Subscribers receive in-world lore letters, concept art previews, playtest invitations, and earliest access to the demo.</p>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- Contact Form -->
+        <!-- Vue.js used,
+              Handles: form validation and success state-->  
+        <section class="contact-form-section" id="contact-form-app">
+
+          <!--Success State (shown after submission)-->
+          <div 
+            v-if="submitted" 
+            class = "form-success"
+            role="status"
+            aria-live="polite"
+            aria-atomic="true"
+          >
+            <h3>Message Sent! </h3>
+            <p>Form submitted successfully!</p>
+            <button class="btn btn-ghost" @click="resetForm">Send Another</button>
+          </div>
+
+          <!--Contact Form (shown before submission)-->
+          <div v-else class="contact-form-wrap">
+            
+            <h2>Send a Note</h2>
+            
+            <form @submit.prevent="submitForm" novalidate>
+              
+              <!-- Name -->
+              <div class="form-group">
+                <label for="Name">Your Name</label>
+                <input 
+                  type="text" 
+                  id="Name" 
+                  v-model="form.name"
+                  :class="{invalid: errors.name}"
+                  @blur="validateName"
+                  placeholder="e.g. Monique Powell"
+                />
+
+                <!-- Error message reserved space prevents layout shift AI assisted-->
+                <span class="error-message" role="alert" aria-live="polite">{{ errors.name }}</span>
+                            
+              </div>
+
+              <!-- Email -->
+              <div class="form-group">
+                <label for="formEmail">Your Email</label>
+                <input 
+                  type="email" 
+                  id="formEmail" 
+                  v-model="form.email"
+                  :class="{invalid: errors.email}"
+                  @blur="validateEmail"
+                  placeholder="youremail@email.com"
+                />
+
+                <!-- Error message reserved space prevents layout shift AI assisted-->
+                <span class="error-message" role="alert" aria-live="polite">{{ errors.email }}</span>
+
+              </div>
+
+              <!-- Subject -->
+              <div class="form-group">
+                <label for="formSubject">Subject</label>
+                <input 
+                  type="text" 
+                  id="formSubject" 
+                  v-model="form.subject"
+                  :class="{invalid: errors.subject}"
+                  @blur="validateSubject"
+                  placeholder="What is on your mind?"
+                />
+
+                <!-- Error message reserved space prevents layout shift AI assisted-->
+                <span class="error-message" role="alert" aria-live="polite">{{ errors.subject }}</span>
+
+              </div>
+
+              <!-- Message -->
+              <div class="form-group">
+                <label for="formMessage">Message</label>
+                <textarea 
+                  id="formMessage" 
+                  v-model="form.message"
+                  :class="{invalid: errors.message}"
+                  @blur="validateMessage"
+                  rows = "5"
+                  placeholder="Tell us everything..."
+                ></textarea>
+
+                <!-- Error message reserved space prevents layout shift AI assisted-->
+                <span class="error-message" role="alert" aria-live="polite">{{ errors.message }}</span>
+
+              </div>
+
+              <!-- Newsletter -->
+              <div class="contact-newsletter">
+                <label>
+                  <input type="checkbox" v-model="form.subscribe" />
+                  <span>I want game updates!</span>
+                </label>
+              </div>
+
+              <!-- Submit Button — disabled while submitting to prevent double-sends-->
+              <div class="form-actions">
+                <button 
+                  type="submit" 
+                  class="btn btn-primary" 
+                  :disabled="submitting"
+                  :aria-busy="submitting"
+                  >
+                  {{ submitting ? 'Sending...' : 'Send Message' }}
+                </button>
+              </div>
+
+            </form>
+
+            <!-- Contact Info -->
+              <div class="contact-info">
+                <p>Or reach out directly:</p>
+                
+                <ul>
+                  <li>Email: <a href="mailto:hello@shatteredcrown.dev">hello@shatteredcrown.dev</a></li>
+                  <li>Press: <a href="mailto:press@shatteredcrown.dev">press@shatteredcrown.dev</a></li>
+                </ul>
+
+                <p class="contact-info-note">
+                  Response time: 2-3 working days. Press kit available on request.
+                </p>
+              </div>
+
+          </div>
+        </section>
+
+    <section class="contact-info">
+      <h2>Contact Us</h2>
+      <p>We would love to hear from you. Reach out with questions, feedback, or ideas as the project keeps growing.</p>
+      <ul class="page-list">
+        <li>Email: <a href="mailto:hbhdbh@gmail.com">hbhdbh@gmail.com</a></li>
+        <li>Phone: <a href="tel:123-456-7890">123-456-7890</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Eclipsed Realms. All rights reserved.</p>
+  </footer>
+
+  <script src="shared.js"></script>
 </body>
 </html>
