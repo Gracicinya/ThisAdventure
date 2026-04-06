@@ -16,7 +16,7 @@ function initThemeToggle() {
   const savedTheme =
     localStorage.getItem(THEME_KEY) ||
     document.documentElement.getAttribute('data-theme') ||
-    'light';
+    'dark';
   applyTheme(savedTheme);
 
   const themeToggle = document.getElementById('themeToggle');
@@ -121,6 +121,18 @@ function initCustomCursor() {
     dot.style.opacity = '0';
     ring.style.opacity = '0';
     visible = false;
+  });
+
+  document.addEventListener('mousedown', () => {
+    document.body.classList.add('cursor-active');
+  });
+
+  document.addEventListener('mouseup', () => {
+    document.body.classList.remove('cursor-active');
+  });
+
+  document.addEventListener('dragend', () => {
+    document.body.classList.remove('cursor-active');
   });
 
   const hoverTargets =
@@ -263,14 +275,12 @@ function initHomeCountdown() {
 
   if (!launchDateEl || !daysEl || !hoursEl || !minutesEl || !secondsEl) return;
 
-  const launchDate = new Date('2029-06-15T09:00:00').getTime();
+  const launchDate = new Date('2026-12-01T00:00:00Z').getTime();
 
   launchDateEl.textContent = new Date(launchDate).toLocaleDateString(undefined, {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
   });
 
   function updateCountdown() {
