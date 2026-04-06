@@ -4,16 +4,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The World of Eclipsed Realms | Story &amp; Lore</title>
-  <link rel="stylesheet" href="src/style.css">
-  <link rel="stylesheet" href="story.css">
+  <link rel="stylesheet" href="shared.css">
 </head>
 
 <body>
+  <div id="cursor">
+    <div id="cursor-dot"></div>
+    <div id="cursor-ring"></div>
+  </div>
 
   <!-- -----NAVIGATION----- -->
   <nav id="navbar">
     <!-- Logo -->
-    <a class="nav-logo" href="index.html">The Shattered Crown</a>
+    <a class="nav-logo" href="index.html">
+      <span class="nav-logo-mark" aria-hidden="true">&#9819;</span>
+      <span>The Shattered Crown</span>
+    </a>
         
     <div class="nav-links" id="navLinks">
       <!-- Nav Links -->
@@ -166,27 +172,27 @@
               <p>After the crown shattered, the world split into five distinct kingdoms: two bathed in eternal light, two shrouded in perpetual darkness, and one untouched.</p>
               
               <div class="kingdom">
-                <h4 class="text-green">☀ Solara - The Dawn Kingdom</h4>
+                <h4 class="text-green"><span class="kingdom-symbol" aria-hidden="true">☀</span>Solara - The Dawn Kingdom</h4>
                 <p>Ruled by warrior-priests who worship the sun. <strong>Amara was born here.</strong></p>
               </div>
 
               <div class="kingdom">
-                <h4 class="text-gold">☆ Aethermoor - The Starlit Realm</h4>
+                <h4 class="text-gold"><span class="kingdom-symbol" aria-hidden="true">☆</span>Aethermoor - The Starlit Realm</h4>
                 <p>A kingdom of scholars and celestial mages who study the fragments obsessively.</p>
               </div>
 
               <div class="kingdom">
-                <h4 class="text-moss">✦ The Verdant Expanse</h4>
+                <h4 class="text-moss"><span class="kingdom-symbol" aria-hidden="true">✦</span>The Verdant Expanse</h4>
                 <p>The ancient forest that once connected all kingdoms now exists in perpetual twilight.</p>
               </div>
 
               <div class="kingdom">
-                <h4 class="text-muted">☽ Umbral Deep - The Midnight Dominion</h4>
+                <h4 class="text-muted"><span class="kingdom-symbol" aria-hidden="true">☽</span>Umbral Deep - The Midnight Dominion</h4>
                 <p>A kingdom where darkness is absolute. <strong>Aria was raised here.</strong></p>
               </div>
 
               <div class="kingdom">
-                <h4 class="text-dusk">✧ Duskmere - The Twilight Shores</h4>
+                <h4 class="text-dusk"><span class="kingdom-symbol" aria-hidden="true">✧</span>Duskmere - The Twilight Shores</h4>
                 <p>Once a coastal empire, now submerged in eternal dusk and haunted by the dead.</p>
               </div>
 
@@ -355,8 +361,7 @@
       <button id="backToTop" aria-label="Back to top">↑</button>
 
       <!-- JavaScript -->
-      <script src="story.js"></script>
-      <script src="main.js"></script>
+      <script src="shared.js"></script>
 
 </body>
 </html>
