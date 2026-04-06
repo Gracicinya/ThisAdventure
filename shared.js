@@ -582,6 +582,36 @@ function initHomeCharacterSlider() {
     }, 4200);
   };
 
+  // Touch / swipe support for home character track
+  let touchStartX = 0;
+  let touchCurrentX = 0;
+  let isTouching = false;
+  const SWIPE_THRESHOLD = 40;
+
+  track.addEventListener('touchstart', (e) => {
+    if (!e.touches || e.touches.length === 0) return;
+    isTouching = true;
+    touchStartX = e.touches[0].clientX;
+    touchCurrentX = touchStartX;
+    window.clearInterval(autoAdvance);
+  }, { passive: true });
+
+  track.addEventListener('touchmove', (e) => {
+    if (!isTouching || !e.touches || e.touches.length === 0) return;
+    touchCurrentX = e.touches[0].clientX;
+  }, { passive: true });
+
+  track.addEventListener('touchend', () => {
+    if (!isTouching) return;
+    const dx = touchCurrentX - touchStartX;
+    if (Math.abs(dx) > SWIPE_THRESHOLD) {
+      if (dx < 0) render((activeIndex + 1) % cardElements.length);
+      else render((activeIndex - 1 + cardElements.length) % cardElements.length);
+    }
+    isTouching = false;
+    restartAutoAdvance();
+  }, { passive: true });
+
   dotButtons.forEach((dot, index) => {
     dot.addEventListener('click', () => {
       render(index);
@@ -595,6 +625,43 @@ function initHomeCharacterSlider() {
   // initial
   render(0);
   restartAutoAdvance();
+}
+
+function initHeroDeco() {
+  const deco1 = document.querySelector('.deco-1');
+  const deco2 = document.querySelector('.deco-2');
+  if (!deco1 && !deco2) return;
+
+  const maxOffset = 40; // px
+
+  function handleMove() {
+    const ratio = window.scrollY / Math.max(1, document.body.scrollHeight - window.innerHeight);
+    const y = Math.round((ratio - 0.5) * -maxOffset);
+    if (deco1) deco1.style.transform = `translateY(${y}px) rotate(-10deg)`;
+    if (deco2) deco2.style.transform = `translateY(${y * 0.6}px) rotate(-8deg)`;
+  }
+
+  // respond to touchmove as well as scroll so touch devices see the same effect
+  window.addEventListener('scroll', handleMove, { passive: true });
+  window.addEventListener('touchmove', handleMove, { passive: true });
+
+  // small tap/click pulse
+  function pulse(el) {
+    if (!el) return;
+    el.style.transition = 'transform 220ms ease, opacity 220ms ease';
+    el.style.transform += ' scale(1.03)';
+    el.style.opacity = '1';
+    setTimeout(() => {
+      el.style.transform = '';
+      el.style.opacity = '';
+    }, 260);
+  }
+
+  document.addEventListener('click', (e) => {
+    // if user taps/clicks near top area, pulse decos
+    pulse(deco1);
+    pulse(deco2);
+  }, { passive: true });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -614,4 +681,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initStoryReveal();
   initContactApp();
   initHomeCharacterSlider();
+  initHeroDeco();
 });

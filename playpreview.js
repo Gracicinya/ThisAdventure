@@ -449,7 +449,10 @@ const app = createApp({
       1. Saves resultText shown at the top of the next scene
       2. Appends logText to choiceLog for breadcrumb trail and ending personalisation
       3. Sets sceneId: Vue reactivity re-renders everything automatically
-      4. Scrolls back to top
+        // On touch devices, keep the UX familiar: scroll back to top after choosing
+        if (window.matchMedia && window.matchMedia('(pointer: coarse)').matches) {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
     */
     choose(choice) {
       this.lastResult = choice.resultText || '';

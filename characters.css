@@ -703,3 +703,39 @@ body.characters .page-header {
     padding: 0.95rem 1rem;
   }
 }
+
+/* For touch devices with larger screens (tablets/laptops with touch), show
+   a full character image and layout text to the side so the portrait is
+   clearly visible. This targets coarse pointers on reasonably wide viewports. */
+@media (pointer: coarse) and (min-width: 600px) {
+  .slider-card {
+    grid-template-columns: minmax(280px, 0.6fr) minmax(0, 1.4fr);
+    align-items: start;
+  }
+
+  .slider-portrait {
+    aspect-ratio: 3 / 4;
+    max-height: 80vh;
+  }
+
+  /* Modal: show image at left and text at right */
+  .modal-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    align-items: start;
+  }
+
+  .modal-portrait-wrap img {
+    height: 100%;
+    max-height: 80vh;
+    object-fit: cover;
+  }
+
+  .modal-lore {
+    border-left: 3px solid var(--accent-gold);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    background: rgba(212, 176, 106, 0.08);
+    padding: 1.25rem;
+  }
+}

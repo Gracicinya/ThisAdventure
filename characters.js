@@ -275,10 +275,75 @@ document.getElementById('nextBtn')?.addEventListener('click', () => {
 });
 
 // auto-advance
-if (sliderTrack) {
-  setInterval(() => {
+let sliderInterval = null;
+function restartSliderInterval() {
+  if (sliderInterval) clearInterval(sliderInterval);
+  sliderInterval = setInterval(() => {
     goToSlide((currentSlide + 1) % characters.length);
   }, 6000);
+}
+if (sliderTrack) restartSliderInterval();
+
+// Touch / swipe support for slider (horizontal swipe to navigate)
+if (sliderTrack) {
+  let touchStartX = 0;
+  let touchCurrentX = 0;
+  let isTouching = false;
+  const SWIPE_THRESHOLD = 50; // px
+
+  sliderTrack.addEventListener('touchstart', (e) => {
+    if (!e.touches || e.touches.length === 0) return;
+    isTouching = true;
+    touchStartX = e.touches[0].clientX;
+    touchCurrentX = touchStartX;
+    // pause auto advance while interacting
+    if (sliderInterval) clearInterval(sliderInterval);
+  }, { passive: true });
+
+  sliderTrack.addEventListener('touchmove', (e) => {
+    if (!isTouching || !e.touches || e.touches.length === 0) return;
+    touchCurrentX = e.touches[0].clientX;
+  }, { passive: true });
+
+  sliderTrack.addEventListener('touchend', (e) => {
+    if (!isTouching) return;
+    const dx = touchCurrentX - touchStartX;
+    if (Math.abs(dx) > SWIPE_THRESHOLD) {
+      if (dx < 0) {
+        // swipe left -> next
+        goToSlide((currentSlide + 1) % characters.length);
+      } else {
+        // swipe right -> prev
+        goToSlide((currentSlide - 1 + characters.length) % characters.length);
+      }
+    }
+    isTouching = false;
+    // restart auto advance after interaction
+    restartSliderInterval();
+  }, { passive: true });
+
+  // also support pointer events fallback for devices that use pointer
+  sliderTrack.addEventListener('pointerdown', (e) => {
+    if (e.pointerType === 'touch') {
+      touchStartX = e.clientX;
+      touchCurrentX = touchStartX;
+      isTouching = true;
+      if (sliderInterval) clearInterval(sliderInterval);
+    }
+  });
+  sliderTrack.addEventListener('pointermove', (e) => {
+    if (isTouching && e.pointerType === 'touch') touchCurrentX = e.clientX;
+  });
+  sliderTrack.addEventListener('pointerup', (e) => {
+    if (!isTouching || e.pointerType !== 'touch') return;
+    const dx = touchCurrentX - touchStartX;
+    if (Math.abs(dx) > SWIPE_THRESHOLD) {
+      if (dx < 0) goToSlide((currentSlide + 1) % characters.length);
+      else goToSlide((currentSlide - 1 + characters.length) % characters.length);
+    }
+    isTouching = false;
+    restartSliderInterval();
+  });
 }
 
 // BUILD GRID
@@ -362,5 +427,5 @@ document.getElementById('modalClose')?.addEventListener('click', closeModal);
 overlay?.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-// Auto-centering removed: slider stays where the user scrolls it.
+
 
