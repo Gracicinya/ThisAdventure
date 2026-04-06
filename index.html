@@ -68,36 +68,19 @@
       </div>
     </section>
 
-    <div class="hero-ctas">
-      <form class="hero-email-form" id="hero-email-form">
-        <label for="hero-email">Join the mailing list to get updates on our progress!</label>
-        <div class="mailing-list-signup">
-          <input
-            type="email"
-            id="hero-email"
-            name="email"
-            placeholder="your@email.com"
-            autocomplete="email"
-            aria-describedby="hero-form-msg"
-          >
-          <button type="submit" class="btn btn-outline">Join</button>
-        </div>
-      </form>
-      <p class="form-msg" id="hero-form-msg" aria-live="polite"></p>
-    </div>
+    <!-- Moved descriptors up near the hero for tonal context -->
+    <section class="descriptors">
+      <h2 class="section-title">You can expect this game to be...</h2>
+      <h2>Fun</h2>
+      <div class="vert-line" aria-hidden="true"></div>
+      <h2>Whimsical</h2>
+      <div class="vert-line" aria-hidden="true"></div>
+      <h2>Magical</h2>
+      <div class="vert-line" aria-hidden="true"></div>
+      <h2>Adventure Filled</h2>
+    </section>
 
-    <article class="story-teaser">
-      <p class="teaser-hook">
-        The Celestial Crown once held light and darkness in perfect balance until it shattered. Now two girls, born on opposite sides of a broken world, carry the power to restore what was lost... or destroy what remains.
-      </p>
-
-      <h2>The Shattered Crown</h2>
-      <p>
-        An adventure story game where your choices ripple across a world divided by light and shadow. Explore the Twilight Forest, meet unlikely allies, and decide the fate of the Celestial Crown.
-      </p>
-      <a href="story.html" class="btn">Learn More</a>
-    </article>
-
+    <!-- World intro moved up so newcomers see the kingdoms early -->
     <section class="world-intro">
       <h2 class="section-title">A World Divided</h2>
       <p class="section-intro">
@@ -131,6 +114,32 @@
       </div>
     </section>
 
+    <!-- Story blurb (moved just before characters) -->
+    <article class="story-teaser">
+      <p class="teaser-hook">
+        The Celestial Crown once held light and darkness in perfect balance until it shattered. Now two girls, born on opposite sides of a broken world, carry the power to restore what was lost... or destroy what remains.
+      </p>
+
+      <h2>The Shattered Crown</h2>
+      <p>
+        An adventure story game where your choices ripple across a world divided by light and shadow. Explore the Twilight Forest, meet unlikely allies, and decide the fate of the Celestial Crown.
+      </p>
+      <a href="story.html" class="btn">Learn More</a>
+    </article>
+
+    <!-- Characters carousel appears after world + story -->
+    <section class="slider-section page-section fade-in" aria-label="Featured character">
+      <div class="slider-viewport">
+        <div class="slider-track" id="sliderTrack"></div>
+      </div>
+      <div class="slider-controls">
+        <button class="slider-btn" id="prevBtn" aria-label="Previous">&#8592;</button>
+        <div class="slider-dots" id="sliderDots"></div>
+        <button class="slider-btn" id="nextBtn" aria-label="Next">&#8594;</button>
+      </div>
+    </section>
+
+    <!-- Team moved after characters -->
     <section class="member-images">
       <h2 class="section-title">The Team</h2>
 
@@ -142,6 +151,7 @@
       </div>
     </section>
 
+    <!-- Final call to action: mailing list -->
     <section class="mailing-cta">
       <h2>Follow the Journey</h2>
       <p>Be the first to hear about lore reveals, dev updates, and the launch.</p>
@@ -159,29 +169,6 @@
         <button type="submit" class="btn">Subscribe</button>
       </form>
       <p class="form-msg" id="mailing-form-msg" aria-live="polite"></p>
-    </section>
-    
-    <!-- Characters slider moved here from above -->
-    <section class="slider-section page-section fade-in" aria-label="Featured character">
-      <div class="slider-viewport">
-        <div class="slider-track" id="sliderTrack"></div>
-      </div>
-      <div class="slider-controls">
-        <button class="slider-btn" id="prevBtn" aria-label="Previous">&#8592;</button>
-        <div class="slider-dots" id="sliderDots"></div>
-        <button class="slider-btn" id="nextBtn" aria-label="Next">&#8594;</button>
-      </div>
-    </section>
-
-    <section class="descriptors">
-      <h2 class="section-title">You can expect this game to be...</h2>
-      <h2>Fun</h2>
-      <div class="vert-line" aria-hidden="true"></div>
-      <h2>Whimsical</h2>
-      <div class="vert-line" aria-hidden="true"></div>
-      <h2>Magical</h2>
-      <div class="vert-line" aria-hidden="true"></div>
-      <h2>Adventure Filled</h2>
     </section>
   </main>
 

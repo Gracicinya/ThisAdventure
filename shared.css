@@ -1273,6 +1273,12 @@ body.cursor-active #cursor-dot {
   border-top: 1px solid var(--border);
 }
 
+.mailing-cta p {
+  text-align: center;
+  max-width: 720px;
+  margin: 0.5rem auto 0;
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
