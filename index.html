@@ -73,43 +73,40 @@
             See style.css → .launch-inner
         ════════════════════════════════════════════════ -->
         <section class="launch-box">
-            <div class="launch-inner">
+            <div class="launch-date-side">
+                <h2>Launch Date</h2>
+                <p id="launch-date">Loading launch date...</p>
+                <p id="message"></p>
+            </div>
 
-                <div class="launch-date-side">
-                    <h2>Launch Date</h2>
-                    <p id="launch-date">Loading launch date...</p>
-                    <p id="message"></p>
-                </div>
-
-                <div class="countdown-side">
-                    <h2>Days Until Launch</h2>
-                    <div class="countdown">
+            <div class="countdown-side">
+                <h2>Days Until Launch</h2>
+                <div class="countdown">
+                    <div class="days-remaining">
                         <div><span id="days">0</span><small>Days</small></div>
-                        <!-- Dot separators between countdown units.
-                            Styled as large gold dots on the home page (see style.css → .countdown-sep).
+                    </div>
+                        <!-- Dot separators between countdown units .countdown-sep.
                             aria-hidden keeps them invisible to screen readers. -->
-                        <span class="countdown-sep" aria-hidden="true">.</span>
+                    <div class="time-remaining">
                         <div><span id="hours">0</span><small>Hours</small></div>
-                        <span class="countdown-sep" aria-hidden="true">.</span>
+                        <span class="countdown-sep" aria-hidden="true">-</span>
                         <div><span id="minutes">0</span><small>Minutes</small></div>
-                        <span class="countdown-sep" aria-hidden="true">.</span>
+                        <span class="countdown-sep" aria-hidden="true">-</span>
                         <div><span id="seconds">0</span><small>Seconds</small></div>
                     </div>
                 </div>
-
             </div>
         </section>
         
-        <!-- Primary button + email form -->
-        <div class="hero-ctas">
-            <a href="world.html" class="btn btn-light">Start the Journey</a>
+        <!-- Email form -->
+        <section class="hero-ctas">
 
             <!--
                 disables the browser's default popup validation
                 so our custom JS error messages show instead.
             -->
             <form class="hero-email-form" id="hero-email-form">
-                <label for="hero-email">Join the mailing list to get updates on our progress!</label>
+                <label for="hero-email">Join the mailing list to get regular updates!</label>
                 <!-- AI assisted with making the aria-describedby to link the input to the live region where error/success messages will appear. -->
                 <div class="mailing-list-signup">
                     <input
@@ -123,7 +120,7 @@
                 </div>
             </form>
             <p class="form-msg" id="hero-form-msg" aria-live="polite"></p>
-        </div>
+        </section>
 
         <!-- ═══════════════════════════════════════════════
             DESCRIPTORS
@@ -146,26 +143,7 @@
             Canvas is a placeholder for character/key art —
             We can draw into it with the Canvas API, refer to script.js.
         ════════════════════════════════════════════════ -->
-        <article class="story-teaser">
-            <p class="teaser-hook">
-                The Celestial Crown once held light and darkness in perfect balance
-                until it shattered. Now two girls, born on opposite sides of a broken world,
-                carry the power to restore what was lost... or destroy what remains.
-            </p>
-
-            <!-- Team: swap this canvas for a real image or drawn animation.
-                e.g. <img src="assets/member-1.png" alt="The Shattered Crown Developer Team Member 1"> -->
-            <canvas id="member-container" width="200" height="200"
-                aria-label="Game illustration — coming soon"></canvas>
-
-            <h2>The Shattered Crown</h2>
-            <p>
-                An adventure story game where your choices ripple across a world
-                divided by light and shadow. Explore the Twilight Forest, meet unlikely
-                allies, and decide the fate of the Celestial Crown.
-            </p>
-            <a href="world.html"><button class="btn">Learn More</button></a>
-        </article>
+        
 
         <!-- ═══════════════════════════════════════════════
             WORLD INTRO — THREE KINGDOMS
@@ -176,6 +154,26 @@
             Desktop → horizontal row (3 columns)
         ════════════════════════════════════════════════ -->
         <section class="world-intro">
+            <article class="story-teaser">
+                <h2>The Shattered Crown</h2>
+                <p>
+                    An adventure story game where your choices ripple across a world
+                    divided by light and shadow. Explore the Twilight Forest, meet unlikely
+                    allies, and decide the fate of the Celestial Crown.
+                </p>
+                <p class="teaser-hook">
+                    The Celestial Crown once held light and darkness in perfect balance
+                    until it shattered. Now two girls, born on opposite sides of a broken world,
+                    carry the power to restore what was lost... or destroy what remains.
+                </p>
+
+                <!-- Team: swap this canvas for a real image or drawn animation.
+                    e.g. <img src="assets/member-1.png" alt="The Shattered Crown Developer Team Member 1"> -->
+                <canvas id="member-container" width="200" height="200"
+                    aria-label="Game illustration — coming soon"></canvas>
+
+                <a href="world.html"><button class="btn">Learn More</button></a>
+            </article>
             <h2 class="section-title">A World Divided</h2>
             <p class="section-intro">
                 When the Crown shattered, the world split with it.
@@ -266,15 +264,17 @@
 
             <form class="mailing-form" id="mailing-form" novalidate>
                 <label for="mailing-email" class="sr-only">Email address</label>
-                <input
-                    type="email"
-                    id="mailing-email"
-                    name="email"
-                    placeholder="your@email.com"
-                    autocomplete="email"
-                    aria-describedby="mailing-form-msg"
-                />
-                <button type="submit" class="btn">Subscribe</button>
+                <div class="mailing-form-fillout-field">
+                    <input
+                        type="email"
+                        id="mailing-email"
+                        name="email"
+                        placeholder="your@email.com"
+                        autocomplete="email"
+                        aria-describedby="mailing-form-msg"
+                    />
+                    <button type="submit" class="btn">Subscribe</button>
+                </div>
             </form>
             <p class="form-msg" id="mailing-form-msg" aria-live="polite"></p>
         </section>
