@@ -13,6 +13,7 @@
   <div class="page-bg"></div>
   <div class="stars"></div>
  
+  <!-- NAV — outside Vue app, managed by plain script at bottom -->
   <nav class="nav">
     <div class="nav-logo">The Shattered Crown</div>
     <button class="hamburger" id="hamburger" aria-label="Menu">
@@ -29,52 +30,152 @@
  
   <main>
  
-    <!-- INTRO SCREEN -->
-    <section class="intro-screen" id="introScreen">
-      <div class="intro-inner">
-        <p class="intro-eyebrow">Interactive Story</p>
-        <h1 class="intro-title">The First Night in the Forest</h1>
-        <p class="intro-flavour">
-          Amara and Aria have both arrived in the Twilight Forest.<br/>
-          Both are running. Both are scared. Neither knows the other exists yet.<br/>
-          Tonight, they will find each other.<br/>
-          What happens next depends entirely on you.
-        </p>
-        <div class="intro-meta">
-          <span class="meta-pill">&#9679; Two Runaways</span>
-          <span class="meta-pill">&#9679; A First Meeting</span>
-          <span class="meta-pill">&#9679; 3 Paths Forward</span>
+    <!-- VUE APP ROOT -->
+    <div id="app" v-cloak>
+ 
+      <!-- INTRO SCREEN -->
+      <section class="intro-screen" v-if="!started">
+        <div class="intro-inner">
+          <p class="intro-eyebrow">Interactive Story</p>
+          <h1 class="intro-title">The First Night in the Forest</h1>
+          <p class="intro-flavour">
+            Amara and Aria have both arrived in the Twilight Forest.<br/>
+            Both are running. Both are scared. Neither knows the other exists yet.<br/>
+            Tonight, they will find each other.<br/>
+            What happens next depends entirely on you.
+          </p>
+          <div class="intro-meta">
+            <span class="meta-pill">Two Runaways</span>
+            <span class="meta-pill">A First Meeting</span>
+            <span class="meta-pill">3 Paths Forward</span>
+          </div>
+          <button class="start-btn" @click="start">Step into the Forest</button>
+          <p class="intro-disclaimer">A glimpse of The Shattered Crown's branching story.</p>
         </div>
-        <button class="start-btn" id="startBtn">Step into the Forest &#8594;</button>
-        <p class="intro-disclaimer">A glimpse of The Shattered Crown's branching story.</p>
-      </div>
-    </section>
+      </section>
  
-    <!-- STORY SCREEN -->
-    <section class="story-screen hidden" id="storyScreen">
+      <!-- STORY SCREEN -->
+      <section class="story-screen" v-else>
  
-      <div class="progress-wrap">
-        <div class="progress-track">
-          <div class="progress-fill" id="progressFill"></div>
+        <!--
+          Progress bar width bound to the `progress` computed property.
+          It reads currentScene.progress and returns it as a percentage string.
+        -->
+        <div class="progress-wrap">
+          <div class="progress-track">
+            <div class="progress-fill" :style="{ width: progress }"></div>
+          </div>
+          <span class="progress-label">{{ currentScene.chapter }}</span>
         </div>
-        <span class="progress-label" id="progressLabel">Prologue</span>
-      </div>
  
-      <div class="speaker-tag" id="speakerTag"></div>
+        <!-- Speaker tag — empty string renders nothing for narrator scenes -->
+        <div class="speaker-tag">{{ currentScene.speaker }}</div>
  
-      <div class="story-card fade-in" id="storyCard">
-        <div class="story-scene" id="storyScene"></div>
-        <p class="story-text" id="storyText"></p>
-        <div class="choices" id="choices"></div>
-      </div>
+        <!--
+          Choice log — v-for renders one breadcrumb line per past decision.
+          Each entry is the logText saved when the player made that choice.
+        -->
+        <div class="choice-log" v-if="choiceLog.length">
+          <div
+            class="log-entry"
+            v-for="entry in choiceLog"
+            :key="entry"
+          >{{ entry }}</div>
+        </div>
  
-      <button class="restart-btn hidden" id="restartBtn" onclick="restartStory()">&#8635; Play again</button>
+        <!--
+          Story card.
+          :key="currentScene.id" — Vue replaces this DOM node entirely whenever
+          the scene id changes, which re-triggers the sceneEnter CSS animation
+          automatically without any JavaScript.
+        -->
+        <div class="story-card scene-enter" :key="currentScene.id">
  
-    </section>
+          <!-- Scene location label from data -->
+          <span class="scene-label">{{ currentScene.scene }}</span>
+ 
+          <!-- Result of the previous choice, shown at the top of the new scene -->
+          <div class="last-result" v-if="lastResult">{{ lastResult }}</div>
+ 
+          <!--
+            Content blocks — v-for renders each paragraph from the scene's
+            content array. The CSS class is set dynamically via block.type
+            so narration, dialogue and emphasis each get their own style
+            with no repeated markup in the template.
+          -->
+          <div class="content-blocks">
+            <div
+              v-for="(block, i) in currentScene.content"
+              :key="i"
+              :class="'block-' + block.type"
+            >{{ block.text }}</div>
+          </div>
+ 
+          <!-- ENDING STATE -->
+          <template v-if="currentScene.isEnding">
+            <div :class="['ending-card', endingType]">
+              <!--
+                endingLabel, endingTitle, endingText are computed properties
+                derived from the player's choiceLog history, so the ending
+                feels personal to the path they took.
+              -->
+              <div class="ending-label">{{ endingLabel }}</div>
+              <div class="ending-title">{{ endingTitle }}</div>
+              <p class="ending-desc">{{ endingText }}</p>
+ 
+              <!-- Personalised recap of every choice the player made -->
+              <div class="ending-log" v-if="choiceLog.length">
+                <div class="ending-log-title">Your path through the forest</div>
+                <div
+                  class="ending-log-item"
+                  v-for="entry in choiceLog"
+                  :key="entry"
+                >{{ entry }}</div>
+              </div>
+            </div>
+            <button class="restart-btn" @click="restart">Play again</button>
+          </template>
+ 
+          <!--
+            Choices — v-for renders one button per entry in currentScene.choices.
+            animation-delay is bound inline to stagger the entrance animation.
+            @click calls choose(choice) which updates sceneId and all state.
+          -->
+          <div class="choices" v-else>
+            <button
+              class="choice-btn choice-enter"
+              v-for="(choice, i) in currentScene.choices"
+              :key="choice.next"
+              :style="{ animationDelay: (i * 0.09) + 's' }"
+              @click="choose(choice)"
+            >{{ choice.label }}</button>
+          </div>
+ 
+        </div><!-- .story-card -->
+ 
+      </section><!-- .story-screen -->
+ 
+    </div><!-- #app -->
  
   </main>
  
+  <!-- Vue 3 CDN, production build -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+ 
+  <!-- Story engine -->
   <script src="playpreview.js"></script>
+ 
+  <!-- Nav hamburger, plain vanilla outside the Vue app -->
+  <script>
+    document.getElementById('hamburger').addEventListener('click', function () {
+      document.getElementById('nav-links').classList.toggle('open');
+    });
+    document.querySelectorAll('#nav-links a').forEach(function (a) {
+      a.addEventListener('click', function () {
+        document.getElementById('nav-links').classList.remove('open');
+      });
+    });
+  </script>
+ 
 </body>
-</html
 </html>
