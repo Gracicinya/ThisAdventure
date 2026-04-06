@@ -166,20 +166,24 @@ is clicked. Closes all other open items.
 COUNTDOWN TIMER (contact page only)
 Targets #days, #hours, #minutes.
 Counts down to the estimated release date: 1 December 2026.
+Uses WorldTimeAPI to get accurate UTC time regardless of the
+visitor's device clock. Falls back to Date.now() if the API
+is unavailable.
 ================================================================ */
 (function initCountdown() {
     const daysEl    = document.getElementById('days');
     const hoursEl   = document.getElementById('hours');
     const minutesEl = document.getElementById('minutes');
 
-  /* Only run if the countdown elements exist on this page. So it only runs on the contact page */
+    /* Exit immediately if not on the contact page */
     if (!daysEl || !hoursEl || !minutesEl) return;
 
-  /* Target release: Winter 2026 — set to December 1, 2026 */
+    /* Target release: 1 December 2026, midnight UTC */
     const RELEASE = new Date('2026-12-01T00:00:00Z');
 
-    function update() {
-        const diff = RELEASE - Date.now(); /* milliseconds remaining */
+    /* Calculate and display time remaining given a Date object for "now" */
+    function render(now) {
+        const diff = RELEASE - now;
 
         if (diff <= 0) {
             /* Release has passed — show zeroes */
@@ -189,21 +193,45 @@ Counts down to the estimated release date: 1 December 2026.
             return;
         }
 
-        /* Calculate remaining time AI assisted*/
-        const totalSeconds = Math.floor(diff / 1000);
-        const totalMinutes = Math.floor(totalSeconds / 60);
+        const totalMinutes = Math.floor(diff / 60000);
         const totalHours   = Math.floor(totalMinutes / 60);
         const days         = Math.floor(totalHours / 24);
         const hours        = totalHours % 24;
         const minutes      = totalMinutes % 60;
 
+        /* padStart ensures numbers always have the right number of digits
+           e.g. 7 days → '007', 3 hours → '03' */
         daysEl.textContent    = String(days).padStart(3, '0');
         hoursEl.textContent   = String(hours).padStart(2, '0');
         minutesEl.textContent = String(minutes).padStart(2, '0');
     }
 
-  update();                        /* run immediately */
-  setInterval(update, 30_000);     /* refresh every 30 seconds */
+    /* Fetch the real current UTC time from WorldTimeAPI.
+       Returns a Date object — falls back to device clock on any error. */
+    async function fetchNow() {
+        try {
+            const response = await fetch('https://worldtimeapi.org/api/timezone/UTC');
+            if (!response.ok) throw new Error('API response was not OK');
+            const data = await response.json();
+            return new Date(data.datetime); /* accurate server time */
+        } catch {
+            return new Date(); /* fallback: use device clock */
+        }
+    }
+
+    /* On load: call the API, render immediately, then tick every 60s
+       using an offset so we stay accurate without re-calling the API */
+    fetchNow().then(function (apiNow) {
+        const deviceAtFetch = Date.now(); /* record device time at API response */
+        render(apiNow);                   /* display immediately */
+
+        setInterval(function () {
+            const elapsed   = Date.now() - deviceAtFetch;     /* ms since API call */
+            const corrected = new Date(apiNow.getTime() + elapsed); /* API time + elapsed */
+            render(corrected);
+        }, 60_000); /* update every 60 seconds */
+    });
+
 }());
 
 /* ================================================================

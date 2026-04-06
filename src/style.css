@@ -74,6 +74,9 @@ GLOBAL STYLES
     /* ── Motion ── */
     --transition-fast:   160ms ease;
     --transition-normal: 240ms ease;
+
+    /* ── Parchment texture opacity ── */
+    --parchment-body-opacity: 0.17; /* clearly visible in light mode */
 }
 
 /* Dark theme overrides */
@@ -97,6 +100,9 @@ GLOBAL STYLES
     --shadow-md:     0 18px 40px rgba(0, 0, 0, 0.34);
     --shadow-lg:     0 24px 60px rgba(0, 0, 0, 0.40);
     --error:         #d16060;
+
+    /* ── Parchment opacity — kept subtle on dark backgrounds ── */
+    --parchment-body-opacity: 0.08;
 }
 
 
@@ -124,6 +130,17 @@ body {
     line-height: 1.75;
 }
 
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image: url("/assets/parchment-texture.jpg");
+    background-size: cover;
+    opacity: var(--parchment-body-opacity);
+    pointer-events: none;
+    z-index: -1;
+}
+
 main {
     flex: 1;
 }
@@ -145,7 +162,7 @@ ul, ol {
 h1, h2, h3, h4 {
     font-family: var(--font-heading);
     font-weight: 700;
-    margin: 0 0 0.75rem;
+    margin: 0 0 var(--space-sm);
     line-height: 1.15;
 }
 
@@ -236,7 +253,7 @@ Layout
 .container {
     width: min(1100px, calc(100% - 2rem));
     margin: 0 auto;
-    padding: 0 1rem;
+    padding: 0 var(--space-md);
 }
 
 /* -- -----------------------------
@@ -262,6 +279,10 @@ Navigation - mobile hamburger design first, inline on desktop
     font-weight: 600;
     color: var(--primary-green);
     flex-shrink: 0;
+}
+
+[data-theme="dark"] .nav-logo {
+    color: var(--logo-light-green);
 }
 
 /* Nav links — hidden on mobile by default.
@@ -304,6 +325,11 @@ Navigation - mobile hamburger design first, inline on desktop
 /* hover/active indicator*/
 .nav-links a:hover        { color: var(--primary-green); }
 .nav-links a.active       { color: var(--primary-green); }
+
+[data-theme="dark"] .nav-links a:hover,
+[data-theme="dark"] .nav-links a.active {
+    color: var(--logo-light-green);
+}
 
 /* Right-side nav controls */
 .nav-right {
@@ -350,7 +376,7 @@ Navigation - mobile hamburger design first, inline on desktop
 
 /* -- -----------------------------
 Page Header
--------------------------------- 
+--------------------------------*/ 
 .page-header {
     text-align: center;
     padding: 64px 20px 52px;
@@ -364,7 +390,7 @@ Page Header
     color: var(--text-muted);
     margin: 16px auto 0;
 }
-*/
+
 /* ===========================
 COMPONENTS
 ============================ */
@@ -495,27 +521,7 @@ FADE-IN
     transform: translateY(0);
 }
 
-/* ============================
-INDEX 
-============================= */
 
-
-
-/* ============================
-WORLD 
-============================= */
-
-
-
-/* ============================
-CHARACTERS 
-============================= */
-
-
-
-/* ============================
-PREVIEW 
-============================= */
 
 
 /* ============================
@@ -548,6 +554,10 @@ FOOTER
     color: var(--primary-green);
 }
 
+[data-theme="dark"] .footer-logo {
+    color: var(--logo-light-green);
+}
+
 .footer-tagline {
     font-style: italic;
     font-size: 13px;
@@ -567,6 +577,7 @@ FOOTER
     font-family: var(--font-subheading);
     font-size: 12px;
     text-transform: uppercase;
+    letter-spacing: 0.08em;
     color: var(--text-muted);
 }
 
@@ -603,7 +614,7 @@ FOOTER
 }
 
 .social-link:hover {
-    color: var(--accent);
+    color: var(--accent-gold);
 }
 
 .social-link svg {
@@ -654,7 +665,7 @@ FOOTER
 }
 
 .footer-legal a:hover {
-    color: var(--accent);
+    color: var(--accent-gold);
 }
 
 
