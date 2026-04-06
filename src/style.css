@@ -83,10 +83,10 @@ header {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  z-index: 1000; /* Stay above all page content */
+  z-index: 1000;
 }
 
-/* ── Page Header (used on inner pages: world, characters, etc.) ── */
+/* ── Page Header (used on inner pages: world, characters, preview, etc.) ── */
 .page-header {
   text-align: center;
   padding: 2rem 0;
@@ -149,10 +149,13 @@ nav {
 =========================== */
 
 main {
+  width: 100%;
   max-width: 480px; /* Max width for mobile-first layout */
   margin: 0 auto;
   padding: 2rem;
-  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-content: center;
 }
 
 section {
@@ -316,42 +319,6 @@ body.cursor-hover #cursor-ring {
   transform: rotate(90deg); /* renders as a vertical bar on mobile column layout and horizontal on tablet and above */
 }
 
-/* ── Launch Date ── */
-.launch-box {
-  padding: 30px;
-  max-width: 600px;
-  margin: 40px auto;
-  text-align: center;
-}
-
-#launch-date {
-  margin: 0;
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: var(--primary-accent);
-}
-
-/* ── Countdown ── */
-.countdown {
-  display: flex;
-  gap: 1rem;
-  text-align: center;
-  justify-content: center;
-}
-.countdown div {
-  background: var(--secondary-accent);
-  padding: 1rem 1.25rem;
-  border-radius: 12px;
-  min-width: 90px;
-}
-.countdown span {
-  display: block;
-  font-size: 3rem;
-  font-weight: bold;
-}
-.countdown small {
-  opacity: 0.8;
-}
 
 /* ── Form feedback message ──
   Updated by JS to show success or error text.
@@ -393,7 +360,7 @@ body.cursor-hover #cursor-ring {
   align-items: center;
   text-align: center;
   gap: 1rem;
-  padding: 5rem 2rem 4rem;
+  padding: 5rem 2rem 2rem;
   min-height: 60vh;
   justify-content: center;
 }
@@ -416,18 +383,91 @@ body.cursor-hover #cursor-ring {
   text-transform: uppercase;
 }
 
-/* ── Launch Box — desktop two-column layout ──
-  .launch-inner is a flex row on desktop.
-   See the @media (min-width: 769px) block below. */
-.launch-inner {
+/* ── Launch Box ──*/
+
+.launch-box {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1.5rem;
+  padding: 2rem;
+  max-width: 475px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#launch-date {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--primary-accent);
 }
 .launch-date-side,
 .countdown-side {
   text-align: center;
+}
+/* ── Countdown ── */
+.countdown {
+  display: flex;
+  gap: 1rem;
+  text-align: center;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+body.home .countdown div {
+  background: none;
+  padding: 0 0.1rem;
+  align-items: center;
+}
+
+  body.home .countdown-side{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+body.home .countdown .time-remaining {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+
+/* Large gold numbers */
+body.home .countdown span {
+  font-size: 2rem;
+  font-family: var(--primary-font-serif);
+  color: var(--highlight-accent);
+  font-weight: 700;
+  line-height: 1;
+  display: block;
+}
+
+/* Small spaced label below each number */
+body.home .countdown small {
+  font-size: 0.6rem;
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+  color: var(--text-light);
+  opacity: 0.5;
+  font-family: var(--secondary-font-sans-serif);
+  margin-top: 0.3rem;
+}
+/* ── Countdown — large gold numbers with dot separators ──
+  AI-assisted: Used Claude to implement the separated large countdown layout.
+  The .countdown-sep spans in index.html hold the separating characters. */
+/* Dot separator between countdown units */
+body.home .countdown-sep {
+  font-size: 2rem;
+  font-family: var(--primary-font-serif);
+  font-weight: 300;
+  color: var(--highlight-accent);
+  line-height: 1;
+  align-self: flex-start;
+  padding-top: 0.04em;
+  opacity: 0.65;
+  display: inline-block;
 }
 
 
@@ -442,6 +482,8 @@ body.cursor-hover #cursor-ring {
   margin-top: 1rem;
   width: 100%;
   max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* ── Hero email form ──
@@ -523,8 +565,8 @@ body.cursor-hover #cursor-ring {
 .teaser-hook {
   font-size: 1rem;
   line-height: 1.75;
-  color: var(--primary-accent);
-  max-width: 420px;
+  color: var(--secondary-accent);
+  max-width: 75%;
 }
 
 /* Canvas placeholder — dashed border shows where art will be. */
@@ -544,6 +586,9 @@ body.cursor-hover #cursor-ring {
   that sets its accent colour scheme. */
 .world-intro {
   padding: 2rem 0;
+  width: 75%;
+  margin: 0 auto;
+  margin-top: 2rem;
 }
 
 .kingdom-cards {
@@ -654,10 +699,10 @@ body.cursor-hover #cursor-ring {
   line-height: 1.6;
 }
 
-/* Form row: input left, button right */
+/* Form row */
 .mailing-form {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   gap: 0.5rem;
   justify-content: center;
   max-width: 420px;
@@ -749,10 +794,6 @@ body.home .section-intro {
 }
 
 /* ── Launch Box ── */
-body.home .launch-box {
-  border-top: 1px solid rgba(212, 176, 106, 0.2);
-  border-bottom: 1px solid rgba(212, 176, 106, 0.2);
-}
 body.home #launch-date {
   color: var(--highlight-accent);
 }
@@ -769,55 +810,6 @@ body.home .countdown-side h2 {
   margin-bottom: 0.4rem;
 }
 
-/* ── Countdown — large gold numbers with dot separators ──
-  AI-assisted: Used Claude to implement the dot-separated large countdown layout.
-  The .countdown-sep spans in index.html hold the dot characters. */
-body.home .countdown {
-  gap: 0;
-  align-items: flex-start;
-  background: none;
-  justify-content: center;
-}
-body.home .countdown div {
-  background: none;
-  padding: 0 0.5rem;
-  min-width: auto;
-  border-radius: 0;
-  flex-direction: column;
-  align-items: center;
-}
-/* Large gold number */
-body.home .countdown span {
-  font-size: 3rem;
-  font-family: var(--primary-font-serif);
-  color: var(--highlight-accent);
-  font-weight: 700;
-  line-height: 1;
-  display: block;
-}
-/* Small spaced label below each number */
-body.home .countdown small {
-  font-size: 0.7rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--text-light);
-  opacity: 0.5;
-  font-family: var(--secondary-font-sans-serif);
-  margin-top: 0.3rem;
-}
-/* Dot separator between countdown units */
-body.home .countdown-sep {
-  font-size: 2rem;
-  font-family: var(--primary-font-serif);
-  font-weight: 300;
-  color: var(--highlight-accent);
-  line-height: 1;
-  align-self: flex-start;
-  padding-top: 0.04em;
-  opacity: 0.65;
-  display: inline-block;
-}
-
 /* ── Descriptors ── */
 body.home .descriptors h2 {
   color: var(--text-light);
@@ -826,18 +818,6 @@ body.home .descriptors h2 {
   opacity: 0.85;
 }
 
-/* ── Story Teaser ── */
-body.home .teaser-hook {
-  color: var(--text-light);
-  opacity: 0.88;
-}
-body.home .story-teaser h2 {
-  color: var(--highlight-accent);
-}
-body.home .story-teaser p:not(.teaser-hook) {
-  color: var(--text-light);
-  opacity: 0.75;
-}
 /* Canvas border — lighter on dark */
 body.home #member-container {
   border-color: rgba(212, 176, 106, 0.25);
@@ -910,10 +890,11 @@ FOOTER
 RESPONSIVE DESIGN 
 ============================= */
 /* -- Tablet/Ipad -- */
-@media (max-width: 768px) {
+@media (min-width: 744px) {
   main {
     max-width: 100%;
     padding: 1rem;
+    margin: 0 auto;
   }
 
   header {
@@ -925,11 +906,18 @@ RESPONSIVE DESIGN
     gap: 0.5rem;
   }
 
+  .hero {
+    padding: 4rem 1rem 1rem;
+  }
+
   .launch-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     padding: 18px;
     margin: 20px 0;
-    max-width: 100%;
+    max-width: 700px;
     border-width: 1.5px;
+    justify-content: space-between;
   }
 
   #launch-date {
@@ -950,28 +938,13 @@ RESPONSIVE DESIGN
   .countdown span {
     font-size: 1.6rem;
   }
-}
 
-@media (min-width: 769px) {
-  .btn-hamburger {
-    display: none;
-  }
-
-  .nav-menu {
-    display: flex !important;
-    flex-direction: row;
-    position: static;
-    top: auto;
-    right: auto;
-    width: auto;
-    background: transparent;
-    padding: 0;
-    gap: 1rem;
-  }
-
-  nav {
+  .hero-ctas {
     flex-direction: row;
     gap: 1rem;
+    justify-content: center;
+    width: 100%;
   }
 }
+
 
