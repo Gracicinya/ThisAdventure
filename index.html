@@ -12,7 +12,7 @@
     @import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
     @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap');
     @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400..800&display=swap');
-    </style>
+        </style>
 </head>
 
 <body class="home">
@@ -30,6 +30,7 @@
         full nav shown on desktop.
     ════════════════════════════════════════════════ -->
     <header>
+        <div id="logo"><a href="index.html">The Shattered Crown</a></div>
         <div id="logo"><a href="index.html">The Shattered Crown</a></div>
         <button class="btn-hamburger" aria-label="Toggle navigation" aria-expanded="false">
             <span class="bar"></span>
@@ -60,7 +61,31 @@
     <!-- ═══════════════════════════════════════════════
         MAIN — all scrollable home-page sections
     ════════════════════════════════════════════════ -->
+    <!-- ═══════════════════════════════════════════════
+        HERO
+        AI-assisted: Used Claude to implement the staggered
+        @keyframes heroFadeIn entrance and the h1::after ornament line.
+    ════════════════════════════════════════════════ -->
+    <section class="hero">
+        <h1>The Shattered Crown</h1>
+        <p class="hero-subtitle">A GAME BY GAMDEVELOPS</p>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+        MAIN — all scrollable home-page sections
+    ════════════════════════════════════════════════ -->
     <main>
+
+        <!-- ═══════════════════════════════════════════════
+            LAUNCH DATE & COUNTDOWN
+            IDs below are used by script.js — do NOT rename them:
+            #launch-date, #days, #hours, #minutes, #seconds, #message
+
+            Layout:
+            Mobile  → stacked vertically
+            Desktop → date left | countdown right
+            See style.css → .launch-inner
+        ════════════════════════════════════════════════ -->
 
         <!-- ═══════════════════════════════════════════════
             LAUNCH DATE & COUNTDOWN
@@ -283,7 +308,9 @@
 
     <footer>
         <p>&copy; 2026 The Shattered Crown. All rights reserved.</p>
+        <p>&copy; 2026 The Shattered Crown. All rights reserved.</p>
     </footer>
+
 
     <script src="script.js"></script>
 </body>
