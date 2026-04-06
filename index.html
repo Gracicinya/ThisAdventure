@@ -6,13 +6,13 @@
     <meta name="description" content="The Shattered Crown — a fantasy RPG coming soon. Follow the journey before launch." />
     <meta charset="UTF-8">
     <title>The Shattered Crown</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="src/style.css" />
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Kreon:wght@300..700&display=swap');
     @import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
     @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap');
     @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400..800&display=swap');
-    </style>
+        </style>
 </head>
 
 <body class="home">
@@ -30,6 +30,7 @@
         full nav shown on desktop.
     ════════════════════════════════════════════════ -->
     <header>
+        <div id="logo"><a href="index.html">The Shattered Crown</a></div>
         <div id="logo"><a href="index.html">The Shattered Crown</a></div>
         <button class="btn-hamburger" aria-label="Toggle navigation" aria-expanded="false">
             <span class="bar"></span>
@@ -60,7 +61,31 @@
     <!-- ═══════════════════════════════════════════════
         MAIN — all scrollable home-page sections
     ════════════════════════════════════════════════ -->
+    <!-- ═══════════════════════════════════════════════
+        HERO
+        AI-assisted: Used Claude to implement the staggered
+        @keyframes heroFadeIn entrance and the h1::after ornament line.
+    ════════════════════════════════════════════════ -->
+    <section class="hero">
+        <h1>The Shattered Crown</h1>
+        <p class="hero-subtitle">A GAME BY GAMDEVELOPS</p>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+        MAIN — all scrollable home-page sections
+    ════════════════════════════════════════════════ -->
     <main>
+
+        <!-- ═══════════════════════════════════════════════
+            LAUNCH DATE & COUNTDOWN
+            IDs below are used by script.js — do NOT rename them:
+            #launch-date, #days, #hours, #minutes, #seconds, #message
+
+            Layout:
+            Mobile  → stacked vertically
+            Desktop → date left | countdown right
+            See style.css → .launch-inner
+        ════════════════════════════════════════════════ -->
 
         <!-- ═══════════════════════════════════════════════
             LAUNCH DATE & COUNTDOWN
@@ -146,26 +171,7 @@
             Canvas is a placeholder for character/key art —
             We can draw into it with the Canvas API, refer to script.js.
         ════════════════════════════════════════════════ -->
-        <article class="story-teaser">
-            <p class="teaser-hook">
-                The Celestial Crown once held light and darkness in perfect balance
-                until it shattered. Now two girls, born on opposite sides of a broken world,
-                carry the power to restore what was lost... or destroy what remains.
-            </p>
-
-            <!-- Team: swap this canvas for a real image or drawn animation.
-                e.g. <img src="assets/member-1.png" alt="The Shattered Crown Developer Team Member 1"> -->
-            <canvas id="member-container" width="200" height="200"
-                aria-label="Game illustration — coming soon"></canvas>
-
-            <h2>The Shattered Crown</h2>
-            <p>
-                An adventure story game where your choices ripple across a world
-                divided by light and shadow. Explore the Twilight Forest, meet unlikely
-                allies, and decide the fate of the Celestial Crown.
-            </p>
-            <a href="world.html"><button class="btn">Learn More</button></a>
-        </article>
+        
 
         <!-- ═══════════════════════════════════════════════
             WORLD INTRO — THREE KINGDOMS
@@ -176,6 +182,26 @@
             Desktop → horizontal row (3 columns)
         ════════════════════════════════════════════════ -->
         <section class="world-intro">
+            <article class="story-teaser">
+                <h2>The Shattered Crown</h2>
+                <p>
+                    An adventure story game where your choices ripple across a world
+                    divided by light and shadow. Explore the Twilight Forest, meet unlikely
+                    allies, and decide the fate of the Celestial Crown.
+                </p>
+                <p class="teaser-hook">
+                    The Celestial Crown once held light and darkness in perfect balance
+                    until it shattered. Now two girls, born on opposite sides of a broken world,
+                    carry the power to restore what was lost... or destroy what remains.
+                </p>
+
+                <!-- Team: swap this canvas for a real image or drawn animation.
+                    e.g. <img src="assets/member-1.png" alt="The Shattered Crown Developer Team Member 1"> -->
+                <canvas id="member-container" width="200" height="200"
+                    aria-label="Game illustration — coming soon"></canvas>
+
+                <a href="world.html"><button class="btn">Learn More</button></a>
+            </article>
             <h2 class="section-title">A World Divided</h2>
             <p class="section-intro">
                 When the Crown shattered, the world split with it.
@@ -266,15 +292,17 @@
 
             <form class="mailing-form" id="mailing-form" novalidate>
                 <label for="mailing-email" class="sr-only">Email address</label>
-                <input
-                    type="email"
-                    id="mailing-email"
-                    name="email"
-                    placeholder="your@email.com"
-                    autocomplete="email"
-                    aria-describedby="mailing-form-msg"
-                />
-                <button type="submit" class="btn">Subscribe</button>
+                <div class="mailing-form-fillout-field">
+                    <input
+                        type="email"
+                        id="mailing-email"
+                        name="email"
+                        placeholder="your@email.com"
+                        autocomplete="email"
+                        aria-describedby="mailing-form-msg"
+                    />
+                    <button type="submit" class="btn">Subscribe</button>
+                </div>
             </form>
             <p class="form-msg" id="mailing-form-msg" aria-live="polite"></p>
         </section>
@@ -283,7 +311,9 @@
 
     <footer>
         <p>&copy; 2026 The Shattered Crown. All rights reserved.</p>
+        <p>&copy; 2026 The Shattered Crown. All rights reserved.</p>
     </footer>
+
 
     <script src="script.js"></script>
 </body>
