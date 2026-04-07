@@ -164,18 +164,6 @@
  
   <!-- Story engine -->
   <script src="playpreview.js"></script>
- 
-  <!-- Nav hamburger, plain vanilla outside the Vue app -->
-  <script>
-    document.getElementById('hamburger').addEventListener('click', function () {
-      document.getElementById('nav-links').classList.toggle('open');
-    });
-    document.querySelectorAll('#nav-links a').forEach(function (a) {
-      a.addEventListener('click', function () {
-        document.getElementById('nav-links').classList.remove('open');
-      });
-    });
-  </script>
- 
+  <script src="shared.js"></script>
 </body>
 </html>
