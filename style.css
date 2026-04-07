@@ -44,9 +44,9 @@ GLOBAL STYLES
     --error:        #a83232;
 
     /* ── Typography ── */
-    --font-heading:    'Cinzel', 'Book Antiqua', Georgia, serif;
-    --font-body:       'Lora', 'Palatino Linotype', Georgia, serif;
-    --font-subheading: 'Lora', 'Trebuchet MS', sans-serif;
+    --font-heading:    'Cinzel', serif;
+    --font-body:       'Lora', serif;
+    --font-subheading: 'Lora', serif;
 
     /* ── Scale ── */
     --text-xs:   0.75rem;
@@ -723,8 +723,3 @@ RESPONSIVE DESIGN
         padding: 16px 48px;
     }
 
-}
-.story-screen.fade-in {
-  opacity: 1;
-  transform: none;
-}

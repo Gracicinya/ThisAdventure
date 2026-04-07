@@ -1,20 +1,10 @@
 body.characters {
-  background:
-    radial-gradient(circle at top left, rgba(18, 50, 35, 0.2), transparent 34%),
-    radial-gradient(circle at bottom right, rgba(183, 122, 107, 0.12), transparent 28%),
-    var(--bg);
+  background: var(--bg);
 }
 
+/* remove decorative forest overlay on characters page for better text legibility */
 body.characters::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background:
-    linear-gradient(rgba(10, 10, 10, 0.16), rgba(10, 10, 10, 0.08)),
-    url("assets/forest-bg.jpg") center top / cover no-repeat;
-  opacity: 0.16;
-  pointer-events: none;
-  z-index: -2;
+  display: none;
 }
 
 body.characters .page-header {
@@ -769,5 +759,24 @@ body.characters .page-header {
     border-radius: 0 var(--radius-md) var(--radius-md) 0;
     background: rgba(212, 176, 106, 0.08);
     padding: 1.25rem;
+  }
+}
+
+/* Desktop: apply full-portrait layout only to the modal (read-full view).
+   Keep the main slider/rotating images unchanged on desktop. */
+@media (min-width: 900px) {
+  .modal-content {
+    display: grid;
+    grid-template-columns: 45% 55%;
+    gap: 1rem;
+    align-items: start;
+  }
+
+  .modal-portrait-wrap img,
+  .modal-portrait-img {
+    object-fit: contain;
+    width: 100%;
+    height: auto;
+    max-height: 80vh;
   }
 }

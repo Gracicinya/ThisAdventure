@@ -23,9 +23,9 @@
   --glow-gold: 0 0 18px rgba(212, 176, 106, 0.45);
   --nav-bg: rgba(245, 239, 224, 0.96);
   --error: #a83232;
-  --font-heading: 'Cinzel', 'Book Antiqua', Georgia, serif;
-  --font-body: 'Lora', 'Palatino Linotype', Georgia, serif;
-  --font-subheading: 'Lora', 'Trebuchet MS', sans-serif;
+  --font-heading: 'Cinzel', serif;
+  --font-body: 'Lora', serif;
+  --font-subheading: 'Lora', serif;
   --text-xs: 0.75rem;
   --text-sm: 0.95rem;
   --text-base: 1rem;
@@ -108,6 +108,12 @@ body.has-custom-cursor {
 body.has-custom-cursor,
 body.has-custom-cursor * {
   cursor: none !important;
+}
+
+/* Keep home and story pages using the site's base background color (solid) */
+body.home,
+body.story {
+  background: var(--bg);
 }
 
 main {

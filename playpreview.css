@@ -435,3 +435,33 @@ body.preview::before {
 [data-theme="dark"] .restart-btn:hover {
   background: linear-gradient(135deg, #f0d987, #d0b06a);
 }
+/* Dark mode: match the bg radial gradients to dark theme */
+[data-theme="dark"] body.preview {
+  background:
+    radial-gradient(circle at top left, rgba(18, 50, 35, 0.35), transparent 34%),
+    radial-gradient(circle at bottom right, rgba(212, 176, 106, 0.10), transparent 28%),
+    var(--bg);
+}
+
+/* Dark mode: deepen the forest overlay so it reads on dark bg */
+[data-theme="dark"] body.preview::before {
+  background:
+    linear-gradient(rgba(10, 10, 10, 0.45), rgba(10, 10, 10, 0.35)),
+    url("assets/forest-bg.jpg") center 28% / cover no-repeat;
+  opacity: 0.28;
+}
+body.preview {
+  background: var(--bg);
+}
+
+body.preview::before {
+  display: none;
+}
+
+[data-theme="dark"] body.preview {
+  background: var(--bg);
+}
+
+[data-theme="dark"] body.preview::before {
+  display: none;
+}

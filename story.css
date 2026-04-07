@@ -93,6 +93,25 @@
   100% { transform: translateY(0px) rotate(-10deg); }
 }
 
+/* Dark mode: make sun/moon deco more visible against dark backgrounds */
+[data-theme="dark"] .story-hero .hero-deco {
+  opacity: 0.98;
+  filter: drop-shadow(0 20px 48px rgba(212,176,106,0.55)) saturate(1.2) brightness(1.14);
+  mix-blend-mode: screen;
+  z-index: 3;
+}
+
+/* Make each decoration slightly larger in dark mode for visibility */
+[data-theme="dark"] .story-hero .deco-1 {
+  width: clamp(110px, 14vw, 200px);
+  transform: scale(1.08);
+}
+
+[data-theme="dark"] .story-hero .deco-2 {
+  width: clamp(120px, 16vw, 220px);
+  transform: scale(1.06);
+}
+
 /* ============================================
    PARCHMENT TEXTURE OVERLAY
    ============================================ */
