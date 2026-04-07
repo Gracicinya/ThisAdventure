@@ -1,5 +1,5 @@
 function initHomeCountdown() {
-  const launchDate = new Date('2029-06-15T09:00:00').getTime();
+  const launchDate = new Date('2026-12-01T09:00:00').getTime();
   const launchDateEl = document.getElementById('launch-date');
   const daysEl = document.getElementById('days');
   const hoursEl = document.getElementById('hours');
