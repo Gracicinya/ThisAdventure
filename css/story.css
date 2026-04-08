@@ -15,8 +15,8 @@
   justify-content: center;
 
   background:
-    linear-gradient(rgba(10,10,10,0.35), rgba(10,10,10,0.65)),
-    url("../assets/forest-bg.jpg") center 40%/cover no-repeat;
+        linear-gradient(rgba(10, 10, 10, 0.52), rgba(10, 10, 10, 0.68)),
+        url('../assets/forest-bg.jpg') center 35%/cover no-repeat;
 
   overflow: hidden;
 }
@@ -488,8 +488,8 @@ STORY PREVIEW SECTION
   display: grid;
   gap: var(--space-md);
   background:
-    linear-gradient(135deg, rgba(18, 50, 35, 0.08), rgba(183, 122, 107, 0.14)),
-    url("/assets/forest-bg.jpg") center/cover no-repeat;
+        linear-gradient(rgba(10, 10, 10, 0.52), rgba(10, 10, 10, 0.68)),
+        url('../assets/forest-bg.jpg') center 35%/cover no-repeat;
   overflow: hidden;
 }
 
@@ -516,8 +516,8 @@ STORY PREVIEW SECTION
 
 [data-theme="dark"] .story-preview-card::before {
   background:
-    linear-gradient(rgba(16, 20, 17, 0.56), rgba(16, 20, 17, 0.68)),
-    url("/assets/forest-bg.jpg") center/cover no-repeat;
+        linear-gradient(rgba(10, 10, 10, 0.52), rgba(10, 10, 10, 0.68)),
+        url('../assets/forest-bg.jpg') center 35%/cover no-repeat;
 }
 
 [data-theme="dark"] .story-preview-card h2 {

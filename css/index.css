@@ -1,7 +1,7 @@
 body.index .page-header {
   background:
-    linear-gradient(rgba(10,10,10,0.36), rgba(10,10,10,0.64)),
-    url("forest-bg.jpg") center 30%/cover no-repeat;
+        linear-gradient(rgba(10, 10, 10, 0.52), rgba(10, 10, 10, 0.68)),
+        url('../assets/forest-bg.jpg') center 35%/cover no-repeat;
 }
 
 body.index .page-section {

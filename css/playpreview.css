@@ -435,8 +435,8 @@ body.preview {
 /* Dark mode: deepen the forest overlay so it reads on dark bg */
 [data-theme="dark"] body.preview::before {
   background:
-    linear-gradient(rgba(10, 10, 10, 0.45), rgba(10, 10, 10, 0.35)),
-    url("assets/forest-bg.jpg") center 28% / cover no-repeat;
+        linear-gradient(rgba(10, 10, 10, 0.52), rgba(10, 10, 10, 0.68)),
+        url('../assets/forest-bg.jpg') center 35%/cover no-repeat;
   opacity: 0.28;
 }
 body.preview {
