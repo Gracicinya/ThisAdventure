@@ -170,6 +170,13 @@ p {
     max-width: 70ch;
 }
 
+body.characters .page-header,
+body.preview .page-header {
+    background:
+        linear-gradient(rgba(10, 10, 10, 0.52), rgba(10, 10, 10, 0.68)),
+        url('../assets/forest-bg.jpg') center 35%/cover no-repeat;
+}
+
 
 /* -- -----------------------------
 Headings and Typography 
@@ -177,7 +184,7 @@ Headings and Typography
 .page-header {
     background:
         linear-gradient(rgba(10, 10, 10, 0.42), rgba(10, 10, 10, 0.7)),
-        url("/assets/forest-bg.jpg") center 36%/cover no-repeat;
+        url("../assets/forest-bg.jpg") center 36%/cover no-repeat;
 }
 
 /* Large display titles */
@@ -445,8 +452,8 @@ body.preview .page-header,
 body.world .page-header,
 body.characters .page-header {
     background:
-        linear-gradient(rgba(10, 10, 10, 0.42), rgba(10, 10, 10, 0.68)),
-        url("assets/forest-bg.jpg") center 38%/cover no-repeat;
+        linear-gradient(rgba(10, 10, 10, 0.52), rgba(10, 10, 10, 0.68)),
+        url('../assets/forest-bg.jpg') center 35%/cover no-repeat;
 }
 
 body.preview .page-header h1,
