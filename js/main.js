@@ -1,11 +1,39 @@
+/* ================================================================
+    THE SHATTERED CROWN — js/main.js
+    Loaded on every page or functions contained on more than one page.
+
+    Functions:
+    - initThemeToggle — light/dark mode
+    - initHamburgerMenu — mobile nav dropdown
+    - initSmoothScroll  — smooth scrolling
+    - initCustomCursor  — animated cursor 
+    - initBackToTop — back-to-top button
+    - initFadeIn  — fade-in on scroll 
+    - initFAQ — accordion for FAQ section
+    - initCountdown — live countdown
+    - initNewsletter  — newsletter email signup
+    - attachEmailForm — reusable email form handler
+    - initHomeCharSlider  — character carousel on Home page
+    - initHeroDeco  — parallax on hero decorative images
+   ================================================================ */
+
+
+/* ================================================================
+    THEME TOGGLE
+    Saves preference to localStorage so it persists across visits.
+    ( ? : ) is shorthand for if/else.
+================================================================ */
+
 const THEME_KEY = 'scTheme';
 
+/* Updates the toggle button icon to show the opposite state */
 function updateThemeIcon(theme) {
   const themeToggle = document.getElementById('themeToggle');
   if (!themeToggle) return;
   themeToggle.textContent = theme === 'dark' ? '\u2600' : '\u263D';
 }
 
+/* Applies a theme by setting data-theme on <html> */
 function applyTheme(theme) {
   document.documentElement.setAttribute('data-theme', theme);
   localStorage.setItem(THEME_KEY, theme);
@@ -13,6 +41,7 @@ function applyTheme(theme) {
 }
 
 function initThemeToggle() {
+  /* Read saved preference, fall back to page default, then 'light' */
   const savedTheme =
     localStorage.getItem(THEME_KEY) ||
     document.documentElement.getAttribute('data-theme') ||
@@ -31,12 +60,16 @@ function initThemeToggle() {
   });
 }
 
+/* ================================================================
+    HAMBURGER MENU
+    Adds/removes the .open class to show or hide the mobile nav.
+    Closes on: link tap, outside click.
+================================================================ */
 function initHamburgerMenu() {
   const hamburger = document.getElementById('hamburger');
   const navLinks = document.getElementById('navLinks') || document.querySelector('.nav-links');
   const navbar = document.getElementById('navbar');
 
-  if (!hamburger || !navLinks || !navbar) return;
 
   const closeMenu = () => {
     hamburger.classList.remove('open');
@@ -61,10 +94,12 @@ function initHamburgerMenu() {
     }
   });
 
+   /* Close when any nav link is tapped */
   navLinks.querySelectorAll('a').forEach((link) => {
     link.addEventListener('click', closeMenu);
   });
 
+  /* Close when clicking outside the navbar */
   document.addEventListener('click', (event) => {
     if (!navLinks.classList.contains('open')) return;
     if (!navbar.contains(event.target)) {
@@ -73,6 +108,10 @@ function initHamburgerMenu() {
   });
 }
 
+/* ================================================================
+    SMOOTH SCROLL
+    Makes anchor links (#section) scroll smoothly instead of jumping.
+================================================================ */
 function initSmoothScroll() {
   document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
     anchor.addEventListener('click', function handleAnchorClick(event) {
@@ -88,6 +127,10 @@ function initSmoothScroll() {
   });
 }
 
+/* ================================================================
+    CUSTOM CURSOR
+    Replaces the default cursor with an animated dot + ring.
+================================================================ */
 function initCustomCursor() {
   const dot = document.getElementById('cursor-dot');
   const ring = document.getElementById('cursor-ring');
@@ -99,7 +142,7 @@ function initCustomCursor() {
   document.body.classList.add('has-custom-cursor');
 
   if (!isCoarse) {
-    // Desktop / fine pointer behaviour (existing)
+    
     let mouseX = window.innerWidth / 2;
     let mouseY = window.innerHeight / 2;
     let ringX = mouseX;
@@ -140,11 +183,13 @@ function initCustomCursor() {
     const hoverTargets =
       'a, button, input, textarea, label, select, .faq-question, .lore-header, .btn';
 
+    /* Add hover class when over interactive elements */
     document.querySelectorAll(hoverTargets).forEach((element) => {
       element.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
       element.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
     });
 
+    /* Animation loop — dot follows mouse instantly, ring lags behind */
     function animate() {
       dot.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%)`;
       ringX += (mouseX - ringX) * 0.12;
@@ -157,91 +202,13 @@ function initCustomCursor() {
     return;
   }
 
-  // Touch / coarse pointer behaviour: show a simplified cursor at touch point,
-  // emulate hover/active classes and let native click behavior occur.
-  let touchX = window.innerWidth / 2;
-  let touchY = window.innerHeight / 2;
-  let visibleTouch = false;
-  let hideTimeout = null;
-
-  const hoverTargets =
-    'a, button, input, textarea, label, select, .faq-question, .lore-header, .btn';
-
-  function showTouchCursor(x, y) {
-    touchX = x; touchY = y;
-    dot.style.opacity = '1';
-    ring.style.opacity = '1';
-    dot.style.transform = `translate(${touchX}px, ${touchY}px) translate(-50%, -50%)`;
-    ring.style.transform = `translate(${touchX}px, ${touchY}px) translate(-50%, -50%)`;
-    visibleTouch = true;
-    if (hideTimeout) clearTimeout(hideTimeout);
-  }
-
-  function hideTouchCursorSoon() {
-    if (hideTimeout) clearTimeout(hideTimeout);
-    hideTimeout = setTimeout(() => {
-      dot.style.opacity = '0';
-      ring.style.opacity = '0';
-      visibleTouch = false;
-    }, 900);
-  }
-
-  function updateHoverState(x, y) {
-    const el = document.elementFromPoint(x, y);
-    if (!el) return;
-    if (el.matches && el.matches(hoverTargets)) {
-      document.body.classList.add('cursor-hover');
-    } else {
-      document.body.classList.remove('cursor-hover');
-    }
-  }
-
-  document.addEventListener('touchstart', (e) => {
-    const t = e.touches[0];
-    if (!t) return;
-    showTouchCursor(t.clientX, t.clientY);
-    updateHoverState(t.clientX, t.clientY);
-    document.body.classList.add('cursor-active');
-  }, { passive: true });
-
-  document.addEventListener('touchmove', (e) => {
-    const t = e.touches[0];
-    if (!t) return;
-    showTouchCursor(t.clientX, t.clientY);
-    updateHoverState(t.clientX, t.clientY);
-  }, { passive: true });
-
-  document.addEventListener('touchend', (e) => {
-    // remove active state and allow native click to proceed; keep cursor visible briefly
-    document.body.classList.remove('cursor-active');
-    document.body.classList.remove('cursor-hover');
-    hideTouchCursorSoon();
-  }, { passive: true });
-
-  // also accept pointer events if available
-  document.addEventListener('pointerdown', (e) => {
-    if (e.pointerType === 'touch') {
-      showTouchCursor(e.clientX, e.clientY);
-      updateHoverState(e.clientX, e.clientY);
-      document.body.classList.add('cursor-active');
-    }
-  }, { passive: true });
-
-  document.addEventListener('pointermove', (e) => {
-    if (e.pointerType === 'touch') {
-      showTouchCursor(e.clientX, e.clientY);
-      updateHoverState(e.clientX, e.clientY);
-    }
-  }, { passive: true });
-
-  document.addEventListener('pointerup', (e) => {
-    if (e.pointerType === 'touch') {
-      document.body.classList.remove('cursor-active');
-      document.body.classList.remove('cursor-hover');
-      hideTouchCursorSoon();
-    }
-  }, { passive: true });
+  
 }
+
+/* ================================================================
+    BACK TO TOP BUTTON
+    Appears after scrolling 300px. Scrolls smoothly back to the top.
+================================================================ */
 
 function initBackToTop() {
   const backToTopBtn = document.getElementById('backToTop');
@@ -257,6 +224,11 @@ function initBackToTop() {
   });
   handleScroll();
 }
+
+/* ================================================================
+    FADE IN ON SCROLL
+    Watches .fade-in elements and adds .fade-in-visible. 
+================================================================ */
 
 function initFadeIn() {
   const targets = document.querySelectorAll('.fade-in');
@@ -276,6 +248,12 @@ function initFadeIn() {
   targets.forEach((element) => observer.observe(element));
 }
 
+/* ================================================================
+    FAQ ACCORDION
+    Single-open: clicking a question closes all others first,
+    then opens the clicked one. Uses aria-expanded for accessibility.
+    Only runs if .faq-item elements exist on the page.
+================================================================ */
 function initFAQ() {
   const items = document.querySelectorAll('.faq-item');
   if (!items.length) return;
@@ -300,142 +278,81 @@ function initFAQ() {
   });
 }
 
-function initContactCountdown() {
-  const daysEl = document.getElementById('days');
-  const hoursEl = document.getElementById('hours');
-  const minutesEl = document.getElementById('minutes');
-  const secondsEl = document.getElementById('seconds');
+/* ================================================================
+    COUNTDOWN
+    Shows days, hours, minutes.
+    Updates every minute. 
+    Counts down to the estimated release date: 1 December 2026.
+    Uses WorldTimeAPI to get accurate UTC time regardless of the
+    visitor's device clock. Falls back to Date.now() if the API is unavailable.
+================================================================ */
 
-  if (!daysEl || !hoursEl || !minutesEl || secondsEl) return;
+(function initCountdown() {
+    const daysEl    = document.getElementById('days');
+    const hoursEl   = document.getElementById('hours');
+    const minutesEl = document.getElementById('minutes');
 
-  const releaseDate = new Date('2026-12-01T00:00:00Z');
+    /* Target release: 1 December 2026, midnight UTC */
+    const RELEASE = new Date('2026-12-01T00:00:00Z');
 
-  function render(now) {
-    const diff = releaseDate - now;
+    /* Calculate and display time remaining given a Date object for "now" */
+    function render(now) {
+        const diff = RELEASE - now;
 
-    if (diff <= 0) {
-      daysEl.textContent = '000';
-      hoursEl.textContent = '00';
-      minutesEl.textContent = '00';
-      return;
+        if (diff <= 0) {
+            /* Release has passed — show zeroes */
+            daysEl.textContent    = '000';
+            hoursEl.textContent   = '00';
+            minutesEl.textContent = '00';
+            return;
+        }
+
+        const totalMinutes = Math.floor(diff / 60000);
+        const totalHours   = Math.floor(totalMinutes / 60);
+        const days         = Math.floor(totalHours / 24);
+        const hours        = totalHours % 24;
+        const minutes      = totalMinutes % 60;
+
+        /* padStart ensures numbers always have the right number of digits
+           e.g. 7 days → '007', 3 hours → '03' */
+        daysEl.textContent    = String(days).padStart(3, '0');
+        hoursEl.textContent   = String(hours).padStart(2, '0');
+        minutesEl.textContent = String(minutes).padStart(2, '0');
     }
 
-    const totalMinutes = Math.floor(diff / 60000);
-    const totalHours = Math.floor(totalMinutes / 60);
-    const days = Math.floor(totalHours / 24);
-    const hours = totalHours % 24;
-    const minutes = totalMinutes % 60;
-
-    daysEl.textContent = String(days).padStart(3, '0');
-    hoursEl.textContent = String(hours).padStart(2, '0');
-    minutesEl.textContent = String(minutes).padStart(2, '0');
-  }
-
-  async function fetchNow() {
-    try {
-      const response = await fetch('https://worldtimeapi.org/api/timezone/UTC');
-      if (!response.ok) {
-        throw new Error('Unable to fetch current time.');
-      }
-      const data = await response.json();
-      return new Date(data.datetime);
-    } catch {
-      return new Date();
-    }
-  }
-
-  fetchNow().then((apiNow) => {
-    const deviceAtFetch = Date.now();
-    render(apiNow);
-
-    setInterval(() => {
-      const elapsed = Date.now() - deviceAtFetch;
-      render(new Date(apiNow.getTime() + elapsed));
-    }, 60000);
-  });
-}
-
-function initHomeCountdown() {
-  const launchDateEl = document.getElementById('launch-date');
-  const daysEl = document.getElementById('days');
-  const hoursEl = document.getElementById('hours');
-  const minutesEl = document.getElementById('minutes');
-  const secondsEl = document.getElementById('seconds');
-
-  if (!launchDateEl || !daysEl || !hoursEl || !minutesEl || !secondsEl) return;
-
-  const launchDate = new Date('2026-12-01T00:00:00Z').getTime();
-
-  launchDateEl.textContent = new Date(launchDate).toLocaleDateString(undefined, {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
-
-  function updateCountdown() {
-    const distance = launchDate - Date.now();
-
-    if (distance <= 0) {
-      daysEl.textContent = '0';
-      hoursEl.textContent = '0';
-      minutesEl.textContent = '0';
-      secondsEl.textContent = '0';
-      return;
+    /* Fetch the real current UTC time from WorldTimeAPI.
+       Returns a Date object — falls back to device clock on any error. */
+    async function fetchNow() {
+        try {
+            const response = await fetch('https://worldtimeapi.org/api/timezone/UTC');
+            if (!response.ok) throw new Error('API response was not OK');
+            const data = await response.json();
+            return new Date(data.datetime); /* accurate server time */
+        } catch {
+            return new Date(); /* fallback: use device clock */
+        }
     }
 
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    /* AI Assisted - On load: call the API, render immediately, then tick every 60s
+       stay accurate without re-calling the API */
+    fetchNow().then(function (apiNow) {
+        const deviceAtFetch = Date.now(); /* record device time at API response */
+        render(apiNow);                   /* display immediately */
 
-    daysEl.textContent = String(days);
-    hoursEl.textContent = String(hours);
-    minutesEl.textContent = String(minutes);
-    secondsEl.textContent = String(seconds);
-  }
+        setInterval(function () {
+            const elapsed   = Date.now() - deviceAtFetch;     /* ms since API call */
+            const corrected = new Date(apiNow.getTime() + elapsed); /* API time + elapsed */
+            render(corrected);
+        }, 60_000); /* update every 60 seconds */
+    });
 
-  updateCountdown();
-  setInterval(updateCountdown, 1000);
-}
+}());
 
-function initNewsletter() {
-  const submitBtn = document.getElementById('nl-submit');
-  const emailInput = document.getElementById('nl-email');
-  const errorEl = document.getElementById('nl-error');
-  const successEl = document.getElementById('newsletter-success');
-  const wrapEl = document.getElementById('newsletter-wrap');
 
-  if (!submitBtn || !emailInput) return;
-
-  const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-  submitBtn.addEventListener('click', async () => {
-    const value = emailInput.value.trim();
-
-    if (!emailRe.test(value)) {
-      if (errorEl) errorEl.textContent = 'Please enter a valid email address.';
-      emailInput.focus();
-      return;
-    }
-
-    if (errorEl) errorEl.textContent = '';
-
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Joining...';
-    await new Promise((resolve) => setTimeout(resolve, 800));
-
-    if (wrapEl) wrapEl.hidden = true;
-    if (successEl) successEl.hidden = false;
-
-    submitBtn.disabled = false;
-    submitBtn.textContent = 'Join the Journey';
-  });
-
-  emailInput.addEventListener('input', () => {
-    if (errorEl) errorEl.textContent = '';
-  });
-}
-
+/* ================================================================
+    ATTACH EMAIL FORM
+    Takes the IDs of the form, input, and message elements.
+================================================================ */
 function attachEmailForm(formId, inputId, messageId) {
   const form = document.getElementById(formId);
   const input = document.getElementById(inputId);
@@ -501,95 +418,51 @@ function initStoryReveal() {
   });
 }
 
-function initContactApp() {
-  if (!window.Vue || !document.getElementById('contact-form-app')) return;
+/* ================================================================
+    NEWSLETTER FORM
+    Handles the simpler newsletter sign-up in contact.
+    Validates the email input and shows a success state.
+================================================================ */
+function initNewsletter() {
+  const submitBtn = document.getElementById('nl-submit');
+  const emailInput = document.getElementById('nl-email');
+  const errorEl = document.getElementById('nl-error');
+  const successEl = document.getElementById('newsletter-success');
+  const wrapEl = document.getElementById('newsletter-wrap');
 
-  const { createApp } = window.Vue;
+  if (!submitBtn || !emailInput) return;
 
-  createApp({
-    data() {
-      return {
-        form: {
-          name: '',
-          email: '',
-          subject: '',
-          message: '',
-          subscribe: true,
-        },
-        errors: {
-          name: '',
-          email: '',
-          subject: '',
-          message: '',
-        },
-        submitted: false,
-        submitting: false,
-      };
-    },
-    computed: {
-      nameValid() {
-        return this.form.name.trim().length >= 2;
-      },
-      emailValid() {
-        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.form.email);
-      },
-      subjectValid() {
-        return this.form.subject.trim().length >= 2;
-      },
-      messageValid() {
-        return this.form.message.trim().length >= 10;
-      },
-      formValid() {
-        return this.nameValid && this.emailValid && this.subjectValid && this.messageValid;
-      },
-    },
-    methods: {
-      validateName() {
-        this.errors.name = this.nameValid ? '' : 'Name must be at least 2 characters long.';
-      },
-      validateEmail() {
-        this.errors.email = this.emailValid ? '' : 'Please enter a valid email address.';
-      },
-      validateSubject() {
-        this.errors.subject = this.subjectValid ? '' : 'Subject must be at least 2 characters long.';
-      },
-      validateMessage() {
-        this.errors.message = this.messageValid ? '' : 'Message must be at least 10 characters long.';
-      },
-      validateAll() {
-        this.validateName();
-        this.validateEmail();
-        this.validateSubject();
-        this.validateMessage();
-        return this.formValid;
-      },
-      async submitForm() {
-        if (!this.validateAll()) return;
+  const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-        this.submitting = true;
-        await new Promise((resolve) => setTimeout(resolve, 900));
-        this.submitting = false;
-        this.submitted = true;
-        this.form = {
-          name: '',
-          email: '',
-          subject: '',
-          message: '',
-          subscribe: true,
-        };
-      },
-      resetForm() {
-        this.submitted = false;
-        this.errors = {
-          name: '',
-          email: '',
-          subject: '',
-          message: '',
-        };
-      },
-    },
-  }).mount('#contact-form-app');
+  submitBtn.addEventListener('click', async () => {
+    const value = emailInput.value.trim();
+
+    if (!emailRe.test(value)) {
+      if (errorEl) errorEl.textContent = 'Please enter a valid email address.';
+      emailInput.focus();
+      return;
+    }
+
+    if (errorEl) errorEl.textContent = '';
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Joining...';
+    await new Promise((resolve) => setTimeout(resolve, 800));
+
+    /* Show success */
+    if (wrapEl) wrapEl.hidden = true;
+    if (successEl) successEl.hidden = false;
+
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Join the Journey';
+  });
+
+  /* Clear error on input */
+  emailInput.addEventListener('input', () => {
+    if (errorEl) errorEl.textContent = '';
+  });
 }
+
 
 function initHomeCharacterSlider() {
   const track = document.getElementById('homeCharacterTrack');
@@ -716,23 +589,7 @@ function initHomeCharacterSlider() {
   restartAutoAdvance();
 }
 
-function initHeroDeco() {
-  const deco1 = document.querySelector('.deco-1');
-  const deco2 = document.querySelector('.deco-2');
-  if (!deco1 && !deco2) return;
 
-  const maxOffset = 40; // px
-
-  function handleMove() {
-    const ratio = window.scrollY / Math.max(1, document.body.scrollHeight - window.innerHeight);
-    const y = Math.round((ratio - 0.5) * -maxOffset);
-    if (deco1) deco1.style.transform = `translateY(${y}px) rotate(-10deg)`;
-    if (deco2) deco2.style.transform = `translateY(${y * 0.6}px) rotate(-8deg)`;
-  }
-
-  // respond to touchmove as well as scroll so touch devices see the same effect
-  window.addEventListener('scroll', handleMove, { passive: true });
-  window.addEventListener('touchmove', handleMove, { passive: true });
 
   // small tap/click pulse
   function pulse(el) {
@@ -751,8 +608,11 @@ function initHeroDeco() {
     pulse(deco1);
     pulse(deco2);
   }, { passive: true });
-}
 
+
+/* ================================================================
+    INITIALISE — runs when the page is fully loaded
+================================================================ */
 document.addEventListener('DOMContentLoaded', () => {
   initThemeToggle();
   initHamburgerMenu();
@@ -761,8 +621,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initBackToTop();
   initFadeIn();
   initFAQ();
-  initContactCountdown();
-  initHomeCountdown();
   initNewsletter();
   attachEmailForm('hero-email-form', 'hero-email', 'hero-form-msg');
   attachEmailForm('mailing-form', 'mailing-email', 'mailing-form-msg');

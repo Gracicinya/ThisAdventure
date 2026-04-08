@@ -144,7 +144,7 @@ CONTACT
 }
 
 
-/* Success message — shown by JS, hidden by default via [hidden] attr */
+/* Success message — shown by JS, hidden by default via hidden attr */
 .newsletter-success {
     padding: 20px;
     text-align: center;
@@ -173,7 +173,7 @@ CONTACT
     font-family: var(--font-heading);
     font-size: 14px;
     font-weight: 600;
-     color: var(--primary-green);
+    color: var(--primary-green);
     margin-bottom: 10px;
 }
 

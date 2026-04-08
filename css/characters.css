@@ -7,11 +7,6 @@ body.characters::before {
   display: none;
 }
 
-body.characters .page-header {
-  background:
-    linear-gradient(rgba(10, 10, 10, 0.42), rgba(10, 10, 10, 0.7)),
-    url("assets/forest-bg.jpg") center 36%/cover no-repeat;
-}
 
 .characters-main {
   width: min(1180px, calc(100% - 2rem));

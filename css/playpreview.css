@@ -5,17 +5,6 @@ body.preview {
     var(--bg);
 }
 
-body.preview::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background:
-    linear-gradient(rgba(10, 10, 10, 0.12), rgba(10, 10, 10, 0.08)),
-    url("assets/forest-bg.jpg") center 28% / cover no-repeat;
-  opacity: 0.16;
-  pointer-events: none;
-  z-index: -2;
-}
 
 .preview-main {
   width: min(980px, calc(100% - 2rem));
