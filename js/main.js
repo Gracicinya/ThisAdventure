@@ -428,9 +428,9 @@ function initStoryReveal() {
     Validates the email input and shows a success state.
 ================================================================ */
 function initNewsletter() {
-  const submitBtn = document.getElementById('nl-submit');
-  const emailInput = document.getElementById('nl-email');
-  const errorEl = document.getElementById('nl-error');
+  const submitBtn = document.getElementById('newsletter-submit');
+  const emailInput = document.getElementById('newsletter-email');
+  const errorEl = document.getElementById('newsletter-error');
   const successEl = document.getElementById('newsletter-success');
   const wrapEl = document.getElementById('newsletter-wrap');
 
@@ -626,10 +626,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initFadeIn();
   initFAQ();
   initNewsletter();
-  attachEmailForm('mailing-form', 'mailing-email', 'mailing-form-msg');
+  attachEmailForm('newsletter-form', 'newsletter-email', 'newsletter-form-msg');
   initLoreExpand();
   initStoryReveal();
-  initContactApp();
   initHomeCharacterSlider();
-  initHeroDeco();
 });
