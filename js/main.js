@@ -280,8 +280,8 @@ function initFAQ() {
 
 /* ================================================================
     COUNTDOWN
-    Shows days, hours, minutes.
-    Updates every minute. 
+    Shows days, hours, minutes, seconds.
+    Updates every second.
     Counts down to the estimated release date: 1 December 2026.
     Uses WorldTimeAPI to get accurate UTC time regardless of the
     visitor's device clock. Falls back to Date.now() if the API is unavailable.
@@ -291,6 +291,7 @@ function initFAQ() {
     const daysEl    = document.getElementById('days');
     const hoursEl   = document.getElementById('hours');
     const minutesEl = document.getElementById('minutes');
+    const secondsEl = document.getElementById('seconds');
 
     /* Target release: 1 December 2026, midnight UTC */
     const RELEASE = new Date('2026-12-01T00:00:00Z');
@@ -304,6 +305,7 @@ function initFAQ() {
             daysEl.textContent    = '000';
             hoursEl.textContent   = '00';
             minutesEl.textContent = '00';
+            secondsEl.textContent = '00';
             return;
         }
 
@@ -312,12 +314,14 @@ function initFAQ() {
         const days         = Math.floor(totalHours / 24);
         const hours        = totalHours % 24;
         const minutes      = totalMinutes % 60;
+        const seconds      = Math.floor(diff / 1000) % 60;
 
         /* padStart ensures numbers always have the right number of digits
            e.g. 7 days → '007', 3 hours → '03' */
         daysEl.textContent    = String(days).padStart(3, '0');
         hoursEl.textContent   = String(hours).padStart(2, '0');
         minutesEl.textContent = String(minutes).padStart(2, '0');
+        secondsEl.textContent = String(seconds).padStart(2, '0');
     }
 
     /* Fetch the real current UTC time from WorldTimeAPI.
@@ -343,7 +347,7 @@ function initFAQ() {
             const elapsed   = Date.now() - deviceAtFetch;     /* ms since API call */
             const corrected = new Date(apiNow.getTime() + elapsed); /* API time + elapsed */
             render(corrected);
-        }, 60_000); /* update every 60 seconds */
+        }, 1_000); /* update every 1 second */
     });
 
 }());
