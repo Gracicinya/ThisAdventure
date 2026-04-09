@@ -333,7 +333,7 @@ function initFAQ() {
         }
     }
 
-    /* AI Assisted - On load: call the API, render immediately, then tick every 60s
+    /* AI Assisted - On load: call the API, render immediately, then tick every 1s
        stay accurate without re-calling the API */
     fetchNow().then(function (apiNow) {
         const deviceAtFetch = Date.now(); /* record device time at API response */
@@ -343,7 +343,7 @@ function initFAQ() {
             const elapsed   = Date.now() - deviceAtFetch;     /* ms since API call */
             const corrected = new Date(apiNow.getTime() + elapsed); /* API time + elapsed */
             render(corrected);
-        }, 60_000); /* update every 60 seconds */
+        }, 1_000); /* update every 1 second */
     });
 
 }());
