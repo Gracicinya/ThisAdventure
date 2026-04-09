@@ -161,23 +161,23 @@
       </section>
 
       <!-- Final call to action: mailing list -->
-      <section class="mailing-cta">
-        <h2>Follow the Journey</h2>
-        <p>Be the first to hear about lore reveals, dev updates, and the launch.</p>
+      <section class="newsletter-cta">
+        <h2 class="title-heading">Follow the Journey</h2>
+        <p class="newsletter-sub">Be the first to hear about lore reveals, dev updates, and the launch.</p>
 
-        <form class="mailing-form" id="mailing-form" novalidate>
-          <label for="mailing-email" class="sr-only">Email address</label>
+        <form class="newsletter-form" id="newsletter-form" role="form" aria-label="newsletter-signup">
+          <label for="newsletter-email">Email address</label>
           <input
             type="email"
-            id="mailing-email"
+            id="newsletter-email"
             name="email"
             placeholder="your@email.com"
             autocomplete="email"
-            aria-describedby="mailing-form-msg"
+            aria-describedby="newsletter-form-msg"
           >
-          <button type="submit" class="btn">Subscribe</button>
+          <button type="submit" class="btn" id="nl-submit">Join the Journey</button>
         </form>
-        <p class="form-msg" id="mailing-form-msg" aria-live="polite"></p>
+        <p class="form-msg" id="newsletter-form-msg" aria-live="polite"></p>
       </section>
     </main>
 

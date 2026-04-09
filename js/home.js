@@ -24,6 +24,5 @@ function attachEmailForm(formId, inputId, messageId) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  attachEmailForm('hero-email-form', 'hero-email', 'hero-form-msg');
-  attachEmailForm('mailing-form', 'mailing-email', 'mailing-form-msg');
+  attachEmailForm('newsletter-form', 'newsletter-email', 'newsletter-form-msg');
 });
