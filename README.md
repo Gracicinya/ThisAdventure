@@ -297,7 +297,6 @@ Other learning resources used during development:
 - explaining JavaScript concepts and debugging logic
 - helping clean up or simplify some repeated code
 - helping write and revise this README
-- helping phrase some AI-assisted code comments in the project where needed
 
 ### What Was Written by the Team
 
