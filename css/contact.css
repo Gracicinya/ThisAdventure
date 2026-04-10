@@ -124,10 +124,14 @@ CONTACT
     border: 1px solid var(--border-gold);
     border-radius: 999px;
     font-size: 14px;
-    background: transparent;
+    background: rgba(255, 255, 255, 0.55);
     color: var(--text);
     transition: border-color 0.2s;
     outline: none;
+}
+
+[data-theme="dark"] .newsletter-form input[type="email"] {
+    background: rgba(255, 255, 255, 0.06);
 }
 
 .newsletter-form input[type="email"]:focus {
@@ -234,10 +238,15 @@ CONTACT
     border-radius: var(--radius-sm);
     font-size: 14px;
     font-family: var(--font-body);
-    background: transparent;
+    background: rgba(255, 255, 255, 0.55);
     color: var(--text);
     outline: none;
     transition: border-color 0.2s;
+}
+
+[data-theme="dark"] .form-group input,
+[data-theme="dark"] .form-group textarea {
+    background: rgba(255, 255, 255, 0.06);
 }
 
 .form-group input:focus,

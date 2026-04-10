@@ -298,6 +298,7 @@ Other learning resources used during development:
 - helping clean up or simplify some repeated code
 - helping write and revise this README
 
+
 ### What Was Written by the Team
 
 - overall project idea and content direction
