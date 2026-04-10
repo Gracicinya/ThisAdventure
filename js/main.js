@@ -359,6 +359,9 @@ function initFAQ() {
    Uses the TimeAPI to get the correct UTC time so the countdown
    is accurate no matter what the visitor's device clock says.
    Falls back to the device time if the API is not available.
+
+   Note: after reviewing the console log after pushing to github it seems the use of the API is restricted with Github Pages.
+   The API does however work without console error on local computer.
 ================================================================ */
 (function initCountdown() {
 
