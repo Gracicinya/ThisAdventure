@@ -322,7 +322,7 @@ AI was used as a support tool, not as a replacement for team work. The majority 
 ## Deployment Links
 
 - **GitHub Repository:** [Add repository link here]
-- **Live GitHub Pages Site:** [Add live site link here]
+- **Live GitHub Pages Site:** (https://gracicinya.github.io/ThisAdventure/)
 - **Design Document:** Submitted with the project deliverables / [Add link here if needed]
 
 ---
