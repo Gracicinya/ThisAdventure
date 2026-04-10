@@ -9,11 +9,11 @@
 
 ## Team Members
 
-- **Person 1:** [Add Name] - [Add Student Number]  
-  Project setup, GitHub Pages setup, home page structure, hero section, mailing list section, shared smooth scroll and fade-in support
+- **Person 1:** Nyasha Chikanga - 101 340 984  
+  Project setup, GitHub Pages setup, home page structure, hero section, mailing/newsletter list section, shared smooth scroll and fade-in support, custom cursor
 
 - **Person 2:** Peace Jolayemi - 101378520  
-  Story / world page development, lore content, timeline section, shared CSS system, colour palette, typography, spacing, and overall visual consistency
+  Story / world page development, lore content, timeline section, shared CSS system, colour palette, typography, spacing, and overall visual consistency, custom cursor
 
 - **Person 3:** Ehizomo Odiana - 101368940  
   Characters page, character cards, character filtering, popup modals, and play preview / branching interactive page
@@ -321,7 +321,7 @@ AI was used as a support tool, not as a replacement for team work. The majority 
 
 ## Deployment Links
 
-- **GitHub Repository:** [Add repository link here]
+- **GitHub Repository:** (https://github.com/Gracicinya/ThisAdventure)
 - **Live GitHub Pages Site:** (https://gracicinya.github.io/ThisAdventure/)
 - **Design Document:** Submitted with the project deliverables / [Add link here if needed]
 
