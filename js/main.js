@@ -356,7 +356,7 @@ function initFAQ() {
    Shows days, hours, minutes, and seconds until the release date.
    Updates every second.
 
-   Uses the WorldTimeAPI to get the correct UTC time so the countdown
+   Uses the TimeAPI to get the correct UTC time so the countdown
    is accurate no matter what the visitor's device clock says.
    Falls back to the device time if the API is not available.
 ================================================================ */
@@ -402,16 +402,16 @@ function initFAQ() {
     secondsEl.textContent = String(seconds).padStart(2, '0');
   }
 
-  /* Try to get the current time from WorldTimeAPI.
+  /* Try to get the current time from TimeAPI.
      If that fails, just use the device clock. */
   function fetchNow() {
-    return fetch('https://worldtimeapi.org/api/timezone/UTC')
+    return fetch('https://timeapi.io/api/time/current/zone?timeZone=UTC')
       .then(function(response) {
         if (!response.ok) throw new Error('API failed');
         return response.json();
       })
       .then(function(data) {
-        return new Date(data.datetime);
+        return new Date(data.dateTime);
       })
       .catch(function() {
         return new Date(); /* fallback to device clock */
