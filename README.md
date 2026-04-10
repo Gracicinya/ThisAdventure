@@ -10,10 +10,10 @@
 ## Team Members
 
 - **Person 1:** Nyasha Chikanga - 101 340 984  
-  Project setup, GitHub Pages setup, home page structure, hero section, mailing/newsletter list section, shared smooth scroll and fade-in support, custom cursor
+  Project setup, GitHub Pages setup, home page structure, hero section, mailing/newsletter list section, shared smooth scroll and fade-in support, custom cursor.
 
 - **Person 2:** Peace Jolayemi - 101378520  
-  Story / world page development, lore content, timeline section, shared CSS system, colour palette, typography, spacing, and overall visual consistency, custom cursor
+  Story / world page development, lore content, timeline section, shared CSS system, colour palette, typography, spacing, overall visual consistency, custom cursor, and moodboard.
 
 - **Person 3:** Ehizomo Odiana - 101368940  
   Characters page, character cards, character filtering, popup modals, and play preview / branching interactive page
