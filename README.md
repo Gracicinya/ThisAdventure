@@ -18,7 +18,7 @@
 - **Person 3:** Ehizomo Odiana - 101368940  
   Characters page, character cards, character filtering, popup modals, and play preview / branching interactive page
 
-- **Person 4:** [Add Name] - [Add Student Number]  
+- **Person 4:** Dominique Sutherland - 101381790  
   Contact / join page, countdown section, FAQ accordion, form validation, hamburger menu, and design document maintenance
 
 ---
@@ -323,7 +323,7 @@ AI was used as a support tool, not as a replacement for team work. The majority 
 
 - **GitHub Repository:** (https://github.com/Gracicinya/ThisAdventure)
 - **Live GitHub Pages Site:** (https://gracicinya.github.io/ThisAdventure/)
-- **Design Document:** Submitted with the project deliverables / [Add link here if needed]
+- **Design Document:** Submitted with the project deliverables
 
 ---
 

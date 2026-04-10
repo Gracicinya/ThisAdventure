@@ -1,3 +1,6 @@
+/* ===========================
+GLOBAL STYLESHEET
+============================ */
 /* Mobile First Design */
 /* Resposive for tablets/ipads/computers lower in the page */
 
@@ -554,15 +557,13 @@ COMPONENTS
     color: #1d160f;
 }
 
-.btn-secondary,
-.btn-outline {
+.btn-secondary {
     background: rgba(255, 255, 255, 0.08);
     border-color: rgba(255, 255, 255, 0.5);
     color: #f0e6d4;
 }
 
-.btn-secondary:hover,
-.btn-outline:hover {
+.btn-secondary:hover {
     background: rgba(255, 255, 255, 0.15);
 }
 
@@ -582,16 +583,7 @@ body.home .btn-outline:hover {
     color: #1d160f;
 }
 
-.btn-ghost {
-    border-color: var(--border);
-    background: transparent;
-    color: var(--text-muted);
-}
 
-.btn-ghost:hover {
-    border-color: var(--text);
-    color: var(--text);
-}
 
 /* ===========================
 CARDS

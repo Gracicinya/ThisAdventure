@@ -76,7 +76,7 @@
 }
 
 .deco-1 {
-  top: 15%;     /* controls vertical position */
+  top: 15%;
   left: 0%;
   width: clamp(80px, 11vw, 140px);
 }
@@ -101,7 +101,6 @@
   z-index: 3;
 }
 
-/* Make each decoration slightly larger in dark mode for visibility */
 [data-theme="dark"] .story-hero .deco-1 {
   width: clamp(110px, 14vw, 200px);
   transform: scale(1.08);
@@ -111,21 +110,6 @@
   width: clamp(120px, 16vw, 220px);
   transform: scale(1.06);
 }
-
-/* ============================================
-  PARCHMENT TEXTURE OVERLAY
-   ============================================ */
-
-/*body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background-image: url("/assets/parchment-texture.jpg");
-  background-size: cover;
-  opacity: 0.08;
-  pointer-events: none;
-  z-index: -1;
-}*/
 
 
 /* Ensure all story sections sit above the decorative layers */
@@ -145,7 +129,6 @@
 .prophecy-text {
     isolation: isolate;
 }
-
 
 
 /* ============================================
@@ -294,7 +277,6 @@ STORY OVERVIEW SECTION
     0 0 42px rgba(212, 176, 106, 0.35);
 }
 
-
 .timeline-date {
   font-family: var(--font-heading);
   font-size: var(--text-xs);
@@ -317,45 +299,43 @@ STORY OVERVIEW SECTION
 }
 
 
-
 /* ============================================
   LORE / EXPANDABLE SECTIONS
+  Styled to match the FAQ accordion on the Join page.
    ============================================ */
 
 .lore-section {
   padding: var(--space-2xl) 0;
 }
 
+/* Outer card — matches .faq-item */
 .lore-item {
-  margin-bottom: var(--space-lg);
-  /* Parchment-textured card */
-  background:
-    linear-gradient(
-      135deg,
-      rgba(212,176,106,0.10) 0%,
-      rgba(18,50,35,0.06) 50%,
-      rgba(212,176,106,0.08) 100%
-    );
-  border: 1px solid var(--border-gold);
+  margin-bottom: var(--space-md);
+  border-bottom: 1px solid var(--border-gold);
   border-radius: var(--radius-lg);
-  position: relative;
-  overflow: hidden;
+  background: linear-gradient(
+    135deg,
+    rgba(212, 176, 106, 0.10) 0%,
+    rgba(18, 50, 35, 0.06) 50%,
+    rgba(212, 176, 106, 0.08) 100%
+  );
   box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  position: relative;
 }
 
-/* Aged horizontal line texture */
+/* Aged line texture — matches .faq-item::before */
 .lore-item::before {
   content: "";
   position: absolute;
   inset: 0;
-  background-image:
-    repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 29px,
-      rgba(18,50,35,0.018) 29px,
-      rgba(18,50,35,0.018) 30px
-    );
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 29px,
+    rgba(18, 50, 35, 0.018) 29px,
+    rgba(18, 50, 35, 0.018) 30px
+  );
   pointer-events: none;
   z-index: 0;
 }
@@ -365,54 +345,75 @@ STORY OVERVIEW SECTION
   z-index: 1;
 }
 
+/* Header row — matches .faq-question layout and colours */
 .lore-header {
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: var(--space-md);
+  padding: var(--space-md) var(--space-lg);
+  background: rgba(245, 241, 230, 0.84);
+  border: none;
   cursor: pointer;
   user-select: none;
-  padding: var(--space-md) var(--space-lg);
   transition: background var(--transition-fast);
   border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-  background: rgba(245, 241, 230, 0.84);
 }
 
 .lore-header:hover {
-  background: rgba(212,176,106,0.10);
+  background: rgba(212, 176, 106, 0.10);
 }
 
 [data-theme="dark"] .lore-header {
-  background: rgba(23, 21, 19, 0.82);
+  background: rgba(27, 24, 18, 0.82);
 }
 
+[data-theme="dark"] .lore-header:hover {
+  background: rgba(212, 176, 106, 0.08);
+}
+
+/* Title — matches .faq-question font treatment */
 .lore-header h3 {
   margin-bottom: 0;
-  font-size: var(--text-xl);
+  font-family: var(--font-heading);
+  font-size: clamp(0.95rem, 1.8vw, 1.1rem);
+  font-weight: 600;
   color: var(--primary-green);
+  line-height: 1.4;
+  text-align: left;
 }
 
-[data-theme="dark"] .lore-header h3 { color: var(--logo-light-green); }
+[data-theme="dark"] .lore-header h3 {
+  color: var(--logo-light-green);
+}
 
+/* +/× icon — matches .faq-icon size, colour and rotation animation */
 .lore-toggle {
   font-size: var(--text-2xl);
-  color: var(--accent-gold);
   font-weight: 300;
+  color: var(--accent-gold);
+  flex-shrink: 0;
   transition: transform var(--transition-normal);
   line-height: 1;
   width: 32px;
   text-align: center;
-  flex-shrink: 0;
 }
 
+/* Rotate to × when open (story-page specific animation kept) */
 .lore-header.active .lore-toggle {
   transform: rotate(45deg);
   color: var(--primary-green);
 }
 
-/* Hidden by default */
+[data-theme="dark"] .lore-header.active .lore-toggle {
+  color: var(--logo-light-green);
+}
+
+/* Answer panel — matches .faq-answer collapse behaviour */
 .lore-content {
-  max-height: 0;
   overflow: hidden;
+  max-height: 0;
   transition: max-height 0.5s ease;
   padding: 0 var(--space-lg);
 }
@@ -430,6 +431,12 @@ STORY OVERVIEW SECTION
   max-width: 100%;
   line-height: var(--leading-relaxed);
   color: var(--text-soft);
+  font-size: var(--text-sm);
+  margin: 0;
+}
+
+[data-theme="dark"] .lore-body p {
+  color: var(--text-primary);
 }
 
 .lore-body h4 {
@@ -456,7 +463,6 @@ STORY OVERVIEW SECTION
   color: var(--text-soft);
 }
 
-
 /* Prophecy blockquote */
 .prophecy-text {
   background: rgba(212,176,106,0.08);
@@ -475,10 +481,14 @@ STORY OVERVIEW SECTION
   font-weight: 700;
 }
 
+.prophecy-text p:last-child {
+  margin-bottom: 0;
+}
+
 
 /* ================================================================
 STORY PREVIEW SECTION
-====================== */
+================================================================ */
 
 .story-preview {
   padding: var(--space-2xl) 0;
@@ -530,20 +540,12 @@ STORY PREVIEW SECTION
 }
 
 
-
-.prophecy-text p:last-child {
-  margin-bottom: 0;
-}
-
-
-
 /* ============================================
   RESPONSIVE — TABLET (≤ 768px)
    ============================================ */
 
 @media (max-width: 768px) {
 
-  /* Nav wraps to two rows */
   .main-nav .container {
     flex-direction: column;
     gap: var(--space-sm);
@@ -576,13 +578,11 @@ STORY PREVIEW SECTION
     transform: none;
   }
 
-  /* Hide the decorative nub arrows on mobile */
   .timeline-item:nth-child(odd)  .timeline-content::after,
   .timeline-item:nth-child(even) .timeline-content::after {
     display: none;
   }
 
-  /* Hero buttons stack */
   .hero-buttons {
     flex-direction: column;
     align-items: center;

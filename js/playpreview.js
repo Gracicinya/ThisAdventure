@@ -1,20 +1,33 @@
-/*
-  The Shattered Crown: playpreview.js
-  Vue 3 branching story engine (CDN global build)
+/* ================================================================
+    THE SHATTERED CROWN — playpreview.js
+    Powers the interactive branching story on the Play Preview page.
+    Uses Vue 3 (loaded via CDN script tag in the HTML).
 
-  Architecture:
-    SCENES array       — complete story data
-    currentScene       — computed, returns scene object by sceneId
-    progress           — computed, drives progress bar width
-    choose()           — updates lastResult, appends to choiceLog, advances scene
-    endingLabel/Title/Text — computed, personalised from choiceLog history
-    v-for              — renders content blocks and choices from data
-    :key               — triggers CSS entry animation on each scene change
-*/
+    How it works:
+      - SCENES holds all the story content and choices
+      - currentScene finds the right scene object based on sceneId
+      - choose() saves the player's choice and moves to the next scene
+      - ENDING_DATA holds the three possible ending texts
+      - endingText picks a personalised paragraph based on the choices made
+================================================================ */
 
-const SCENES = [
 
-  /* OPENING */
+/* ================================================================
+   SCENES
+   Each scene has:
+     id       — a unique name used to navigate between scenes
+     chapter  — shown in the progress bar label
+     speaker  — shown above the scene (who is speaking)
+     scene    — the location label shown on the card
+     progress — 0 to 100, drives the progress bar width
+     content  — an array of text blocks (narration, dialogue, emphasis)
+     choices  — buttons the player can click to move to the next scene
+     isEnding — true on the final scenes (shows the ending card instead of choices)
+     endingType — which ending this is (alliance, caution, or alone)
+================================================================ */
+var SCENES = [
+
+  /* ------ OPENING ------ */
   {
     id:       'start',
     chapter:  'Prologue',
@@ -27,28 +40,13 @@ const SCENES = [
       { type: 'narration', text: 'She puts her hand out. The fire goes a little darker. She waits.' },
     ],
     choices: [
-      {
-        label:      'Call out into the dark and ask who is there',
-        resultText: 'You spoke first. Your voice carried through the trees.',
-        logText:    'Called out into the dark',
-        next:       'call_out',
-      },
-      {
-        label:      'Stay quiet and watch to see who it is before doing anything',
-        resultText: 'You held still and let the forest do the talking.',
-        logText:    'Stayed quiet and watched',
-        next:       'watch_and_wait',
-      },
-      {
-        label:      'Let the dark magic rise a little and be ready for whatever comes',
-        resultText: 'The dark magic answered before you decided what to say.',
-        logText:    'Reached for the dark magic',
-        next:       'ready_magic',
-      },
+      { label: 'Call out into the dark and ask who is there',                         resultText: 'You spoke first. Your voice carried through the trees.',             logText: 'Called out into the dark',     next: 'call_out'       },
+      { label: 'Stay quiet and watch to see who it is before doing anything',         resultText: 'You held still and let the forest do the talking.',                  logText: 'Stayed quiet and watched',    next: 'watch_and_wait' },
+      { label: 'Let the dark magic rise a little and be ready for whatever comes',    resultText: 'The dark magic answered before you decided what to say.',            logText: 'Reached for the dark magic',  next: 'ready_magic'    },
     ],
   },
 
-  /* BRANCH A: CALL OUT */
+  /* ------ BRANCH A: CALL OUT ------ */
   {
     id:       'call_out',
     chapter:  'Act I',
@@ -61,18 +59,8 @@ const SCENES = [
       { type: 'dialogue',  text: '"I am not from Solmere," the girl says, as if this is the most important thing. "My name is Aria."' },
     ],
     choices: [
-      {
-        label:      'Invite her to sit by the fire and ask where she came from',
-        resultText: 'You made space at the fire. She took it.',
-        logText:    'Invited Aria to the fire',
-        next:       'invite_sit',
-      },
-      {
-        label:      'Ask how she found this part of the forest, it is not easy to find',
-        resultText: 'You asked the practical question. It told you more than you expected.',
-        logText:    'Asked how she found the forest',
-        next:       'ask_how',
-      },
+      { label: 'Invite her to sit by the fire and ask where she came from',         resultText: 'You made space at the fire. She took it.',                               logText: 'Invited Aria to the fire',         next: 'invite_sit' },
+      { label: 'Ask how she found this part of the forest, it is not easy to find', resultText: 'You asked the practical question. It told you more than you expected.',   logText: 'Asked how she found the forest',    next: 'ask_how'    },
     ],
   },
 
@@ -91,18 +79,8 @@ const SCENES = [
       { type: 'narration', text: 'Another silence. Something in the forest shifts. Far away, something large and old and patient moves through the trees toward them, drawn by what it senses in this clearing: two halves of something that has been waiting a long time to be whole.' },
     ],
     choices: [
-      {
-        label:      'Tell Aria about the crown pieces you have felt stirring beneath the forest',
-        resultText: 'You told her the truth. She listened without looking away.',
-        logText:    'Told Aria about the crown stirring',
-        next:       'ending_alliance',
-      },
-      {
-        label:      'Ask if Aria is being hunted and by whom',
-        resultText: 'You asked the practical question. The answer made you careful.',
-        logText:    'Asked Aria if she was being hunted',
-        next:       'ending_caution',
-      },
+      { label: 'Tell Aria about the crown pieces you have felt stirring beneath the forest', resultText: 'You told her the truth. She listened without looking away.',       logText: 'Told Aria about the crown stirring',  next: 'ending_alliance' },
+      { label: 'Ask if Aria is being hunted and by whom',                                    resultText: 'You asked the practical question. The answer made you careful.',   logText: 'Asked Aria if she was being hunted',  next: 'ending_caution'  },
     ],
   },
 
@@ -122,22 +100,12 @@ const SCENES = [
       { type: 'emphasis',  text: 'Something in the forest stirs. The Dusk Wolves are moving closer. They have been waiting for this moment longer than either girl has been alive.' },
     ],
     choices: [
-      {
-        label:      'Stay where you are and let whatever is in the forest come to you',
-        resultText: 'You held your ground. The forest noticed.',
-        logText:    'Stayed still and waited for the forest',
-        next:       'ending_alliance',
-      },
-      {
-        label:      'Suggest moving deeper into the forest where it is safer',
-        resultText: 'You chose caution. Aria followed without argument.',
-        logText:    'Moved deeper into the forest',
-        next:       'ending_caution',
-      },
+      { label: 'Stay where you are and let whatever is in the forest come to you', resultText: 'You held your ground. The forest noticed.',                  logText: 'Stayed still and waited for the forest', next: 'ending_alliance' },
+      { label: 'Suggest moving deeper into the forest where it is safer',          resultText: 'You chose caution. Aria followed without argument.',         logText: 'Moved deeper into the forest',           next: 'ending_caution'  },
     ],
   },
 
-  /* BRANCH B: WATCH AND WAIT */
+  /* ------ BRANCH B: WATCH AND WAIT ------ */
   {
     id:       'watch_and_wait',
     chapter:  'Act I',
@@ -152,18 +120,8 @@ const SCENES = [
       { type: 'dialogue',  text: '"I am not a threat. I am just very tired. I will stay over here if that is easier."' },
     ],
     choices: [
-      {
-        label:      'Expand the firelight toward her side of the clearing',
-        resultText: 'The fire grew toward her. She understood what it meant.',
-        logText:    'Extended the firelight toward Aria',
-        next:       'expand_fire',
-      },
-      {
-        label:      'Ask her name before doing anything else',
-        resultText: 'You asked her name. It was the right first question.',
-        logText:    'Asked for her name first',
-        next:       'ask_name',
-      },
+      { label: 'Expand the firelight toward her side of the clearing', resultText: 'The fire grew toward her. She understood what it meant.',    logText: 'Extended the firelight toward Aria', next: 'expand_fire' },
+      { label: 'Ask her name before doing anything else',              resultText: 'You asked her name. It was the right first question.',       logText: 'Asked for her name first',          next: 'ask_name'    },
     ],
   },
 
@@ -184,18 +142,8 @@ const SCENES = [
       { type: 'dialogue',  text: '"So." Aria looks around at the forest. "Where do we go from here?"' },
     ],
     choices: [
-      {
-        label:      'Tell her about the feeling you have had since you arrived, that something here is waking up',
-        resultText: 'You told her the thing you had not told anyone. She understood it immediately.',
-        logText:    'Told Aria something was waking in the forest',
-        next:       'ending_alliance',
-      },
-      {
-        label:      'Say you do not know yet, but you think you should figure it out together',
-        resultText: 'You did not have an answer yet. You offered her the question instead.',
-        logText:    'Said you would figure it out together',
-        next:       'ending_caution',
-      },
+      { label: 'Tell her about the feeling you have had since you arrived, that something here is waking up', resultText: 'You told her the thing you had not told anyone. She understood it immediately.',  logText: 'Told Aria something was waking in the forest', next: 'ending_alliance' },
+      { label: 'Say you do not know yet, but you think you should figure it out together',                    resultText: 'You did not have an answer yet. You offered her the question instead.',            logText: 'Said you would figure it out together',        next: 'ending_caution'  },
     ],
   },
 
@@ -216,22 +164,12 @@ const SCENES = [
       { type: 'dialogue',  text: '"Do you think it is a coincidence that we are both here?" she asks.' },
     ],
     choices: [
-      {
-        label:      'Say no, you do not think it is a coincidence at all',
-        resultText: 'You said it plainly. She did not look surprised.',
-        logText:    'Said it was not a coincidence',
-        next:       'ending_alliance',
-      },
-      {
-        label:      'Say you are not sure yet, but you are willing to find out',
-        resultText: 'You gave the honest answer. She respected it.',
-        logText:    'Said you were willing to find out',
-        next:       'ending_caution',
-      },
+      { label: 'Say no, you do not think it is a coincidence at all', resultText: 'You said it plainly. She did not look surprised.',  logText: 'Said it was not a coincidence',   next: 'ending_alliance' },
+      { label: 'Say you are not sure yet, but you are willing to find out', resultText: 'You gave the honest answer. She respected it.', logText: 'Said you were willing to find out', next: 'ending_caution'  },
     ],
   },
 
-  /* BRANCH C: READY MAGIC */
+  /* ------ BRANCH C: READY MAGIC ------ */
   {
     id:       'ready_magic',
     chapter:  'Act I',
@@ -247,18 +185,8 @@ const SCENES = [
       { type: 'narration', text: 'A girl steps into the firelight. She looks tired and honest and very much like someone who is used to being prepared for things to go wrong.' },
     ],
     choices: [
-      {
-        label:      'Apologize for the magic and ask if she is okay',
-        resultText: 'You apologized. It cost you nothing and changed something.',
-        logText:    'Apologized for raising the magic',
-        next:       'ask_name',
-      },
-      {
-        label:      'Do not apologize. Ask if she has been followed here',
-        resultText: 'You skipped the apology and got to what mattered.',
-        logText:    'Asked if she had been followed',
-        next:       'followed_here',
-      },
+      { label: 'Apologize for the magic and ask if she is okay',  resultText: 'You apologized. It cost you nothing and changed something.',  logText: 'Apologized for raising the magic',  next: 'ask_name'      },
+      { label: 'Do not apologize. Ask if she has been followed here', resultText: 'You skipped the apology and got to what mattered.',        logText: 'Asked if she had been followed',    next: 'followed_here' },
     ],
   },
 
@@ -278,23 +206,12 @@ const SCENES = [
       { type: 'narration', text: 'She thinks about the crown pieces she has felt stirring beneath the forest floor since she arrived, a low and ancient vibration she has not been able to explain. She thinks that maybe she is not supposed to be alone in whatever this is.' },
     ],
     choices: [
-      {
-        label:      'Tell her about the vibration and ask if she has felt it too',
-        resultText: 'You told her the thing you could not explain. She had felt it too.',
-        logText:    'Told her about the vibration under the forest',
-        next:       'ending_alliance',
-      },
-      {
-        label:      'Say nothing yet. Trust takes time, but you are listening',
-        resultText: 'You kept quiet. Sometimes that is the most honest thing you can offer.',
-        logText:    'Stayed quiet and listened',
-        next:       'ending_alone',
-      },
+      { label: 'Tell her about the vibration and ask if she has felt it too', resultText: 'You told her the thing you could not explain. She had felt it too.', logText: 'Told her about the vibration under the forest', next: 'ending_alliance' },
+      { label: 'Say nothing yet. Trust takes time, but you are listening',    resultText: 'You kept quiet. Sometimes that is the most honest thing you can offer.', logText: 'Stayed quiet and listened',                 next: 'ending_alone'    },
     ],
   },
 
-  /* ENDINGS */
-
+  /* ------ ENDINGS ------ */
   {
     id:         'ending_alliance',
     chapter:    'Ending',
@@ -347,9 +264,14 @@ const SCENES = [
 
 ];
 
-/* ENDING PERSONALISATION */
 
-const ENDING_DATA = {
+/* ================================================================
+   ENDING DATA
+   Holds the label, title, and personalised text for each ending.
+   The personalised text changes based on how bold or cautious
+   the player's choices were throughout the story.
+================================================================ */
+var ENDING_DATA = {
   alliance: {
     label: 'Ending: The Crown Wakes',
     title: 'The Crown Remembers',
@@ -379,87 +301,99 @@ const ENDING_DATA = {
   },
 };
 
-/* VUE APP */
 
-const { createApp } = Vue;
+/* ================================================================
+   VUE APP
+   Connects the story data above to the HTML on the page.
+================================================================ */
+var vueApp = Vue.createApp({
 
-const app = createApp({
-
+  /* data() holds the values that Vue tracks and updates on screen */
   data() {
     return {
-      started:    false,
-      sceneId:    'start',
-      lastResult: '',
-      choiceLog:  [],
+      started:    false, /* false = show the intro screen, true = show the story */
+      sceneId:    'start', /* the id of the scene currently showing */
+      lastResult: '',    /* the result text shown at the top of each new scene */
+      choiceLog:  [],    /* list of all choices the player has made so far */
     };
   },
 
   computed: {
 
-    /* Returns the current scene object by looking up sceneId in SCENES */
+    /* Returns the full scene object for the current sceneId */
     currentScene() {
-      return SCENES.find(s => s.id === this.sceneId) || SCENES[0];
+      return SCENES.find(function(s) { return s.id === this.sceneId; }.bind(this)) || SCENES[0];
     },
 
-    /* Maps scene.progress (0-100) to a CSS width string for the progress bar */
+    /* Returns the progress bar width as a CSS string e.g. "55%" */
     progress() {
       return this.currentScene.progress + '%';
     },
 
-    /* Reads endingType straight from the current scene object */
+    /* Returns which ending type the current scene is (alliance, caution, or alone) */
     endingType() {
       return this.currentScene.endingType || 'alliance';
     },
 
+    /* Returns the ending label text */
     endingLabel() {
-      return ENDING_DATA[this.endingType]?.label || 'Ending';
+      return ENDING_DATA[this.endingType] ? ENDING_DATA[this.endingType].label : 'Ending';
     },
 
+    /* Returns the ending title text */
     endingTitle() {
-      return ENDING_DATA[this.endingType]?.title || 'The End';
+      return ENDING_DATA[this.endingType] ? ENDING_DATA[this.endingType].title : 'The End';
     },
 
-    /*
-      Personalises the ending paragraph by scanning choiceLog for bold-leaning
-      keywords. No extra state needed — derived entirely from existing data.
-    */
+    /* Picks a personalised ending paragraph based on the player's choices.
+       It looks at the choiceLog for bold-leaning keywords.
+       More bold choices = bold variant, fewer = cautious variant. */
     endingText() {
-      const log       = this.choiceLog.join(' ').toLowerCase();
-      const boldWords = ['called out', 'raised', 'extended', 'told aria', 'said it'];
-      const boldCount = boldWords.filter(w => log.includes(w)).length;
+      var log       = this.choiceLog.join(' ').toLowerCase();
 
-      let variant = 'mixed';
-      if (boldCount >= 2)                     variant = 'bold';
-      else if (boldCount === 0 && log.length) variant = 'cautious';
+      /* These words appear in the logText of bold/open choices */
+      var boldWords = ['called out', 'raised', 'extended', 'told aria', 'said it'];
 
-      return ENDING_DATA[this.endingType]?.texts[variant]
-          || ENDING_DATA[this.endingType]?.texts.mixed
+      /* Count how many bold keywords appear in the player's choice log */
+      var boldCount = 0;
+      boldWords.forEach(function(word) {
+        if (log.includes(word)) boldCount++;
+      });
+
+      /* Pick the variant based on the count */
+      var variant = 'mixed';
+      if (boldCount >= 2) {
+        variant = 'bold';
+      } else if (boldCount === 0 && log.length > 0) {
+        variant = 'cautious';
+      }
+
+      return ENDING_DATA[this.endingType].texts[variant]
+          || ENDING_DATA[this.endingType].texts.mixed
           || '';
     },
   },
 
   methods: {
 
+    /* Shows the story screen when the Start button is clicked */
     start() {
       this.started = true;
     },
 
-    /*
-      choose(choice):
-      1. Saves resultText shown at the top of the next scene
-      2. Appends logText to choiceLog for breadcrumb trail and ending personalisation
-      3. Sets sceneId: Vue reactivity re-renders everything automatically
-        // On touch devices, keep the UX familiar: scroll back to top after choosing
-        if (window.matchMedia && window.matchMedia('(pointer: coarse)').matches) {
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-    */
+    /* Runs when the player clicks a choice button.
+       1. Saves the result text to show at the top of the next scene.
+       2. Adds the choice to the log (used for the ending personalisation).
+       3. Updates sceneId — Vue automatically re-renders the page. */
     choose(choice) {
       this.lastResult = choice.resultText || '';
-      if (choice.logText) this.choiceLog.push(choice.logText);
+      if (choice.logText) {
+        this.choiceLog.push(choice.logText);
+      }
       this.sceneId = choice.next;
     },
 
+    /* Resets everything back to the start */
     restart() {
       this.sceneId    = 'start';
       this.lastResult = '';
@@ -470,17 +404,11 @@ const app = createApp({
 
 });
 
-document.addEventListener('DOMContentLoaded', () => {
-  let vm = null;
+/* Mount the Vue app to the #app element in the HTML */
+document.addEventListener('DOMContentLoaded', function() {
   try {
-    vm = app.mount('#app');
+    vueApp.mount('#app');
   } catch (e) {
     console.error('Vue mount failed:', e);
   }
-
-  if (!vm) {
-    // ... rest of your fallback code
-  }
 });
-
-

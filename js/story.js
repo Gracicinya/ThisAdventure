@@ -1,89 +1,95 @@
 /* ============================================
-   STORY PAGE JAVASCRIPT
-   Person 2: Created expand/collapse lore sections
-      Handles: lore accordion expand/collapse, scroll-reveal animation.
-   ============================================ */
+   THE SHATTERED CROWN — story.js
+   Handles two things on the Story page:
+     1. Parallax effect on the floating sun and moon images
+     2. Fade-in animation for timeline and lore items as you scroll
+   Note: the lore expand/collapse accordion is handled in main.js
+============================================ */
 
-/* ================================================================
-    HERO DECORATION PARALLAX
-    Moves the decorative sun/moon images based on scroll position.
-================================================================ */
+
+/* ============================================
+   PARALLAX ON HERO DECORATIONS
+   Moves the sun and moon images slightly as the user scrolls.
+   This gives a floating depth effect.
+============================================ */
 function initHeroDeco() {
-  const deco1 = document.querySelector('.deco-1');
-  const deco2 = document.querySelector('.deco-2');
 
-  const maxOffset = 40; // px
+  /* Grab the two decorative images from the page */
+  var deco1 = document.querySelector('.deco-1');
+  var deco2 = document.querySelector('.deco-2');
 
+  /* If neither image exists on this page, stop here */
+  if (!deco1 && !deco2) return;
+
+  /* How many pixels the images can move up or down */
+  var maxOffset = 40;
+
+  /* This function runs every time the user scrolls.
+     It works out how far down the page we are (0 = top, 1 = bottom),
+     then moves the images by a small amount based on that. */
   function handleMove() {
-    const ratio = window.scrollY / Math.max(1, document.body.scrollHeight - window.innerHeight);
-    const y = Math.round((ratio - 0.5) * -maxOffset);
-    if (deco1) deco1.style.transform = `translateY(${y}px) rotate(-10deg)`;
-    if (deco2) deco2.style.transform = `translateY(${y * 0.6}px) rotate(-8deg)`;
+
+    /* ratio is a number between 0 and 1 showing scroll progress */
+    var ratio = window.scrollY / Math.max(1, document.body.scrollHeight - window.innerHeight);
+
+    /* y is the amount to shift the images up or down */
+    var y = Math.round((ratio - 0.5) * -maxOffset);
+
+    /* Move deco1 by the full amount */
+    if (deco1) {
+      deco1.style.transform = 'translateY(' + y + 'px) rotate(-10deg)';
+    }
+
+    /* Move deco2 by 60% of the amount so they drift at different speeds */
+    if (deco2) {
+      deco2.style.transform = 'translateY(' + (y * 0.6) + 'px) rotate(-8deg)';
+    }
   }
 
-  // respond to touchmove as well as scroll so touch devices see the same effect
+  /* Listen for scroll and touch scroll events */
   window.addEventListener('scroll', handleMove, { passive: true });
   window.addEventListener('touchmove', handleMove, { passive: true });
-
-}
-// ============================================
-// EXPAND/COLLAPSE LORE SECTIONS
-// ============================================
-
-function initLoreExpand() {
-  const loreHeaders = document.querySelectorAll('.lore-header');
-  
-  loreHeaders.forEach(header => {
-    header.addEventListener('click', () => {
-      const loreId = header.getAttribute('data-lore');
-      const loreContent = document.getElementById(loreId);
-      
-      // Toggle active class on header
-      header.classList.toggle('active');
-      
-      // Toggle active class on content
-      loreContent.classList.toggle('active');
-      
-      // Optional: Close other open sections (accordion behavior)
-      // Uncomment if you want only one section open at a time
-      /*
-      loreHeaders.forEach(otherHeader => {
-        if (otherHeader !== header) {
-          otherHeader.classList.remove('active');
-          const otherId = otherHeader.getAttribute('data-lore');
-          const otherContent = document.getElementById(otherId);
-          otherContent.classList.remove('active');
-        }
-      });
-      */
-    });
-  });
 }
 
-// ============================================
-// SCROLL REVEAL ANIMATION (Optional Enhancement)
-// ============================================
 
+/* ============================================
+   SCROLL REVEAL ANIMATION
+   Timeline items and lore sections start invisible.
+   They fade in and slide up when the user scrolls to them.
+============================================ */
 function initScrollReveal() {
-  const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-  };
-  
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
+
+  /* IntersectionObserver watches elements and tells us when they appear on screen */
+  var observer = new IntersectionObserver(function(entries) {
+
+    entries.forEach(function(entry) {
+
+      /* When an element becomes visible, make it fade in */
       if (entry.isIntersecting) {
         entry.target.style.opacity = '1';
         entry.target.style.transform = 'translateY(0)';
       }
     });
-  }, observerOptions);
-  
-  // Apply to timeline items and lore items
-  const timelineItems = document.querySelectorAll('.timeline-item');
-  const loreItems = document.querySelectorAll('.lore-item');
-  
-  [...timelineItems, ...loreItems].forEach(item => {
+
+  }, {
+    threshold: 0.1,              /* trigger when 10% of the element is visible */
+    rootMargin: '0px 0px -50px 0px' /* trigger slightly before the element reaches the bottom of the screen */
+  });
+
+  /* Find all timeline and lore items on the page */
+  var timelineItems = document.querySelectorAll('.timeline-item');
+  var loreItems = document.querySelectorAll('.lore-item');
+
+  /* Set each item to start hidden and slightly below its final position */
+  /* Then hand it to the observer to watch */
+  timelineItems.forEach(function(item) {
+    item.style.opacity = '0';
+    item.style.transform = 'translateY(30px)';
+    item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(item);
+  });
+
+  loreItems.forEach(function(item) {
     item.style.opacity = '0';
     item.style.transform = 'translateY(30px)';
     item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
@@ -91,13 +97,12 @@ function initScrollReveal() {
   });
 }
 
-// ============================================
-// INITIALIZE ON PAGE LOAD
-// ============================================
 
-document.addEventListener('DOMContentLoaded', () => {
-  initLoreExpand();
+/* ============================================
+   START EVERYTHING
+   Wait for the page to finish loading, then run both functions.
+============================================ */
+document.addEventListener('DOMContentLoaded', function() {
+  initHeroDeco();
   initScrollReveal();
-  
-  console.log('Story page loaded - Lore expand/collapse initialized');
 });
