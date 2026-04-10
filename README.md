@@ -15,7 +15,7 @@
 - **Person 2:** Peace Jolayemi - 101378520  
   Story / world page development, lore content, timeline section, shared CSS system, colour palette, typography, spacing, and overall visual consistency
 
-- **Person 3:** [Add Name] - [Add Student Number]  
+- **Person 3:** Ehizomo Odiana - 101368940  
   Characters page, character cards, character filtering, popup modals, and play preview / branching interactive page
 
 - **Person 4:** [Add Name] - [Add Student Number]  
